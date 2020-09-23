@@ -1,6 +1,14 @@
 package proj;
 
+import java.net.Socket;
+
 public class HTTPThread extends Thread {
+
+    public HTTPThread(Socket client, Object[] sharedData){
+
+
+    }
+
 
     @Override
     public synchronized void start() {
