@@ -2,6 +2,7 @@
  * Driver class to receive http requests and send http responses.
  */
 package proj;
+import java.net.Socket;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
@@ -54,13 +55,40 @@ public class PartialHTTP1Server {
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	private void storeThread(HTTPThread thread) throws UnknownHostException, IOException{
+	private static void storeThread(HTTPThread thread) throws UnknownHostException, IOException{
         threadPool.execute(thread); //starts up a new thread from the threadpool
 	}
 
-	public static void main(String args[]) throws InterruptedException {
+	public static void main(String args[]) throws InterruptedException, IOException {
+		
 		threadPool = makeThreadPool(); // initializes the thread pool
+		
+		if(args.length != 1){
+            System.out.println("Enter port number");
+            System.exit(-1);
+        }
+        //idk if i need try catch
+		
+		int portNumber = 0;
+        try{
+            portNumber = Integer.parseInt(args[0]);
+        }catch(Exception e){
+            System.out.println("Port taken");
+            System.exit(-1);
+        }
+
+        ServerSocket newSocket = new ServerSocket(portNumber);
+
+        while(true){
+            Socket connectedSocket = newSocket.accept();
+            //I am assumeing either the store thread method is keeping track of the thread count, or threadpool executer
+
+            HTTPThread newThread = new HTTPThread(connectedSocket);
+            storeThread(newThread);
+        }
+		
+		
         
-        threadPool.shutdown(); //shuts down the threadPool
+        //threadPool.shutdown(); //shuts down the threadPool
 	}
 }
