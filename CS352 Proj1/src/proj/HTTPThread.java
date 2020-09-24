@@ -5,11 +5,9 @@ import java.net.Socket;
 public class HTTPThread extends Thread {
 
     private Socket client;
-    private Object[] data;
 
-    public HTTPThread(Socket client, Object[] sharedData){
+    public HTTPThread(Socket client){
     this.client = client;
-    this.data = sharedData;
 
     }
 
