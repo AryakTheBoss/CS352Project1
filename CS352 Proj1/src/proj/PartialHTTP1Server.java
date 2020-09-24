@@ -1,3 +1,6 @@
+/**
+ * Driver class to receive http requests and send http responses.
+ */
 package proj;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -18,8 +21,15 @@ import java.net.ServerSocket;
  */
 public class PartialHTTP1Server {
 	
+	/**
+	 * Threadpool that will store threads, and control minimum and maximum size.
+	 */
 	private static ThreadPoolExecutor threadPool;
 	
+	/**
+	 * Static method to make the threadpool.
+	 * @return
+	 */
 	private static ThreadPoolExecutor makeThreadPool() {
 		//RejectedExecutionHandler implementation
         RejectedExecutionHandlerImpl rejectionHandler = new RejectedExecutionHandlerImpl(); 
@@ -31,16 +41,21 @@ public class PartialHTTP1Server {
         int maxPoolSize = 50; //maximum number of threads in the pool
         int keepAliveTime = 10; //time that an idle thread will be killed (milliseconds)
         int queueSize = 5; //max number of tasks stored in the queue
+        
         ThreadPoolExecutor executorPool = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 
         		keepAliveTime, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueSize), 
         		threadFactory, rejectionHandler);
         return executorPool;
 	}
 	
-	private void storeThread(Socket socket) throws UnknownHostException, IOException{
-		//this is how you would "spin" a new thread
-        Object[] objs = null;//unneeded for now
-        threadPool.execute(new HTTPThread(new Socket("192.168.1.1", 5000), objs)); //starts up a new thread from the threadpool
+	/**
+	 * 
+	 * @param	thread	Thread that holds the socket that is connected to the client
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	private void storeThread(HTTPThread thread) throws UnknownHostException, IOException{
+        threadPool.execute(thread); //starts up a new thread from the threadpool
 	}
 
 	public static void main(String args[]) throws InterruptedException {
