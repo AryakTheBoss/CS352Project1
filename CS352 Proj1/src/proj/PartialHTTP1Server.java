@@ -37,16 +37,22 @@ public class PartialHTTP1Server {
         //Get the ThreadFactory implementation to use
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         
-        //creating the ThreadPoolExecutor
+        //values being input into the ThreadPoolExecutor
         int corePoolSize = 5; //number of threads that the pool will attempt to maintain
         int maxPoolSize = 50; //maximum number of threads in the pool
         int keepAliveTime = 10; //time that an idle thread will be killed (milliseconds)
         int queueSize = 5; //max number of tasks stored in the queue
         
-        ThreadPoolExecutor executorPool = new ThreadPoolExecutor(corePoolSize, maxPoolSize, 
-        		keepAliveTime, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueSize), 
-        		threadFactory, rejectionHandler);
-        return executorPool;
+        //Creates the ThreadPoolExecutor
+        ThreadPoolExecutor executorPool = new ThreadPoolExecutor(corePoolSize, 
+        		maxPoolSize, 
+        		keepAliveTime, 
+        		TimeUnit.MILLISECONDS, 
+        		new ArrayBlockingQueue<Runnable>(queueSize), 
+        		threadFactory, 
+        		rejectionHandler);
+        
+        return executorPool;//return the thread pool
 	}
 	
 	/**
@@ -58,7 +64,13 @@ public class PartialHTTP1Server {
 	private static void storeThread(HTTPThread thread) throws UnknownHostException, IOException{
         threadPool.execute(thread); //starts up a new thread from the threadpool
 	}
-
+	
+	/**
+	 * Driver method for the HTTP server
+	 * @param args
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public static void main(String args[]) throws InterruptedException, IOException {
 		
 		threadPool = makeThreadPool(); // initializes the thread pool
