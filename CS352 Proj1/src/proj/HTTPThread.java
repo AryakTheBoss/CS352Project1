@@ -1,9 +1,11 @@
 package proj;
 
+import java.io.*;
 import java.net.Socket;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 
 public class HTTPThread extends Thread {
 
@@ -23,7 +25,7 @@ public class HTTPThread extends Thread {
 
     @Override
     public void run(){
-        super.run(); //PLACEHOLDER
+       // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
         String temp; //used for reading in additional lines
@@ -47,7 +49,7 @@ public class HTTPThread extends Thread {
         	
         	//hopefully returning from a thread is allowed
         } catch (IOException ioe) {
-        	System.out.println("File Read Error");
+        	System.err.println("HTTP/1.0 404 Not Found");
         	return;
         }
         
@@ -56,7 +58,7 @@ public class HTTPThread extends Thread {
         String[] initialLine = request.split(" |\t");
         
         if (!initialLineErrorChecking(initialLine)) {
-        	System.out.println("Initial Line Error");
+        	//System.err.println("HTTP/1.0 400 Bad Request");
         	return;
         }
         
@@ -97,12 +99,14 @@ public class HTTPThread extends Thread {
     			|| initialLine[0].equals("PUT")
     			|| initialLine[0].equals("LINK")
     			|| initialLine[0].equals("UNLINK"))) {
+    	    System.err.println("HTTP/1.0 501 Not Implemented");
     		return false;
     	}
     	
     	//checks if the last string has HTTP/ in the front
     	//not sure if this will work
     	if(!(initialLine[2].matches("HTTP/(.*)"))) {
+            System.err.println("HTTP/1.0 400 Bad Request");
     		return false;
     	}
     	
@@ -114,6 +118,7 @@ public class HTTPThread extends Thread {
     	try {
     		double version = Double.parseDouble(versionNumber);
     	} catch (Exception e) {
+            System.err.println("HTTP/1.0 400 Bad Request");
     		return false;
     	}
     	
@@ -128,7 +133,94 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-    	
+
+        //Assumes legal request and that the file exists
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        File f = new File(initialLine[1]);
+        String header = "HTTP/1.0 200 OK"; //the initial header line
+        String body = "";
+        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
+            contentType = "\nContent-Type: text/html";
+            allow = "\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
+        }else if(initialLine[1].endsWith("txt")){
+            contentType = "\nContent-Type: text/plain";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("gif")){
+            contentType= "\nContent-Type: image/gif";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("png")){
+            contentType= "\nContent-Type: image/png";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("jpg")){
+            contentType= "\nContent-Type: image/jpeg";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("pdf")){
+            contentType= "\nContent-Type: application/pdf";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("zip")){
+            contentType= "\nContent-Type: application/zip";
+            contentEncoding="\nContent-Encoding: zip";
+            allow = "\nAllow: GET, HEAD";
+        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
+            contentType= "\nContent-Type: application/x-gzip";
+            allow = "\nAllow: GET, HEAD";
+            contentEncoding="\nContent-Encoding: x-gzip";
+        }else{
+            contentType = "\nContent Type: application/octet-stream"; //unknown file type
+            allow = "\nAllow: GET, HEAD";
+        }
+        c.setTime(d);
+            contentLength = "\nContent-Length: "+f.length(); //size of file in bytes
+            lastModified = "\nLast-Modified: "+formatter.format(f.lastModified());
+         c.add(Calendar.YEAR, 1);
+            expires = "\nExpires: "+formatter.format(c.getTime());
+        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\n";
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
+            try {
+                Scanner fr = new Scanner(f);
+
+                while(fr.hasNextLine()){
+                    body+=fr.nextLine();
+                }
+                try {
+                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
+                    os.writeChars(header+body);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("File could not be Read");
+            }
+        }else{
+            try {
+                Scanner fr = new Scanner(f);
+
+                while(fr.hasNextByte()){
+                    body+=fr.nextByte();
+                }
+                try {
+                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
+                    os.writeBytes(header+body);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("File could not be Read");
+            }
+        }
+
+
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
