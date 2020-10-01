@@ -6,12 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
-import java.io.DataOutputStream
+import java.io.DataOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-import java.net.URLConnection
+import java.net.URLConnection;
 
 public class HTTPThread extends Thread {
 
@@ -305,7 +305,7 @@ public class HTTPThread extends Thread {
         expires = "\nExpires: "+formatter.format(c.getTime());
         header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\n";
 
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
+
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
                     os.writeChars(header);
@@ -313,17 +313,10 @@ public class HTTPThread extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        }else{
 
-                try {
-                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
+
+
 
 
         try {
@@ -334,14 +327,25 @@ public class HTTPThread extends Thread {
     }
 
 
-    }
+
     
     /**
      * Will implement the DELETE method of HTTP protocol
      * @param initialLine
      */
     public void delete(String[] initialLine) {
-    	
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -349,7 +353,18 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void put(String[] initialLine) {
-    	
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -357,7 +372,18 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void link(String[] initialLine) {
-    	
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -365,7 +391,18 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void unlink(String[] initialLine) {
-    	
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     @Override
