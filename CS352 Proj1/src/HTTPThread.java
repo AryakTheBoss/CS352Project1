@@ -121,7 +121,7 @@ public class HTTPThread extends Thread {
         }
         
         //attempt to read the second argument as a file
-    	File file = new File(initialLine[1].substring(1));
+    	File file = new File(initialLine[1]);
     	
     	//check if the file exists
     	if(!(file.getAbsoluteFile().exists())) {
@@ -328,7 +328,6 @@ public class HTTPThread extends Thread {
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
-                System.err.println("After Scanner"); //TESTING
 
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
@@ -424,7 +423,6 @@ public class HTTPThread extends Thread {
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
-                System.err.println("After Scanner"); //TESTING
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
                 }
