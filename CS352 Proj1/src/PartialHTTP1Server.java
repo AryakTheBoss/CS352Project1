@@ -1,7 +1,7 @@
 /**
  * Driver class to receive http requests and send http responses.
  */
-package proj;
+
 import java.net.Socket;
 
 import java.util.concurrent.ArrayBlockingQueue;

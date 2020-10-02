@@ -1,7 +1,7 @@
 /**
  * Contains class that helps make a thread pool
  */
-package proj;
+
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 

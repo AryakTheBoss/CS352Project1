@@ -1,4 +1,4 @@
-package proj;
+
 
 import java.io.*;
 import java.net.Socket;
@@ -101,9 +101,6 @@ public class HTTPThread extends Thread {
         //parse HTTP request
         //splits up the initial line, checks it for errors, and then hands over the arguments to other methods
         String[] initialLine = request.split(" |\t");
-        for(String s: initialLine) {
-        	System.err.println("Commandline arguments: |" + s + "|");
-        }
         
         if (!initialLineErrorChecking(initialLine)) {
         	
@@ -123,7 +120,8 @@ public class HTTPThread extends Thread {
         
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1]);
-    	System.err.println("|" + initialLine[1] + "|");
+    	System.err.println("|" + initialLine[1] + "|\r\n"
+    			+ "File Exists: " + file.exists());
     	
     	//check if the file exists
     	if(!(file.exists())) {
