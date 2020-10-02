@@ -337,7 +337,7 @@ public class HTTPThread extends Thread {
                 
                 fr.close();
                 
-                System.err.println("|" + header+ "\r\n" + body + "|"); //TESTING
+                System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
@@ -446,7 +446,7 @@ public class HTTPThread extends Thread {
                 
                 fr.close();
                 
-                System.err.println("|" + header+ "\r\n" + body + "|"); //TESTING
+                System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
@@ -549,7 +549,7 @@ public class HTTPThread extends Thread {
         expires = "\r\nExpires: "+formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
-        System.err.println("|" + header + "|"); //TESTING
+        System.err.println(header); //TESTING
 
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
