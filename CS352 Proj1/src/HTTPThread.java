@@ -332,6 +332,9 @@ public class HTTPThread extends Thread {
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
                 }
+                
+                System.err.println(header+ "\r\n" + body + "\r\n"); //TESTING
+                
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
                     os.writeChars(header + "\r\n" + body + "\r\n");
@@ -426,6 +429,9 @@ public class HTTPThread extends Thread {
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
                 }
+                
+                System.err.println(header+ "\r\n" + body + "\r\n"); //TESTING
+                
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
                     os.writeChars(header+ "\r\n" + body + "\r\n");
@@ -445,7 +451,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + "\r\n" + body);
+                    os.writeBytes(header + "\r\n" + body + "\r\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -517,7 +523,8 @@ public class HTTPThread extends Thread {
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: "+formatter.format(c.getTime());
         header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
-
+        
+        System.err.println(header); //TESTING
 
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
