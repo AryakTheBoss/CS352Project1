@@ -432,7 +432,8 @@ public class HTTPThread extends Thread {
         lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: "+formatter.format(c.getTime());
-        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
+        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n\r\n";
+        
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
@@ -542,7 +543,7 @@ public class HTTPThread extends Thread {
         lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: "+formatter.format(c.getTime());
-        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
+        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n\r\n";
         
         System.err.println("|" + header + "|"); //TESTING
 
