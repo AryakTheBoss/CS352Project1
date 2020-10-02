@@ -101,6 +101,9 @@ public class HTTPThread extends Thread {
         //parse HTTP request
         //splits up the initial line, checks it for errors, and then hands over the arguments to other methods
         String[] initialLine = request.split(" |\t");
+        for(String s: initialLine) {
+        	System.err.println("Commandline arguments: |" + s + "|");
+        }
         
         if (!initialLineErrorChecking(initialLine)) {
         	
