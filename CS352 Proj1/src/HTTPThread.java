@@ -333,6 +333,8 @@ public class HTTPThread extends Thread {
                     body+=fr.nextLine();
                 }
                 
+                fr.close();
+                
                 System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
@@ -358,6 +360,8 @@ public class HTTPThread extends Thread {
                 while(fr.hasNextByte()){
                     body+=fr.nextByte();
                 }
+                
+                fr.close();
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
                     os.writeBytes(header + "\r\n" + body + "\r\n");
@@ -436,6 +440,8 @@ public class HTTPThread extends Thread {
                     body+=fr.nextLine();
                 }
                 
+                fr.close();
+                
                 System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
@@ -457,10 +463,12 @@ public class HTTPThread extends Thread {
         }else{
             try {
                 Scanner fr = new Scanner(f);
-
+                
                 while(fr.hasNextByte()){
                     body+=fr.nextByte();
                 }
+                
+                fr.close();
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
                     os.writeBytes(header + "\r\n" + body);
