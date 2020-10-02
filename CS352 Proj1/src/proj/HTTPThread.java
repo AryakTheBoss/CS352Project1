@@ -74,6 +74,7 @@ public class HTTPThread extends Thread {
 	        			restOfRequest = restOfRequest + "\n" + temp;
 	        		}
 	        		
+	        		temp = inFromServer.readLine(); //line after
 	        	}
 	        
         	//tells client that they timed out
