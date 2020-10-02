@@ -227,11 +227,11 @@ public class HTTPThread extends Thread {
      */
     public boolean checkDate(String headers, File file) {
     	//separates the first header from the rest of the headers
-    	String [] arr = headers.split(" ", 2);
+    	String [] arr = headers.split(" |\t", 2);
     	
     	//while the header is not the correct header, go to the next line and repeat.
     	//if we reach the end, there is no ifmodified header.
-    	while(!(arr[0].equalsIgnoreCase("If-Modified-Since:")) || arr.length == 1) {
+    	while(!(arr[0].equalsIgnoreCase("If-Modified-Since:")) && arr.length == 2) {
     		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
     		arr = arr[1].split(" ", 2); //separates the first header from the rest of the headers
     	}
