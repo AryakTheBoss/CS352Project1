@@ -334,7 +334,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header + "\r\n" + body);
+                    os.writeChars(header + "\r\n" + body + "\r\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -351,7 +351,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + "\r\n" + body);
+                    os.writeBytes(header + "\r\n" + body + "\r\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -428,7 +428,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header+ "\r\n" + body);
+                    os.writeChars(header+ "\r\n" + body + "\r\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
