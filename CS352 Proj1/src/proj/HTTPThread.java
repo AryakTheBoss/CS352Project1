@@ -26,6 +26,7 @@ public class HTTPThread extends Thread {
     @Override
     public synchronized void start() {
         super.start(); //PLACEHOLDER
+    	
     }
 
 
@@ -84,6 +85,14 @@ public class HTTPThread extends Thread {
         } else {
         	unlink(initialLine);
         }
+        
+        //Close the connection and return (so thread can go back to the threadpool
+        try {
+        	client.close();
+        } catch (IOException ioe) {
+        	System.err.println("Error closing the connection.");
+        }
+        return;
     }
     
     /**
