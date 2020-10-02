@@ -283,7 +283,7 @@ public class HTTPThread extends Thread {
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
@@ -335,7 +335,7 @@ public class HTTPThread extends Thread {
                 
                 fr.close();
                 
-                System.err.println(header+ "\r\n" + body); //TESTING
+                System.err.println("|" + header+ "\r\n" + body + "|"); //TESTING
                 
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
@@ -364,7 +364,7 @@ public class HTTPThread extends Thread {
                 fr.close();
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes("|" + header + "\r\n" + body + "\r\n" + "|");
+                    os.writeBytes(header + "\r\n" + body + "\r\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -391,7 +391,7 @@ public class HTTPThread extends Thread {
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
