@@ -140,6 +140,11 @@ public class HTTPThread extends Thread {
         	return;
         }
         
+        //checks the date that the file was modified
+        if(!checkDate(restOfRequest, file)) {
+        	sendError("304 Not Modified", outToClient);
+        }
+        
         //Calls the particular command specified by the first token
         if(initialLine[0].equals("GET")) {
         	get(initialLine);
@@ -252,6 +257,7 @@ public class HTTPThread extends Thread {
     			ifModified = dateFormat.parse(date);//line that is locked
     		} catch (ParseException pe) {
     			System.err.println("Error parsing date");
+    			return true;//?? HUUUH?
     		}
     	}
     	
