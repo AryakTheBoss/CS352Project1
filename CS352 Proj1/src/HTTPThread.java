@@ -139,7 +139,7 @@ public class HTTPThread extends Thread {
     	}
         
         //checks if the file was modified or not
-        if(checkDate(restOfRequest, file)) {
+        if(!checkDate(restOfRequest, file)) {
         	sendError("304 Not Modified\r\n"
         			+ "Expires: a future date\r\n", outToClient);
         	return;
