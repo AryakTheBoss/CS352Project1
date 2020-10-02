@@ -283,7 +283,7 @@ public class HTTPThread extends Thread {
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
@@ -391,7 +391,7 @@ public class HTTPThread extends Thread {
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line

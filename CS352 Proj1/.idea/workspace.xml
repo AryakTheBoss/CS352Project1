@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="CS352 Proj1:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f22d78fe-5d91-47e3-8708-4368d2815640" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/CS352_Proj1_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS352 Proj1/proj/HTTPThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS352 Proj1/proj/PartialHTTP1Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS352 Proj1/proj/RejectedExecutionHandlerImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HTTPThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PartialHTTP1Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PartialHTTP1Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +34,23 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="cs352_proj1" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="H:/docs/doc_root.tar-1-1/doc_root/doc_root" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1\src" />
+      <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="PartialHTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -103,25 +116,33 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="846" y="435" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601664574032" />
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1601669630677">
+    <state x="827" y="382" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1601670324543">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669630677" />
-    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1601669630677">
+    <state x="827" y="382" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670324543" />
+    <state x="878" y="340" key="FileChooserDialogImpl" timestamp="1601670207689">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669630677" />
-    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1601669630677">
+    <state x="878" y="340" key="FileChooserDialogImpl/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670207689" />
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1601670253962">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669630677" />
-    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1601669630677">
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670253962" />
+    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1601670253962">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669630677" />
-    <state x="578" y="173" key="SettingsEditor" timestamp="1601669490312">
+    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670253962" />
+    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1601670253962">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="578" y="173" key="SettingsEditor/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669490312" />
+    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670253962" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1601670253962">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670253962" />
+    <state x="578" y="173" key="SettingsEditor" timestamp="1601670334776">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="578" y="173" key="SettingsEditor/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670334776" />
   </component>
 </project>
