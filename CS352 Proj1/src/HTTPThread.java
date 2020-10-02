@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.DataOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -119,8 +121,8 @@ public class HTTPThread extends Thread {
         }
         
         //attempt to read the second argument as a file
-    	File file = new File(initialLine[1]);
-    	System.err.println("|" + initialLine[1] + "|\r\n"
+    	File file = new File(initialLine[1].substring(1));
+    	System.err.println("|" + file.getPath() + "|\r\n"
     			+ "File Exists: " + file.getAbsoluteFile().exists());
     	
     	//check if the file exists
