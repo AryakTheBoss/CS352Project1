@@ -307,7 +307,7 @@ public class HTTPThread extends Thread {
             allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
             contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, HEAD";
+            allow = "\r\nAllow: GET, POST, HEAD";
         }else if(initialLine[1].endsWith("zip")){
             contentType= "\r\nContent-Type: application/zip";
             contentEncoding="\r\nContent-Encoding: zip";
@@ -324,7 +324,7 @@ public class HTTPThread extends Thread {
             contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
             lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
          c.add(Calendar.YEAR, 1);
-            expires = "\r\nExpires: "+formatter.format(c.getTime());
+         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
@@ -417,7 +417,7 @@ public class HTTPThread extends Thread {
             allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
             contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, HEAD";
+            allow = "\r\nAllow: GET, POST, HEAD";
         }else if(initialLine[1].endsWith("zip")){
             contentType= "\r\nContent-Type: application/zip";
             contentEncoding="\r\nContent-Encoding: zip";
@@ -434,7 +434,7 @@ public class HTTPThread extends Thread {
         contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
         lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "\r\nExpires: "+formatter.format(c.getTime());
+        expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
@@ -527,7 +527,7 @@ public class HTTPThread extends Thread {
             allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
             contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, HEAD";
+            allow = "\r\nAllow: GET, POST, HEAD";
         }else if(initialLine[1].endsWith("zip")){
             contentType= "\r\nContent-Type: application/zip";
             contentEncoding="\r\nContent-Encoding: zip";
@@ -546,7 +546,7 @@ public class HTTPThread extends Thread {
         contentLength = "\r\nContent-Length: "+fLength; //size of file in bytes
         lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "\r\nExpires: "+formatter.format(c.getTime());
+        expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         System.err.println(header); //TESTING
