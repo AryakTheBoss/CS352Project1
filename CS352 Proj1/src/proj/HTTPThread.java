@@ -128,18 +128,9 @@ public class HTTPThread extends Thread {
     	//check if the path is a vaild path
     	File file = new File(initialLine[1]);
     	
-    	//if the file doesnt already exist...
+    	//check if the file exists
     	if(!(file.exists())) {
-    		
-    		//try to make a new file and delete it
-    		try {
-    			file.createNewFile();
-    			file.delete();
-    			
-			//otherwise, file path is invalid
-    		} catch (IOException ioe) { 
-    			return false;
-    		}
+    		return false;
     	}
     	
     	return true;
