@@ -120,7 +120,7 @@ public class HTTPThread extends Thread {
         
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1]);
-    	System.out.println("|" + initialLine[1] + "|");
+    	System.err.println("|" + initialLine[1] + "|");
     	
     	//check if the file exists
     	if(!(file.exists())) {
