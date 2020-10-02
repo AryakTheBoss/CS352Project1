@@ -120,6 +120,7 @@ public class HTTPThread extends Thread {
         
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1]);
+    	System.out.println("|" + initialLine[1] + "|");
     	
     	//check if the file exists
     	if(!(file.exists())) {
@@ -136,13 +137,9 @@ public class HTTPThread extends Thread {
         
         //checks if the file was modified or not
         if(checkDate(restOfRequest, file)) {
-        	sendError("204 Not Modified", outToClient);
+        	sendError("304 Not Modified\r\n"
+        			+ "Expires: a future date\r\n", outToClient);
         	return;
-        }
-        
-        //checks the date that the file was modified
-        if(!checkDate(restOfRequest, file)) {
-        	sendError("304 Not Modified", outToClient);
         }
         
         //Calls the particular command specified by the first token
