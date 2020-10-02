@@ -120,13 +120,27 @@ public class HTTPThread extends Thread {
     	
     	//try catch statement will check if the "version number" is a double
     	try {
-    		double version = Double.parseDouble(versionNumber);
+    		Double.parseDouble(versionNumber);
     	} catch (Exception e) {
     		return false;
     	}
     	
-    	//statement to check if the path is a vaild path?
-    	//NEED TO DO THIS LATER
+    	//check if the path is a vaild path
+    	File file = new File(initialLine[1]);
+    	
+    	//if the file doesnt already exist...
+    	if(!(file.exists())) {
+    		
+    		//try to make a new file and delete it
+    		try {
+    			file.createNewFile();
+    			file.delete();
+    			
+			//otherwise, file path is invalid
+    		} catch (IOException ioe) { 
+    			return false;
+    		}
+    	}
     	
     	return true;
     }
