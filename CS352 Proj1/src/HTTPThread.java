@@ -122,8 +122,6 @@ public class HTTPThread extends Thread {
         
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1].substring(1));
-    	System.err.println("|" + file.getPath() + "|\r\n"
-    			+ "File Exists: " + file.getAbsoluteFile().exists());
     	
     	//check if the file exists
     	if(!(file.getAbsoluteFile().exists())) {
@@ -287,6 +285,7 @@ public class HTTPThread extends Thread {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         File f = new File(initialLine[1]);
+        f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
@@ -381,6 +380,7 @@ public class HTTPThread extends Thread {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         File f = new File(initialLine[1]);
+        f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
@@ -474,6 +474,7 @@ public class HTTPThread extends Thread {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         File f = new File(initialLine[1]);
+        f = f.getAbsoluteFile();
         int fLength = (int) f.length();
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
