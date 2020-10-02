@@ -323,7 +323,7 @@ public class HTTPThread extends Thread {
          c.add(Calendar.YEAR, 1);
             expires = "\r\nExpires: "+formatter.format(c.getTime());
         header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
-        if(false || (initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt"))) {
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
 
