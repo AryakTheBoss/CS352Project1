@@ -84,7 +84,7 @@ public class HTTPThread extends Thread {
         	
         	//hopefully returning from a thread is allowed
         } catch (IOException ioe) {
-        	System.err.println("HTTP/1.0 404 Not Found\n");
+        	System.err.println("HTTP/1.0 404 Not Found");
         	return;
         }
         
@@ -281,40 +281,40 @@ public class HTTPThread extends Thread {
         String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\nContent-Type: text/html";
-            allow = "\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
+            contentType = "\r\nContent-Type: text/html";
+            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
         }else if(initialLine[1].endsWith("txt")){
-            contentType = "\nContent-Type: text/plain";
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent-Type: text/plain";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gif")){
-            contentType= "\nContent-Type: image/gif";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/gif";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("png")){
-            contentType= "\nContent-Type: image/png";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/png";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\nContent-Type: image/jpeg";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/jpeg";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\nContent-Type: application/pdf";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/pdf";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("zip")){
-            contentType= "\nContent-Type: application/zip";
-            contentEncoding="\nContent-Encoding: zip";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/zip";
+            contentEncoding="\r\nContent-Encoding: zip";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\nContent-Type: application/x-gzip";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/x-gzip";
+            allow = "\r\nAllow: GET, HEAD";
             contentEncoding="\nContent-Encoding: x-gzip";
         }else{
-            contentType = "\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
+            allow = "\r\nAllow: GET, HEAD";
         }
         c.setTime(d);
-            contentLength = "\nContent-Length: "+f.length(); //size of file in bytes
-            lastModified = "\nLast-Modified: "+formatter.format(f.lastModified());
+            contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
+            lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
          c.add(Calendar.YEAR, 1);
-            expires = "\nExpires: "+formatter.format(c.getTime());
+            expires = "\r\nExpires: "+formatter.format(c.getTime());
         header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\n";
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
@@ -325,7 +325,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header + "CLRF\n" + body);
+                    os.writeChars(header + "\r\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -342,7 +342,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + "CLRF\n" + body);
+                    os.writeBytes(header + "\r\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -375,41 +375,41 @@ public class HTTPThread extends Thread {
         String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\nContent-Type: text/html";
-            allow = "\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
+            contentType = "\r\nContent-Type: text/html";
+            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
         }else if(initialLine[1].endsWith("txt")){
-            contentType = "\nContent-Type: text/plain";
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent-Type: text/plain";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gif")){
-            contentType= "\nContent-Type: image/gif";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/gif";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("png")){
-            contentType= "\nContent-Type: image/png";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/png";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\nContent-Type: image/jpeg";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/jpeg";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\nContent-Type: application/pdf";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/pdf";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("zip")){
-            contentType= "\nContent-Type: application/zip";
-            contentEncoding="\nContent-Encoding: zip";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/zip";
+            contentEncoding="\r\nContent-Encoding: zip";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\nContent-Type: application/x-gzip";
-            allow = "\nAllow: GET, HEAD";
-            contentEncoding="\nContent-Encoding: x-gzip";
+            contentType= "\r\nContent-Type: application/x-gzip";
+            allow = "\r\nAllow: GET, HEAD";
+            contentEncoding="\r\nContent-Encoding: x-gzip";
         }else{
-            contentType = "\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
+            allow = "\r\nAllow: GET, HEAD";
         }
         c.setTime(d);
-        contentLength = "\nContent-Length: "+f.length(); //size of file in bytes
-        lastModified = "\nLast-Modified: "+formatter.format(f.lastModified());
+        contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
+        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "\nExpires: "+formatter.format(c.getTime());
-        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\n";
+        expires = "\r\nExpires: "+formatter.format(c.getTime());
+        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
@@ -419,7 +419,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header+body);
+                    os.writeChars(header+ "\r\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -436,7 +436,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header+body);
+                    os.writeBytes(header + "\r\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -470,43 +470,43 @@ public class HTTPThread extends Thread {
 
 
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\nContent-Type: text/html";
-            allow = "\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
+            contentType = "\r\nContent-Type: text/html";
+            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
         }else if(initialLine[1].endsWith("txt")){
-            contentType = "\nContent-Type: text/plain";
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent-Type: text/plain";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gif")){
-            contentType= "\nContent-Type: image/gif";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/gif";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("png")){
-            contentType= "\nContent-Type: image/png";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/png";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\nContent-Type: image/jpeg";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/jpeg";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\nContent-Type: application/pdf";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/pdf";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("zip")){
-            contentType= "\nContent-Type: application/zip";
-            contentEncoding="\nContent-Encoding: zip";
-            allow = "\nAllow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/zip";
+            contentEncoding="\r\nContent-Encoding: zip";
+            allow = "\r\nAllow: GET, HEAD";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\nContent-Type: application/x-gzip";
-            allow = "\nAllow: GET, HEAD";
-            contentEncoding="\nContent-Encoding: x-gzip";
+            contentType= "\r\nContent-Type: application/x-gzip";
+            allow = "\r\nAllow: GET, HEAD";
+            contentEncoding="\r\nContent-Encoding: x-gzip";
         }else{
-            contentType = "\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\nAllow: GET, HEAD";
+            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
+            allow = "\r\nAllow: GET, HEAD";
         }
 
 
         c.setTime(d);
-        contentLength = "\nContent-Length: "+fLength; //size of file in bytes
-        lastModified = "\nLast-Modified: "+formatter.format(f.lastModified());
+        contentLength = "\r\nContent-Length: "+fLength; //size of file in bytes
+        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "\nExpires: "+formatter.format(c.getTime());
-        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\n";
+        expires = "\r\nExpires: "+formatter.format(c.getTime());
+        header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
 
 
         try {
@@ -534,7 +534,7 @@ public class HTTPThread extends Thread {
     public void delete(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented");
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -553,7 +553,7 @@ public class HTTPThread extends Thread {
     public void put(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented");
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -572,7 +572,7 @@ public class HTTPThread extends Thread {
     public void link(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented");
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -591,7 +591,7 @@ public class HTTPThread extends Thread {
     public void unlink(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented");
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
 
         } catch (IOException e) {
             e.printStackTrace();
