@@ -333,11 +333,17 @@ public class HTTPThread extends Thread {
                     body+=fr.nextLine();
                 }
                 
-                System.err.println(header+ "\r\n" + body + "\r\n"); //TESTING
+                System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header + "\r\n" + body + "\r\n");
+                    os.writeChars(header + "\r\n" + body);
+                    os.flush();
+                    try {
+        				Thread.sleep(250);
+        			} catch (InterruptedException e) {
+        				e.printStackTrace();
+        			}
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -430,11 +436,17 @@ public class HTTPThread extends Thread {
                     body+=fr.nextLine();
                 }
                 
-                System.err.println(header+ "\r\n" + body + "\r\n"); //TESTING
+                System.err.println(header+ "\r\n" + body); //TESTING
                 
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header+ "\r\n" + body + "\r\n");
+                    os.writeChars(header+ "\r\n" + body);
+                    os.flush();
+                    try {
+        				Thread.sleep(250);
+        			} catch (InterruptedException e) {
+        				e.printStackTrace();
+        			}
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -451,7 +463,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + "\r\n" + body + "\r\n");
+                    os.writeBytes(header + "\r\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -529,6 +541,12 @@ public class HTTPThread extends Thread {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeChars(header);
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -552,11 +570,19 @@ public class HTTPThread extends Thread {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
+        	
+        	
             client.close(); //close the socket
         } catch (IOException e) {
             System.err.println("HTTP/1.0 500 Internal Server Error");
@@ -571,6 +597,12 @@ public class HTTPThread extends Thread {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -590,6 +622,12 @@ public class HTTPThread extends Thread {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -609,6 +647,12 @@ public class HTTPThread extends Thread {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
         } catch (IOException e) {
             e.printStackTrace();
