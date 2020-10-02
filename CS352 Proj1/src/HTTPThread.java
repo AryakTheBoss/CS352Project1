@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.DataOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -325,7 +323,7 @@ public class HTTPThread extends Thread {
          c.add(Calendar.YEAR, 1);
             expires = "\r\nExpires: "+formatter.format(c.getTime());
         header += allow+contentEncoding+contentLength+contentType+expires+lastModified+"\r\n";
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
+        if(false || (initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt"))) {
             try {
                 Scanner fr = new Scanner(f);
 

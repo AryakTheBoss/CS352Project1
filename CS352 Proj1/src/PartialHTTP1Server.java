@@ -4,7 +4,6 @@
 
 import java.net.Socket;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -12,8 +11,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Proxy;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
 
