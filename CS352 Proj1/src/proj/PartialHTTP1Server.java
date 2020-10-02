@@ -5,15 +5,18 @@ package proj;
 import java.net.Socket;
 
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
+
 
 /**
  * 
@@ -41,14 +44,14 @@ public class PartialHTTP1Server {
         int corePoolSize = 5; //number of threads that the pool will attempt to maintain
         int maxPoolSize = 50; //maximum number of threads in the pool
         int keepAliveTime = 10; //time that an idle thread will be killed (milliseconds)
-        int queueSize = 5; //max number of tasks stored in the queue
+        //int queueSize = 1; //max number of tasks stored in the queue UNUSED
         
         //Creates the ThreadPoolExecutor
         ThreadPoolExecutor executorPool = new ThreadPoolExecutor(corePoolSize, 
         		maxPoolSize, 
         		keepAliveTime, 
         		TimeUnit.MILLISECONDS, 
-        		new ArrayBlockingQueue<Runnable>(queueSize), 
+        		new SynchronousQueue<Runnable>(), 
         		threadFactory, 
         		rejectionHandler);
         
@@ -93,9 +96,34 @@ public class PartialHTTP1Server {
 
         while(true){
             Socket connectedSocket = newSocket.accept();
+            
+            connectedSocket.setSoTimeout(5000); //time out after 5000 miliseconds
+            
             //I am assumeing either the store thread method is keeping track of the thread count, or threadpool executer
-
             HTTPThread newThread = new HTTPThread(connectedSocket);
+            
+            //variables for threshold checking
+            int totalThreads = threadPool.getActiveCount() + threadPool.getPoolSize();
+            DataOutputStream outToClient = null;
+            
+            //gets a file stream that will send data to the client
+          	try {
+          		outToClient = new DataOutputStream(connectedSocket.getOutputStream());      
+            } catch (IOException e) {
+            	e.printStackTrace();
+            }
+          	
+          	//check if the threshold is reached
+            if(totalThreads >= 50) {
+            	try {
+            		System.err.println("HTTP/1.0 503 Service Unavailable");
+    				outToClient.writeChars("HTTP/1.0 503 Service Unavailable");
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            }
+            
             storeThread(newThread);
         }
 		

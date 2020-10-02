@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.text.ParseException;
 import java.util.Scanner;
 import java.net.URLConnection;
+import java.net.SocketTimeoutException;
 
 public class HTTPThread extends Thread {
 
@@ -39,6 +40,15 @@ public class HTTPThread extends Thread {
         String request = "";//holds the initial request line
         String temp; //used for reading in additional lines
         String restOfRequest; //holds any lines after the initial request line
+        DataOutputStream outToClient = null; //file stream to send data to the client
+        
+        //gets a file stream that will send data to the client
+    	try {
+            outToClient = new DataOutputStream(client.getOutputStream());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
         //get the HTTP request
         //initial line is stored in request
@@ -47,22 +57,35 @@ public class HTTPThread extends Thread {
         	BufferedReader inFromServer = new BufferedReader(new
         				InputStreamReader(client.getInputStream()));
         	
-        	request = inFromServer.readLine(); //initial line
-        	temp = inFromServer.readLine(); //line after
-        	restOfRequest = ""; //will store everything after the initial line
-        	
-        	//get the rest of the response
-        	while(!(temp.isEmpty())) {
-        		
-        		//if there is a space or tab in the front, the line belongs to the previous header line
-        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
-        			restOfRequest = restOfRequest + temp;
-        		
-        		//else, the line contains a new header line, so make a new line
-        		} else {
-        			restOfRequest = restOfRequest + "\n" + temp;
-        		}
-        		
+        	//checks if the client times out
+        	try {
+	        	request = inFromServer.readLine(); //initial line
+	        	temp = inFromServer.readLine(); //line after
+	        	restOfRequest = ""; //will store everything after the initial line
+	        	
+	        	//get the rest of the response
+	        	while(!(temp.isEmpty())) {
+	        		
+	        		//if there is a space or tab in the front, the line belongs to the previous header line
+	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
+	        			restOfRequest = restOfRequest + temp;
+	        		
+	        		//else, the line contains a new header line, so make a new line
+	        		} else {
+	        			restOfRequest = restOfRequest + "\n" + temp;
+	        		}
+	        		
+	        	}
+	        
+        	//tells client that they timed out
+        	} catch (SocketTimeoutException ste) {
+        		try {
+    				outToClient.writeChars("HTTP/1.0 408 Request Timeout");
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            	return;
         	}
         	
         	//hopefully returning from a thread is allowed
@@ -71,8 +94,8 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        DataOutputStream outToClient = null;
-      //gets a file stream that will send data to the client
+        
+        //gets a file stream that will send data to the client
     	try {
             outToClient = new DataOutputStream(client.getOutputStream());
 
