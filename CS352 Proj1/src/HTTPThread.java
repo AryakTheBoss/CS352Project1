@@ -121,10 +121,10 @@ public class HTTPThread extends Thread {
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1]);
     	System.err.println("|" + initialLine[1] + "|\r\n"
-    			+ "File Exists: " + file.exists());
+    			+ "File Exists: " + file.getAbsoluteFile().exists());
     	
     	//check if the file exists
-    	if(!(file.exists())) {
+    	if(!(file.getAbsoluteFile().exists())) {
     		
     		sendError("404 Not Found", outToClient);
         	return;
