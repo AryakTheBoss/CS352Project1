@@ -112,6 +112,7 @@ public class HTTPThread extends Thread {
         	
         	try {
 				outToClient.writeBytes("HTTP/1.0 400 Bad Request\r\n");
+				client.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
