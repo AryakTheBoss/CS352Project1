@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.text.ParseException;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.net.SocketTimeoutException;
 
 public class HTTPThread extends Thread {
@@ -246,6 +247,7 @@ public class HTTPThread extends Thread {
     	
     	//interpret this date
     	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+    	dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
     	
     	//supposedly, the parse method is not threadsafe
     	//lock this line, and check for parsing errors.
@@ -282,6 +284,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
@@ -391,6 +394,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
@@ -498,6 +502,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         int fLength = (int) f.length();
