@@ -116,8 +116,8 @@ public class PartialHTTP1Server {
           	//check if the threshold is reached
             if(totalThreads >= 50) {
             	try {
-            		System.err.println("HTTP/1.0 503 Service Unavailable");
-    				outToClient.writeChars("HTTP/1.0 503 Service Unavailable");
+            		System.err.println("HTTP/1.0 503 Service Unavailable\n");
+    				outToClient.writeChars("HTTP/1.0 503 Service Unavailable\n");
     			} catch (IOException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();

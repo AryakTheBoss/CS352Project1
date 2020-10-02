@@ -80,7 +80,7 @@ public class HTTPThread extends Thread {
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
         		try {
-    				outToClient.writeChars("HTTP/1.0 408 Request Timeout");
+    				outToClient.writeChars("HTTP/1.0 408 Request Timeout\n");
     			} catch (IOException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
@@ -90,7 +90,7 @@ public class HTTPThread extends Thread {
         	
         	//hopefully returning from a thread is allowed
         } catch (IOException ioe) {
-        	System.err.println("HTTP/1.0 404 Not Found");
+        	System.err.println("HTTP/1.0 404 Not Found\n");
         	return;
         }
         
@@ -109,10 +109,10 @@ public class HTTPThread extends Thread {
         
         if (!initialLineErrorChecking(initialLine)) {
         	
-        	System.err.println("HTTP/1.0 400 Bad Request");
+        	System.err.println("HTTP/1.0 400 Bad Request\n");
         	
         	try {
-				outToClient.writeChars("HTTP/1.0 400 Bad Request");
+				outToClient.writeChars("HTTP/1.0 400 Bad Request\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -125,10 +125,10 @@ public class HTTPThread extends Thread {
     	
     	//check if the file exists
     	if(!(file.exists())) {
-    		System.err.println("HTTP/1.0 404 Not Found");
+    		System.err.println("HTTP/1.0 404 Not Found\n");
     		
     		try {
-				outToClient.writeChars("HTTP/1.0 404 Not Found");
+				outToClient.writeChars("HTTP/1.0 404 Not Found\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -138,10 +138,10 @@ public class HTTPThread extends Thread {
     	
     	//see if the file is forbidden THIS ONLY WORKS ON LINUX!!
     	if(!(file.canRead())) {
-    		System.err.println("HTTP/1.0 403 Forbidden");
+    		System.err.println("HTTP/1.0 403 Forbidden\n");
         	
         	try {
-				outToClient.writeChars("HTTP/1.0 403 Forbidden");
+				outToClient.writeChars("HTTP/1.0 403 Forbidden\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -152,10 +152,10 @@ public class HTTPThread extends Thread {
         //checks if the file was modified or not
         if(checkDate(restOfRequest, file)) {
         	
-        	System.err.println("HTTP/1.0 204 Not Modified");
+        	System.err.println("HTTP/1.0 204 Not Modified\n");
         	
         	try {
-				outToClient.writeChars("HTTP/1.0 204 Not Modified");
+				outToClient.writeChars("HTTP/1.0 204 Not Modified\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -169,10 +169,10 @@ public class HTTPThread extends Thread {
     	
     	double version = Double.parseDouble(versionNumber);
         if(version > 1.0) {
-        	System.err.println("HTTP/1.0 505 HTTP Version Not Supported");
+        	System.err.println("HTTP/1.0 505 HTTP Version Not Supported\n");
         	
         	try {
-				outToClient.writeChars("\"HTTP/1.0 505 HTTP Version Not Supported");
+				outToClient.writeChars("\"HTTP/1.0 505 HTTP Version Not Supported\n");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -352,7 +352,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeChars(header+body);
+                    os.writeChars(header + "CLRF\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -369,7 +369,7 @@ public class HTTPThread extends Thread {
                 }
                 try {
                     DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header+body);
+                    os.writeBytes(header + "CLRF\n" + body);
 
                 } catch (IOException e) {
                     e.printStackTrace();
