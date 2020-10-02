@@ -233,6 +233,9 @@ public class HTTPThread extends Thread {
     	//if we reach the end, there is no ifmodified header.
     	while(!(arr[0].equalsIgnoreCase("If-Modified-Since:")) && arr.length == 2) {
     		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
+    		if (arr.length == 1) { //if there is a header with no value, break
+    			break;
+    		}
     		arr = arr[1].split(" ", 2); //separates the first header from the rest of the headers
     	}
     	
@@ -264,12 +267,12 @@ public class HTTPThread extends Thread {
     	//get the date the file was last modified
     	Date modified = new Date(file.lastModified());
     	
-    	//compare the dates, if the ifModified date is before modified date, return true
-    	if ((ifModified.compareTo(modified)) < 0) {
+    	//compare the dates, if the ifModified date is at or after modified date, return true
+    	if ((ifModified.compareTo(modified)) > 0) {
     		return true;
     	}
     	
-    	return false;
+    	return false;//ifModified date is before the modified date, so the file has been modified
     }
     
     /**
