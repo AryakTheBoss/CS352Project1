@@ -32,6 +32,27 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager">
+    <configuration name="PartialHTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="proj.PartialHTTP1Server" />
+      <module name="CS352 Proj1" />
+      <option name="PROGRAM_PARAMETERS" value="5010" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="proj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PartialHTTP1Server" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
       <list>
@@ -56,5 +77,27 @@
       <updated>1600641538744</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601659124313">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601659124313" />
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1601663433521">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601663433521" />
+    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1601663433521">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601663433521" />
+    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1601663433521">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601663433521" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1601663433521">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601663433521" />
   </component>
 </project>
