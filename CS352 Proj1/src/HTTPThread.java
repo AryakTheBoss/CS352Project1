@@ -121,7 +121,7 @@ public class HTTPThread extends Thread {
         }
         
         //attempt to read the second argument as a file
-    	File file = new File(initialLine[1]);
+    	File file = new File(initialLine[1].substring(1));
     	
     	//check if the file exists
     	if(!(file.getAbsoluteFile().exists())) {
@@ -284,7 +284,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        File f = new File(initialLine[1]);
+        File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String body = "";
@@ -379,7 +379,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        File f = new File(initialLine[1]);
+        File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String body = "";
@@ -472,7 +472,7 @@ public class HTTPThread extends Thread {
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        File f = new File(initialLine[1]);
+        File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         int fLength = (int) f.length();
         String header = "HTTP/1.0 200 OK"; //the initial header line
