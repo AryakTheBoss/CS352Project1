@@ -328,6 +328,7 @@ public class HTTPThread extends Thread {
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
+                System.err.println("After Scanner"); //TESTING
 
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
@@ -423,7 +424,7 @@ public class HTTPThread extends Thread {
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
-
+                System.err.println("After Scanner"); //TESTING
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
                 }
