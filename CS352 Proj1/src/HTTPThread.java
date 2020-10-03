@@ -336,7 +336,7 @@ public class HTTPThread extends Thread {
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(header + body);
+            os.writeBytes(header + body + "\r\n");
             os.flush();
             os.close();
             try {
