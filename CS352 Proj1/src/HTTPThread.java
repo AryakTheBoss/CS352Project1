@@ -410,44 +410,45 @@ public class HTTPThread extends Thread {
 
 
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\r\nContent-Type: text/html";
-            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
+            contentType = "Content-Type: text/html";
+            allow = "Allow: GET, HEAD, POST"; //not sure if post is allowed on html files
         }else if(initialLine[1].endsWith("txt")){
-            contentType = "\r\nContent-Type: text/plain";
-            allow = "\r\nAllow: GET, HEAD";
+            contentType = "Content-Type: text/plain";
+            allow = "Allow: GET, HEAD";
         }else if(initialLine[1].endsWith("gif")){
-            contentType= "\r\nContent-Type: image/gif";
-            allow = "\r\nAllow: GET, HEAD";
+            contentType= "Content-Type: image/gif";
+            allow = "Allow: GET, HEAD";
         }else if(initialLine[1].endsWith("png")){
-            contentType= "\r\nContent-Type: image/png";
-            allow = "\r\nAllow: GET, HEAD";
+            contentType= "Content-Type: image/png";
+            allow = "Allow: GET, HEAD";
         }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\r\nContent-Type: image/jpeg";
-            allow = "\r\nAllow: GET, HEAD";
+            contentType= "Content-Type: image/jpeg";
+            allow = "Allow: GET, HEAD";
         }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, POST, HEAD";
+            contentType= "Content-Type: application/pdf";
+            allow = "Allow: GET, POST, HEAD";
         }else if(initialLine[1].endsWith("zip")){
-            contentType= "\r\nContent-Type: application/zip";
-            contentEncoding="\r\nContent-Encoding: zip";
-            allow = "\r\nAllow: GET, HEAD";
+            contentType= "Content-Type: application/zip";
+            contentEncoding="Content-Encoding: zip";
+            allow = "Allow: GET, HEAD";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\r\nContent-Type: application/x-gzip";
-            allow = "\r\nAllow: GET, HEAD";
-            contentEncoding="\r\nContent-Encoding: x-gzip";
+            contentType= "Content-Type: application/x-gzip";
+            allow = "Allow: GET, HEAD";
+            contentEncoding="Content-Encoding: x-gzip";
         }else{
-            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\r\nAllow: GET, POST, HEAD";
+            contentType = "Content Type: application/octet-stream"; //unknown file type
+            allow = "Allow: GET, POST, HEAD";
         }
 
 
         c.setTime(d);
-        contentLength = "\r\nContent-Length: "+fLength; //size of file in bytes
-        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
+        contentLength = "Content-Length: "+fLength; //size of file in bytes
+        lastModified = "Last-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "\r\nExpires: " + formatter.format(c.getTime());
+        expires = "Expires: " + formatter.format(c.getTime());
         
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+        header += "\r\n" + contentType + "\r\n" + contentLength + "\r\n" + lastModified 
+        			+ "\r\n" + contentEncoding + "\r\n" + allow + "\r\n" + expires + "\r\n\r\n";
         
         return header;
     }
