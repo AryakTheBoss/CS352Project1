@@ -142,7 +142,7 @@ public class HTTPThread extends Thread {
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file)) {
         	sendError("304 Not Modified\r\n"
-        			+ "Expires: a future date\r\n", outToClient);
+        			+ "Expires: a future date", outToClient);
         	return;
         }
         
@@ -340,6 +340,7 @@ public class HTTPThread extends Thread {
         
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
+            	BufferedReader br = new BufferedReader(new FileReader(initialLine[1].substring(1)));
                 Scanner fr = new Scanner(f);
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
@@ -395,60 +396,45 @@ public class HTTPThread extends Thread {
     
     private String createHeader(String[] initialLine) {
     	
-    	//objects for the date and calendar.
     	Date d = new Date();
         Calendar c = Calendar.getInstance();
-        
-        
+
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
-        int fLength = (int) f.length();
+        
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-
-
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "Content-Type: text/html";
-            allow = "Allow: GET, HEAD, POST"; //not sure if post is allowed on html files
+            contentType = "\r\nContent-Type: text/html";
         }else if(initialLine[1].endsWith("txt")){
-            contentType = "Content-Type: text/plain";
-            allow = "Allow: GET, HEAD";
+            contentType = "\r\nContent-Type: text/plain";
         }else if(initialLine[1].endsWith("gif")){
-            contentType= "Content-Type: image/gif";
-            allow = "Allow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/gif";
         }else if(initialLine[1].endsWith("png")){
-            contentType= "Content-Type: image/png";
-            allow = "Allow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/png";
         }else if(initialLine[1].endsWith("jpg")){
-            contentType= "Content-Type: image/jpeg";
-            allow = "Allow: GET, HEAD";
+            contentType= "\r\nContent-Type: image/jpeg";
         }else if(initialLine[1].endsWith("pdf")){
-            contentType= "Content-Type: application/pdf";
-            allow = "Allow: GET, POST, HEAD";
+            contentType= "\r\nContent-Type: application/pdf";
         }else if(initialLine[1].endsWith("zip")){
-            contentType= "Content-Type: application/zip";
-            contentEncoding="Content-Encoding: zip";
-            allow = "Allow: GET, HEAD";
+            contentType= "\r\nContent-Type: application/zip";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "Content-Type: application/x-gzip";
-            allow = "Allow: GET, HEAD";
-            contentEncoding="Content-Encoding: x-gzip";
+            contentType= "\r\nContent-Type: application/x-gzip";
         }else{
-            contentType = "Content Type: application/octet-stream"; //unknown file type
-            allow = "Allow: GET, POST, HEAD";
+            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
         }
 
-
+        contentEncoding="\r\nContent-Encoding: identity";
+        allow = "\r\nAllow: GET, POST, HEAD";
+    
         c.setTime(d);
-        contentLength = "Content-Length: "+ fLength; //size of file in bytes
-        lastModified = "Last-Modified: "+formatter.format(f.lastModified());
+        contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
+        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
-        expires = "Expires: " + formatter.format(c.getTime());
-        
-        header += "\r\n" + contentType + "\r\n" + contentLength + "\r\n" + lastModified 
-        			+ "\r\n" + (contentEncoding.equals("") ? contentEncoding : (contentEncoding + "\r\n")) + allow + "\r\n" + expires + "\r\n\r\n";
+        expires = "\r\nExpires: " + formatter.format(c.getTime());
+        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         return header;
     }
