@@ -219,6 +219,8 @@ public class HTTPThread extends Thread {
     	//separates the first header from the rest of the headers
     	String [] arr = headers.split(" |\t", 2);
     	
+    	
+    	/*
     	//while the header is not the correct header, go to the next line and repeat.
     	//if we reach the end, there is no ifmodified header.
     	while(!(arr[0].matches("(.*)If-Modified-Since:(.*)")) && arr.length == 2) {
@@ -226,11 +228,13 @@ public class HTTPThread extends Thread {
     		if (arr.length == 1) { //if there is a header with no value, break
     			break;
     		}
-    		arr = arr[1].split(" ", 2); //separates the first header from the rest of the headers
+    		arr = arr[1].split(" |\t", 2); //separates the first header from the rest of the headers
+    		
+    		
     	}
+    	*/
     	
-    	//if there is no ifModified specification, just return true
-    	if(arr.length == 1) {
+    	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
     		return true;
     	}
     	
