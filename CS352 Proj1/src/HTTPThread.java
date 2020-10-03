@@ -57,15 +57,13 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
-	        	boolean first = true;
 	        	
 	        	//get the rest of the response
 	        	while(!(temp.isEmpty())) {
 	        		
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
-	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ' || first) {
+	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
 	        			restOfRequest = restOfRequest + temp;
-	        			first = false;
 	        		
 	        		//else, the line contains a new header line, so make a new line
 	        		} else {
@@ -246,8 +244,6 @@ public class HTTPThread extends Thread {
     	arr = arr[1].split("\n", 2);
     	String date = arr[0];
     	
-    	System.err.println("We got here!");
-    	
     	//interpret this date
     	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
     	dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -265,8 +261,6 @@ public class HTTPThread extends Thread {
     		}
     	}
     	
-    	System.err.println("We got here too!");
-    	
     	//get the date the file was last modified
     	Date modified = new Date(file.lastModified());
     	
@@ -274,8 +268,6 @@ public class HTTPThread extends Thread {
     	if ((ifModified.compareTo(modified)) > 0) {
     		return true;
     	}
-    	
-    	System.err.println("We got here three!");
     	
     	return false;//ifModified date is before the modified date, so the file has been modified
     }
