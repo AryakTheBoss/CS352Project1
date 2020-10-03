@@ -2,17 +2,11 @@
 
 import java.io.*;
 import java.net.Socket;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.File;
-import java.io.DataOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.text.ParseException;
-import java.util.Scanner;
 import java.util.TimeZone;
 import java.net.SocketTimeoutException;
 
@@ -324,54 +318,35 @@ public class HTTPThread extends Thread {
         
 
         System.out.println(header);
-
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
+        
+        //get the file contents
+        try {
+			FileInputStream fis = new FileInputStream(f);
+			
+			byte fileContent[] = new byte[(int)f.length()];
+			fis.read(fileContent);
+			body = new String(fileContent);
+			fis.close();
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+        
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes(header + body);
+            os.flush();
+            os.close();
             try {
-                Scanner fr = new Scanner(f);
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-                while(fr.hasNextLine()){
-                    body+=fr.nextLine();
-                }
-                
-                fr.close();
-                
-                System.err.println(header + body); //TESTING
-                
-                try {
-                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + body);
-                    os.flush();
-                    try {
-        				Thread.sleep(250);
-        			} catch (InterruptedException e) {
-        				e.printStackTrace();
-        			}
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("File could not be Read");
-            }
-        }else{
-            try {
-                Scanner fr = new Scanner(f);
-
-                while(fr.hasNextByte()){
-                    body+=fr.nextByte();
-                }
-                
-                fr.close();
-                try {
-                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
-                    os.writeBytes(header + body + "\r\n");
-                    os.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("File could not be Read");
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
@@ -404,7 +379,6 @@ public class HTTPThread extends Thread {
         f = f.getAbsoluteFile();
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
-        String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
             contentType = "\r\nContent-Type: text/html";
@@ -440,6 +414,7 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes(header);
             os.flush();
+            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
