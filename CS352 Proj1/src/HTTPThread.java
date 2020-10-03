@@ -358,7 +358,7 @@ public class HTTPThread extends Thread {
 			ioe.printStackTrace();
 		}
         
-        byte[] end = "\r\n".getBytes();
+        byte[] end = "".getBytes();
         last = new byte[fileContent.length + header.length() + end.length];
         System.arraycopy(header.getBytes(), 0, last, 0, header.length());
         System.arraycopy(fileContent, 0, last, header.length(), fileContent.length);
