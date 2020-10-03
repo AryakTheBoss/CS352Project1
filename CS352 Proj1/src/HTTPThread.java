@@ -57,12 +57,15 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
+	        	boolean first = true;
+	        	
 	        	//get the rest of the response
 	        	while(!(temp.isEmpty())) {
 	        		
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
-	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
+	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ' || first) {
 	        			restOfRequest = restOfRequest + temp;
+	        			first = false;
 	        		
 	        		//else, the line contains a new header line, so make a new line
 	        		} else {
