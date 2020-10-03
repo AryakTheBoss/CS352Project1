@@ -141,11 +141,13 @@ public class HTTPThread extends Thread {
         
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file)) {
-        	String msg = "304 Not Modified";
-        	System.err.println("HTTP/1.0 " + msg + "\r\n");
+        	String msg = "HTTP/1.0 304 Not Modified\r\n";
+        	System.err.println(msg);
+        	
+        	byte[] realMsg = msg.getBytes();
         	
         	try {
-    			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
+    			outToClient.write(realMsg);
     			client.close();
     		} catch (IOException e) {
     			e.printStackTrace();
