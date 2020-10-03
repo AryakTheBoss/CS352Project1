@@ -308,7 +308,7 @@ public class HTTPThread extends Thread {
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
             contentType= "\r\nContent-Type: application/x-gzip";
         }else{
-            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
+            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
         }
 
         contentEncoding="\r\nContent-Encoding: identity";
