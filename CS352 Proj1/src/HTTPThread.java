@@ -221,7 +221,7 @@ public class HTTPThread extends Thread {
     	
     	//while the header is not the correct header, go to the next line and repeat.
     	//if we reach the end, there is no ifmodified header.
-    	while(!(arr[0].equalsIgnoreCase("If-Modified-Since:")) && arr.length == 2) {
+    	while(!(arr[0].matches("(.*)If-Modified-Since:(.*)")) && arr.length == 2) {
     		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
     		if (arr.length == 1) { //if there is a header with no value, break
     			break;
