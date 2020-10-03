@@ -164,7 +164,6 @@ public class HTTPThread extends Thread {
 			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
 			client.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -336,7 +335,7 @@ public class HTTPThread extends Thread {
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(header + body + "\r\n");
+            os.writeBytes(header + body + "\r\n\r\n");
             os.flush();
             os.close();
             try {
