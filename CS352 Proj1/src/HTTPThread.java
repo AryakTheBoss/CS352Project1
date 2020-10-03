@@ -321,6 +321,8 @@ public class HTTPThread extends Thread {
          expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
+        byte[] last = null;
+        byte[] fileContent = null;
 
         System.err.println(header);
         
@@ -328,9 +330,8 @@ public class HTTPThread extends Thread {
         try {
 			FileInputStream fis = new FileInputStream(f);
 			
-			byte fileContent[] = new byte[(int)f.length()];
+			fileContent = new byte[(int)f.length()];
 			fis.read(fileContent);
-			body = new String(fileContent);
 			fis.close();
 			
 		} catch (FileNotFoundException e1) {
@@ -339,10 +340,14 @@ public class HTTPThread extends Thread {
 			ioe.printStackTrace();
 		}
         
+        last = new byte[fileContent.length + header.length()];
+        System.arraycopy(header.getBytes(), 0, last, 0, header.length());
+        System.arraycopy(fileContent, 0, last, 0, fileContent.length);
+        
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(header + body + "\r\n\r\n");
+            os.write(last);
             os.flush();
             try {
 				Thread.sleep(250);
