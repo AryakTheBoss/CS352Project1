@@ -343,7 +343,6 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes(header + body + "\r\n\r\n");
             os.flush();
-            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -421,7 +420,6 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes(header);
             os.flush();
-            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
