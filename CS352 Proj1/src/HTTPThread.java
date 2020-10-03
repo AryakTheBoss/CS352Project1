@@ -57,11 +57,11 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
-	        	/*
+	        	
 	        	if(!temp.isEmpty()) {
 	        		restOfRequest = temp;
 	        	}
-	        	*/
+	        	
 	        	
 	        	/*
 	        	boolean first = true;
