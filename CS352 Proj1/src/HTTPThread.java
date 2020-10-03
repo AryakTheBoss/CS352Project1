@@ -442,13 +442,13 @@ public class HTTPThread extends Thread {
 
 
         c.setTime(d);
-        contentLength = "Content-Length: "+fLength; //size of file in bytes
+        contentLength = "Content-Length: "+ fLength; //size of file in bytes
         lastModified = "Last-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "Expires: " + formatter.format(c.getTime());
         
         header += "\r\n" + contentType + "\r\n" + contentLength + "\r\n" + lastModified 
-        			+ "\r\n" + contentEncoding + "\r\n" + allow + "\r\n" + expires + "\r\n\r\n";
+        			+ "\r\n" + (contentType.equals("") ? "" : contentEncoding + "\r\n") + allow + "\r\n" + expires + "\r\n\r\n";
         
         return header;
     }
