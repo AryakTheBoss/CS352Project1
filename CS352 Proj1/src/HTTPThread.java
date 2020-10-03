@@ -57,11 +57,11 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
-	        	
+	        	/*
 	        	if(!temp.isEmpty()) {
 	        		restOfRequest = temp;
 	        	}
-	        	
+	        	*/
 	        	
 	        	/*
 	        	boolean first = true;
@@ -149,8 +149,7 @@ public class HTTPThread extends Thread {
             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
             
             
-        	String msg = "HTTP/1.0 304 Not Modified\r\n"
-        			+ "Expires: " + formatter.format(d) + "\r\n";
+        	String msg = "HTTP/1.0 304 Not Modified\r\n";
         	System.err.println(msg);
         	
         	byte[] realMsg = msg.getBytes();
