@@ -57,9 +57,12 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
+	        	/*
 	        	if(!temp.isEmpty()) {
 	        		restOfRequest = temp;
 	        	}
+	        	*/
+	        	
 	        	/*
 	        	boolean first = true;
 	        	//get the rest of the response
@@ -142,7 +145,7 @@ public class HTTPThread extends Thread {
         	System.err.println("HTTP/1.0 " + msg + "\r\n");
         	
         	try {
-    			outToClient.writeBytes("HTTP/1.0 " + msg);
+    			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
     			client.close();
     		} catch (IOException e) {
     			e.printStackTrace();
