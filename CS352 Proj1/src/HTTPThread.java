@@ -72,7 +72,11 @@ public class HTTPThread extends Thread {
 	        		
 	        		//else, the line contains a new header line, so make a new line
 	        		} else {
-	        			restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + "\n" + temp;
+	        			if(!(restOfRequest.length() == 0)) {
+	        				restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + "\n" + temp;
+	        			} else {
+	        				break;
+	        			}
 	        		}
 	        		
 	        		temp = inFromServer.readLine(); //line after
