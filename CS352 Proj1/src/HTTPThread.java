@@ -448,7 +448,7 @@ public class HTTPThread extends Thread {
         expires = "Expires: " + formatter.format(c.getTime());
         
         header += "\r\n" + contentType + "\r\n" + contentLength + "\r\n" + lastModified 
-        			+ "\r\n" + (contentType.equals("") ? "" : contentEncoding + "\r\n") + allow + "\r\n" + expires + "\r\n\r\n";
+        			+ "\r\n" + (contentType.equals("") ? contentEncoding : (contentEncoding + "\r\n")) + allow + "\r\n" + expires + "\r\n\r\n";
         
         return header;
     }
