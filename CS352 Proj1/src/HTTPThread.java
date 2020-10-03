@@ -498,6 +498,7 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
+            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -507,6 +508,8 @@ public class HTTPThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    	
+    	closeConn();
     }
 
 
