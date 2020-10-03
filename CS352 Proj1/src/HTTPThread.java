@@ -342,7 +342,7 @@ public class HTTPThread extends Thread {
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeChars(header + body + "\r\n\r\n");
+            os.writeBytes(header + body + "\r\n\r\n");
             os.flush();
             try {
 				Thread.sleep(250);
@@ -448,7 +448,7 @@ public class HTTPThread extends Thread {
     public void delete(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeChars("HTTP/1.0 501 Not Implemented\r\n");
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
             try {
 				Thread.sleep(250);
