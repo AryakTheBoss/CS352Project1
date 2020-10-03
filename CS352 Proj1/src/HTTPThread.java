@@ -271,10 +271,10 @@ public class HTTPThread extends Thread {
     	
     	//compare the dates, if the ifModified date is at or after modified date, return true
     	if ((ifModified.compareTo(modified)) > 0) {
-    		return true;
+    		return false;
     	}
     	
-    	return false;//ifModified date is before the modified date, so the file has been modified
+    	return true;//ifModified date is before the modified date, so the file has been modified
     }
     
     /**
