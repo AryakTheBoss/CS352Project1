@@ -235,6 +235,7 @@ public class HTTPThread extends Thread {
     	*/
     	
     	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
+    		System.err.println("No param: " + arr[0]);
     		return true;
     	}
     	
