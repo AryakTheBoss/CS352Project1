@@ -142,7 +142,7 @@ public class HTTPThread extends Thread {
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file)) {
         	String msg = "304 Not Modified";
-        	System.err.println("\r\nHTTP/1.0 " + msg + "\r\n");
+        	System.err.println("HTTP/1.0 " + msg + "\r\n");
         	
         	try {
     			outToClient.writeBytes("\r\nHTTP/1.0 " + msg + "\r\n");
@@ -356,11 +356,11 @@ public class HTTPThread extends Thread {
 			ioe.printStackTrace();
 		}
         
-        last = new byte[fileContent.length + header.length() + 4];
-        byte[] end = "\r\n\r\n".getBytes();
+        byte[] end = "\r\n".getBytes();
+        last = new byte[fileContent.length + header.length() + end.length];
         System.arraycopy(header.getBytes(), 0, last, 0, header.length());
         System.arraycopy(fileContent, 0, last, header.length(), fileContent.length);
-        System.arraycopy(end, 0, last, fileContent.length + header.length(), 4);
+        System.arraycopy(end, 0, last, fileContent.length + header.length(), end.length);
         
         
         
