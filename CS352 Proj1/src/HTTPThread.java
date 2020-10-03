@@ -300,9 +300,9 @@ public class HTTPThread extends Thread {
                 System.err.println("File could not be Read");
             }
             
-            System.err.println(header+ "\r\n" + body); //TESTING
+            System.err.println(header + body+ "\r\n"); //TESTING
             
-            sendStringToUser(header+ "\r\n" + body);
+            sendStringToUser(header + body+ "\r\n");
             
         }else{
         	try {
@@ -319,9 +319,9 @@ public class HTTPThread extends Thread {
                 System.err.println("File could not be Read");
             }
         	
-        	System.err.println(header+ "\r\n" + body); //TESTING
+        	System.err.println(header + body+ "\r\n"); //TESTING
         	
-            sendBytesToUser(header + "\r\n" + body);
+            sendBytesToUser(header  + body+ "\r\n");
         }
 
 
@@ -351,9 +351,9 @@ public class HTTPThread extends Thread {
                 System.err.println("File could not be Read");
             }
             
-            System.err.println(header+ "\r\n" + body); //TESTING
+            System.err.println(header+ body + "\r\n"); //TESTING
             
-            sendStringToUser(header+ "\r\n" + body);
+            sendStringToUser(header+ body + "\r\n");
             
         }else{
         	try {
@@ -370,9 +370,9 @@ public class HTTPThread extends Thread {
                 System.err.println("File could not be Read");
             }
         	
-        	System.err.println(header+ "\r\n" + body); //TESTING
+        	System.err.println(header + body + "\r\n"); //TESTING
         	
-            sendBytesToUser(header + "\r\n" + body);
+            sendBytesToUser(header + body + "\r\n");
         }
 
 
