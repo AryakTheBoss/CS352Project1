@@ -57,13 +57,13 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
-	        	boolean first = true;
+	        	//boolean first = true;
 	        	//get the rest of the response
 	        	while(!(temp.isEmpty())) {
 	        		
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
-	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ' || first) {
-	        			first = false;
+	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
+	        			//first = false;
 	        			restOfRequest = restOfRequest + temp;
 	        		
 	        		//else, the line contains a new header line, so make a new line
@@ -339,9 +339,10 @@ public class HTTPThread extends Thread {
 			ioe.printStackTrace();
 		}
         
+        
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(header + body + "\r\n\r\n");
+            os.writeChars(header + body + "\r\n\r\n");
             os.flush();
             try {
 				Thread.sleep(250);
@@ -447,7 +448,7 @@ public class HTTPThread extends Thread {
     public void delete(String[] initialLine) {
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.writeChars("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
             try {
 				Thread.sleep(250);
