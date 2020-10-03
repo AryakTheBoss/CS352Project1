@@ -68,11 +68,11 @@ public class HTTPThread extends Thread {
 	        		
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
 	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
-	        			restOfRequest = restOfRequest + temp;
+	        			restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + temp;
 	        		
 	        		//else, the line contains a new header line, so make a new line
 	        		} else {
-	        			restOfRequest = restOfRequest + "\n" + temp;
+	        			restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + "\n" + temp;
 	        		}
 	        		
 	        		temp = inFromServer.readLine(); //line after
@@ -278,54 +278,13 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-
-        //Assumes legal request and that the file exists
-        Date d = new Date();
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
+    	
+    	//creates the header
+    	String header = createHeader(initialLine);
+    	
+    	String body = "";
+    	File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
-        String header = "HTTP/1.0 200 OK"; //the initial header line
-        String body = "";
-        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\r\nContent-Type: text/html";
-            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
-        }else if(initialLine[1].endsWith("txt")){
-            contentType = "\r\nContent-Type: text/plain";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("gif")){
-            contentType= "\r\nContent-Type: image/gif";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("png")){
-            contentType= "\r\nContent-Type: image/png";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\r\nContent-Type: image/jpeg";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, POST, HEAD";
-        }else if(initialLine[1].endsWith("zip")){
-            contentType= "\r\nContent-Type: application/zip";
-            contentEncoding="\r\nContent-Encoding: zip";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\r\nContent-Type: application/x-gzip";
-            allow = "\r\nAllow: GET, HEAD";
-            contentEncoding="\nContent-Encoding: x-gzip";
-        }else{
-            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\r\nAllow: GET, HEAD";
-        }
-        c.setTime(d);
-            contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-            lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
-         c.add(Calendar.YEAR, 1);
-         expires = "\r\nExpires: " + formatter.format(c.getTime());
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
@@ -389,53 +348,10 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void post(String[] initialLine) {
-        //Assumes legal request and that the file exists
-        Date d = new Date();
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
+    	String header = createHeader(initialLine);
+    	String body = "";
+    	File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
-        String header = "HTTP/1.0 200 OK"; //the initial header line
-        String body = "";
-        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\r\nContent-Type: text/html";
-            allow = "\r\nAllow: GET, HEAD, POST"; //not sure if post is allowed on html files
-        }else if(initialLine[1].endsWith("txt")){
-            contentType = "\r\nContent-Type: text/plain";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("gif")){
-            contentType= "\r\nContent-Type: image/gif";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("png")){
-            contentType= "\r\nContent-Type: image/png";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\r\nContent-Type: image/jpeg";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\r\nContent-Type: application/pdf";
-            allow = "\r\nAllow: GET, POST, HEAD";
-        }else if(initialLine[1].endsWith("zip")){
-            contentType= "\r\nContent-Type: application/zip";
-            contentEncoding="\r\nContent-Encoding: zip";
-            allow = "\r\nAllow: GET, HEAD";
-        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\r\nContent-Type: application/x-gzip";
-            allow = "\r\nAllow: GET, HEAD";
-            contentEncoding="\r\nContent-Encoding: x-gzip";
-        }else{
-            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
-            allow = "\r\nAllow: GET, HEAD";
-        }
-        c.setTime(d);
-        contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
-        c.add(Calendar.YEAR, 1);
-        expires = "\r\nExpires: " + formatter.format(c.getTime());
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
@@ -498,9 +414,39 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void head(String[] initialLine) {
-        Date d = new Date();
-        Calendar c = Calendar.getInstance();
+        String header = createHeader(initialLine);
+        
+        System.err.println(header); //TESTING
 
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeChars(header);
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
+    }
+    
+    private String createHeader(String[] initialLine) {
+    	
+    	//objects for the date and calendar.
+    	Date d = new Date();
+        Calendar c = Calendar.getInstance();
+        
+        
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
@@ -547,30 +493,10 @@ public class HTTPThread extends Thread {
         lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
+        
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
-        System.err.println(header); //TESTING
-
-        try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeChars(header);
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
+        return header;
     }
 
 
