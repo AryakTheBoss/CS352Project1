@@ -68,15 +68,11 @@ public class HTTPThread extends Thread {
 	        		
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
 	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
-	        			restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + temp;
+	        			restOfRequest = restOfRequest + temp;
 	        		
 	        		//else, the line contains a new header line, so make a new line
 	        		} else {
-	        			if(!(restOfRequest.length() == 0)) {
-	        				restOfRequest = restOfRequest.substring(0, restOfRequest.length() - 1) + "\n" + temp;
-	        			} else {
-	        				break;
-	        			}
+	        			restOfRequest = restOfRequest + "\n" + temp;
 	        		}
 	        		
 	        		temp = inFromServer.readLine(); //line after
@@ -142,7 +138,7 @@ public class HTTPThread extends Thread {
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file)) {
         	sendError("304 Not Modified\r\n"
-        			+ "Expires: a future date", outToClient);
+        			+ "Expires: a future date\r\n", outToClient);
         	return;
         }
         
@@ -271,10 +267,10 @@ public class HTTPThread extends Thread {
     	
     	//compare the dates, if the ifModified date is at or after modified date, return true
     	if ((ifModified.compareTo(modified)) > 0) {
-    		return false;
+    		return true;
     	}
     	
-    	return true;//ifModified date is before the modified date, so the file has been modified
+    	return false;//ifModified date is before the modified date, so the file has been modified
     }
     
     /**
@@ -282,50 +278,108 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-    	String header = createHeader(initialLine);
-    	String body = "";
-    	File f = new File(initialLine[1].substring(1));
+
+        //Assumes legal request and that the file exists
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        File f = new File(initialLine[1].substring(1));
         f = f.getAbsoluteFile();
         
+        
+        String header = "HTTP/1.0 200 OK"; //the initial header line
+        String body = "";
+        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
+            contentType = "\r\nContent-Type: text/html";
+        }else if(initialLine[1].endsWith("txt")){
+            contentType = "\r\nContent-Type: text/plain";
+        }else if(initialLine[1].endsWith("gif")){
+            contentType= "\r\nContent-Type: image/gif";
+        }else if(initialLine[1].endsWith("png")){
+            contentType= "\r\nContent-Type: image/png";
+        }else if(initialLine[1].endsWith("jpg")){
+            contentType= "\r\nContent-Type: image/jpeg";
+        }else if(initialLine[1].endsWith("pdf")){
+            contentType= "\r\nContent-Type: application/pdf";
+        }else if(initialLine[1].endsWith("zip")){
+            contentType= "\r\nContent-Type: application/zip";
+        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
+            contentType= "\r\nContent-Type: application/x-gzip";
+        }else{
+            contentType = "\r\nContent Type: application/octet-stream"; //unknown file type
+        }
+
+        contentEncoding="\r\nContent-Encoding: identity";
+        allow = "\r\nAllow: GET, POST, HEAD";
+    
+        c.setTime(d);
+            contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
+            lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
+         c.add(Calendar.YEAR, 1);
+         expires = "\r\nExpires: " + formatter.format(c.getTime());
+        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+        
+
+        System.out.println(header);
+
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
             try {
                 Scanner fr = new Scanner(f);
+
                 while(fr.hasNextLine()){
                     body+=fr.nextLine();
                 }
                 
                 fr.close();
                 
+                System.err.println(header + body); //TESTING
+                
+                try {
+                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
+                    os.writeBytes(header + body);
+                    os.flush();
+                    try {
+        				Thread.sleep(250);
+        			} catch (InterruptedException e) {
+        				e.printStackTrace();
+        			}
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } catch (FileNotFoundException e) {
                 System.err.println("File could not be Read");
             }
-            
-            System.err.println(header + body+ "\r\n"); //TESTING
-            
-            sendStringToUser(header + body+ "\r\n");
-            
         }else{
-        	try {
-        		Scanner fr = new Scanner(f);
-                
+            try {
+                Scanner fr = new Scanner(f);
+
                 while(fr.hasNextByte()){
                     body+=fr.nextByte();
                 }
                 
                 fr.close();
-                
-                
-        	} catch(FileNotFoundException e) {
+                try {
+                    DataOutputStream os = new DataOutputStream(client.getOutputStream());
+                    os.writeBytes(header + body + "\r\n");
+                    os.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
                 System.err.println("File could not be Read");
             }
-        	
-        	System.err.println(header + body+ "\r\n"); //TESTING
-        	
-            sendBytesToUser(header  + body+ "\r\n");
         }
 
 
-        closeConn();
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -333,51 +387,7 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void post(String[] initialLine) {
-    	String header = createHeader(initialLine);
-    	String body = "";
-    	File f = new File(initialLine[1].substring(1));
-        f = f.getAbsoluteFile();
-        
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")||initialLine[1].endsWith("txt")) {
-            try {
-            	BufferedReader br = new BufferedReader(new FileReader(initialLine[1].substring(1)));
-                Scanner fr = new Scanner(f);
-                while(fr.hasNextLine()){
-                    body+=fr.nextLine();
-                }
-                
-                fr.close();
-                
-            } catch (FileNotFoundException e) {
-                System.err.println("File could not be Read");
-            }
-            
-            System.err.println(header+ body + "\r\n"); //TESTING
-            
-            sendStringToUser(header+ body + "\r\n");
-            
-        }else{
-        	try {
-        		Scanner fr = new Scanner(f);
-                
-                while(fr.hasNextByte()){
-                    body+=fr.nextByte();
-                }
-                
-                fr.close();
-                
-                
-        	} catch(FileNotFoundException e) {
-                System.err.println("File could not be Read");
-            }
-        	
-        	System.err.println(header + body + "\r\n"); //TESTING
-        	
-            sendBytesToUser(header + body + "\r\n");
-        }
-
-
-        closeConn();
+        get(initialLine);
     }
     
     /**
@@ -385,18 +395,7 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void head(String[] initialLine) {
-        String header = createHeader(initialLine);
-        
-        System.err.println(header); //TESTING
-
-        sendStringToUser(header);
-
-        closeConn();
-    }
-    
-    private String createHeader(String[] initialLine) {
-    	
-    	Date d = new Date();
+        Date d = new Date();
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
@@ -405,6 +404,7 @@ public class HTTPThread extends Thread {
         f = f.getAbsoluteFile();
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
+        String body = "";
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
             contentType = "\r\nContent-Type: text/html";
@@ -436,67 +436,26 @@ public class HTTPThread extends Thread {
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
-        return header;
-    }
-    
-    private void closeConn() {
-    	try {
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes(header);
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
             client.close(); //close the socket
         } catch (IOException e) {
             System.err.println("HTTP/1.0 500 Internal Server Error");
         }
-    }
-    
-    private void sendStringToUser(String msg) {
-    	try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeChars(msg);
-            os.flush();
-            os.close();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void sendBytesToUser(String msg) {
-    	try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(msg);
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void unImplementedFunction() {
-    	try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
-            os.flush();
-            os.close();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    	
-    	closeConn();
     }
 
 
@@ -506,7 +465,26 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void delete(String[] initialLine) {
-    	unImplementedFunction();
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+        	
+        	
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -514,7 +492,24 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void put(String[] initialLine) {
-    	unImplementedFunction();
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -522,7 +517,24 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void link(String[] initialLine) {
-    	unImplementedFunction();
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     /**
@@ -530,7 +542,24 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void unlink(String[] initialLine) {
-    	unImplementedFunction();
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            client.close(); //close the socket
+        } catch (IOException e) {
+            System.err.println("HTTP/1.0 500 Internal Server Error");
+        }
     }
     
     @Override
