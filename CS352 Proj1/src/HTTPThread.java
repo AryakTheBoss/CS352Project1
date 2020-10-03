@@ -145,7 +145,7 @@ public class HTTPThread extends Thread {
         	System.err.println("HTTP/1.0 " + msg + "\r\n");
         	
         	try {
-    			outToClient.writeBytes("\r\nHTTP/1.0 " + msg + "\r\n");
+    			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
     			client.close();
     		} catch (IOException e) {
     			e.printStackTrace();
