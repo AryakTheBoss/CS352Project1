@@ -322,7 +322,7 @@ public class HTTPThread extends Thread {
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
         
 
-        System.out.println(header);
+        System.err.println(header);
         
         //get the file contents
         try {
@@ -414,6 +414,8 @@ public class HTTPThread extends Thread {
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+        
+        System.out.println(header);
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
