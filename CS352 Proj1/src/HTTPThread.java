@@ -32,8 +32,8 @@ public class HTTPThread extends Thread {
        // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
-        String temp = ""; //used for reading in additional lines
-        String restOfRequest = ""; //holds any lines after the initial request line
+        String temp; //used for reading in additional lines
+        String restOfRequest; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
         //gets a file stream that will send data to the client
@@ -60,16 +60,14 @@ public class HTTPThread extends Thread {
 	        	//get the rest of the response
 	        	while(!(temp.isEmpty())) {
 	        		
-	        		/*
 	        		//if there is a space or tab in the front, the line belongs to the previous header line
 	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ') {
 	        			restOfRequest = restOfRequest + temp;
-	        			*/
 	        		
 	        		//else, the line contains a new header line, so make a new line
-	        		//} else {
-	        			restOfRequest = restOfRequest + temp + "\n";
-	        		//}
+	        		} else {
+	        			restOfRequest = restOfRequest + "\n" + temp;
+	        		}
 	        		
 	        		temp = inFromServer.readLine(); //line after
 	        	}
