@@ -141,7 +141,16 @@ public class HTTPThread extends Thread {
         
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file)) {
-        	String msg = "HTTP/1.0 304 Not Modified\r\n";
+        	//Assumes legal request and that the file exists
+            Date d = new Date(file.lastModified());
+            Calendar c = Calendar.getInstance();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+            
+            
+        	String msg = "HTTP/1.0 304 Not Modified\r\n"
+        			+ "Expires: " + formatter.format(d) + "\r\n";
         	System.err.println(msg);
         	
         	byte[] realMsg = msg.getBytes();
@@ -358,7 +367,7 @@ public class HTTPThread extends Thread {
 			ioe.printStackTrace();
 		}
         
-        byte[] end = "".getBytes();
+        byte[] end = "\r\n".getBytes();
         last = new byte[fileContent.length + header.length() + end.length];
         System.arraycopy(header.getBytes(), 0, last, 0, header.length());
         System.arraycopy(fileContent, 0, last, header.length(), fileContent.length);
