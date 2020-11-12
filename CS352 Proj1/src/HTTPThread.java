@@ -138,9 +138,15 @@ public class HTTPThread extends Thread {
     		sendError("403 Forbidden", outToClient);
         	return;
     	}
+    	
+    	//For dealing with the stupid case that HEAD doesnt care about ifModifiedSince 
+    	boolean isHead = false;
+    	if(initialLine[0].equals("HEAD")) {
+    		isHead = true;
+    	}
         
         //checks if the file was modified or not
-        if(!checkDate(restOfRequest, file)) {
+        if(!checkDate(restOfRequest, file) && !isHead) {
         	//Assumes legal request and that the file exists
             Date d = new Date(file.lastModified());
             Calendar c = Calendar.getInstance();
@@ -296,7 +302,7 @@ public class HTTPThread extends Thread {
     	Date modified = new Date(file.lastModified());
     	
     	//compare the dates, if the ifModified date is at or after modified date, return true
-    	if ((ifModified.compareTo(modified)) <= 0) {
+    	if ((ifModified.compareTo(modified)) < 0) {
     		return true;
     	}
     	
