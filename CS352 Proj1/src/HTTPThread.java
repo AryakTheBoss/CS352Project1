@@ -153,7 +153,7 @@ public class HTTPThread extends Thread {
             
             //message
         	String msg = "HTTP/1.0 304 Not Modified\r\n"
-        					+ "Expires: " + formatter.format(c.getTime());;
+        					+ "Expires: " + formatter.format(c.getTime()) + "\r\n";;
         	System.err.println(msg);
         	
         	byte[] realMsg = msg.getBytes();
@@ -296,7 +296,7 @@ public class HTTPThread extends Thread {
     	Date modified = new Date(file.lastModified());
     	
     	//compare the dates, if the ifModified date is at or after modified date, return true
-    	if ((ifModified.compareTo(modified)) < 0) {
+    	if ((ifModified.compareTo(modified)) <= 0) {
     		return true;
     	}
     	
