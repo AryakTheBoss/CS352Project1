@@ -148,8 +148,8 @@ public class HTTPThread extends Thread {
             //Make a formatter and make a date set to a year from today
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-            c.setTime(d);
             c.add(Calendar.YEAR, 1);
+            
             
             //message
         	String msg = "HTTP/1.0 304 Not Modified\r\n"
