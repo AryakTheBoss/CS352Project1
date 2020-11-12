@@ -261,6 +261,7 @@ public class HTTPThread extends Thread {
     	}
     	*/
     	
+    	//TESTING
     	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
     		System.err.println("No param: " + arr[0]);
     		return true;
@@ -291,7 +292,7 @@ public class HTTPThread extends Thread {
     	Date modified = new Date(file.lastModified());
     	
     	//compare the dates, if the ifModified date is at or after modified date, return true
-    	if ((ifModified.compareTo(modified)) > 0) {
+    	if ((ifModified.compareTo(modified)) < 0) {
     		return true;
     	}
     	
