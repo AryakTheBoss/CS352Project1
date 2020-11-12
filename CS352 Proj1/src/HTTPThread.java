@@ -57,12 +57,12 @@ public class HTTPThread extends Thread {
 	        	temp = inFromServer.readLine(); //line after
 	        	restOfRequest = ""; //will store everything after the initial line
 	        	
-	        	
+	        	//START OF READ IN AREA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	        	if(!temp.isEmpty()) {
 	        		restOfRequest = temp;
 	        	}
 	        	
-	        	
+	        	//This while loop is supposed to read in the rest of the headers into a string!!! Might be broken tho.
 	        	/*
 	        	boolean first = true;
 	        	//get the rest of the response
@@ -81,6 +81,8 @@ public class HTTPThread extends Thread {
 	        		temp = inFromServer.readLine(); //line after
 	        	}
 	        	*/
+	        	
+	        	//END OF READ IN AREA
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
@@ -144,11 +146,12 @@ public class HTTPThread extends Thread {
     	if(initialLine[0].equals("HEAD")) {
     		isHead = true;
     	}
+    	
+    	
         
         //checks if the file was modified or not
         if(!checkDate(restOfRequest, file) && !isHead) {
         	//Assumes legal request and that the file exists
-            Date d = new Date(file.lastModified());
             Calendar c = Calendar.getInstance();
             
             //Make a formatter and make a date set to a year from today
@@ -172,6 +175,9 @@ public class HTTPThread extends Thread {
     		}
         	return;
         }
+        
+        //
+        
         
         //Calls the particular command specified by the first token
         if(initialLine[0].equals("GET")) {
@@ -315,48 +321,8 @@ public class HTTPThread extends Thread {
      */
     public void get(String[] initialLine) {
 
-        //Assumes legal request and that the file exists
-        Date d = new Date();
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
-        f = f.getAbsoluteFile();
-        
-        
-        String header = "HTTP/1.0 200 OK"; //the initial header line
-        String body = "";
-        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\r\nContent-Type: text/html";
-        }else if(initialLine[1].endsWith("txt")){
-            contentType = "\r\nContent-Type: text/plain";
-        }else if(initialLine[1].endsWith("gif")){
-            contentType= "\r\nContent-Type: image/gif";
-        }else if(initialLine[1].endsWith("png")){
-            contentType= "\r\nContent-Type: image/png";
-        }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\r\nContent-Type: image/jpeg";
-        }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\r\nContent-Type: application/pdf";
-        }else if(initialLine[1].endsWith("zip")){
-            contentType= "\r\nContent-Type: application/zip";
-        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\r\nContent-Type: application/x-gzip";
-        }else{
-            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
-        }
-
-        contentEncoding="\r\nContent-Encoding: identity";
-        allow = "\r\nAllow: GET, POST, HEAD";
-    
-        c.setTime(d);
-            contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-            lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
-         c.add(Calendar.YEAR, 1);
-         expires = "\r\nExpires: " + formatter.format(c.getTime());
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+    	//Creates the header for the file
+    	String header = createHeader(initialLine);
         
         byte[] last = null;
         byte[] fileContent = null;
@@ -365,6 +331,8 @@ public class HTTPThread extends Thread {
         
         //get the file contents
         try {
+        	File f = new File(initialLine[1].substring(1));
+            f = f.getAbsoluteFile();
 			FileInputStream fis = new FileInputStream(f);
 			
 			fileContent = new byte[(int)f.length()];
@@ -399,12 +367,8 @@ public class HTTPThread extends Thread {
             e.printStackTrace();
         }
 
-
-        try {
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
+        //closes the connection
+        closeConn();
     }
     
     /**
@@ -420,6 +384,71 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void head(String[] initialLine) {
+    	
+    	//Creates the header for the file
+    	String header = createHeader(initialLine);
+    	
+        System.out.println(header);
+        
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.writeBytes(header);
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //closes the connection
+        closeConn();
+    }
+
+
+    
+    /**
+     * Will implement the DELETE method of HTTP protocol
+     * @param initialLine
+     */
+    public void delete(String[] initialLine) {
+    	unImplementedFunction();
+    }
+    
+    /**
+     * Will implement the PUT method of HTTP protocol
+     * @param initialLine
+     */
+    public void put(String[] initialLine) {
+    	unImplementedFunction();
+    }
+    
+    /**
+     * Will implement the LINK method of HTTP protocol
+     * @param initialLine
+     */
+    public void link(String[] initialLine) {
+    	unImplementedFunction();
+    }
+    
+    /**
+     * Will implement the UNLINK method of HTTP protocol
+     * @param initialLine
+     */
+    public void unlink(String[] initialLine) {
+    	unImplementedFunction();
+    }
+    
+    /**
+     * Creates the header for the HTTP responses based on the initial line and file.
+     * @param initialLine first line of the HTTP request
+     * @return header as a string (INCLUDING TWO CLRF's AT THE END!!!)
+     */
+    private String createHeader(String[] initialLine) {
+    	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
@@ -459,69 +488,19 @@ public class HTTPThread extends Thread {
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
-        
-        System.out.println(header);
-        
-        try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes(header);
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
-    }
-
-
-    
-    /**
-     * Will implement the DELETE method of HTTP protocol
-     * @param initialLine
-     */
-    public void delete(String[] initialLine) {
-        try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-        	
-        	
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
+    	return header;
     }
     
     /**
-     * Will implement the PUT method of HTTP protocol
-     * @param initialLine
+     * For all unimplemented HTTP functions
+     * returns the error code 501
      */
-    public void put(String[] initialLine) {
-        try {
+    private void unImplementedFunction() {
+    	try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
+            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -531,57 +510,15 @@ public class HTTPThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
+    	
+    	closeConn();
     }
     
     /**
-     * Will implement the LINK method of HTTP protocol
-     * @param initialLine
+     * closes the socket connection, sends a server error if unsuccessful.
      */
-    public void link(String[] initialLine) {
-        try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            client.close(); //close the socket
-        } catch (IOException e) {
-            System.err.println("HTTP/1.0 500 Internal Server Error");
-        }
-    }
-    
-    /**
-     * Will implement the UNLINK method of HTTP protocol
-     * @param initialLine
-     */
-    public void unlink(String[] initialLine) {
-        try {
-            DataOutputStream os = new DataOutputStream(client.getOutputStream());
-            os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
-            os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
+    private void closeConn() {
+    	try {
             client.close(); //close the socket
         } catch (IOException e) {
             System.err.println("HTTP/1.0 500 Internal Server Error");
