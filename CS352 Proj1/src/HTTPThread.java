@@ -144,12 +144,16 @@ public class HTTPThread extends Thread {
         	//Assumes legal request and that the file exists
             Date d = new Date(file.lastModified());
             Calendar c = Calendar.getInstance();
-
+            
+            //Make a formatter and make a date set to a year from today
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+            c.setTime(d);
+            c.add(Calendar.YEAR, 1);
             
-            
-        	String msg = "HTTP/1.0 304 Not Modified\r\n";
+            //message
+        	String msg = "HTTP/1.0 304 Not Modified\r\n"
+        					+ "Expires: " + formatter.format(c.getTime());;
         	System.err.println(msg);
         	
         	byte[] realMsg = msg.getBytes();
