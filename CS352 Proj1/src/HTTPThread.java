@@ -376,7 +376,41 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void post(String[] initialLine) {
-        get(initialLine);
+        
+    	String header = createHeader(initialLine);
+    	
+    	//create and initialize the commands String array
+    	String[] commands = null;
+    	
+    	//run the commands and store the result
+    	char[] output = runScript(commands);
+    	String output2 = new String(output);
+    	
+    	byte[] last = null;
+    	byte[] fileContent = output2.getBytes();
+    	byte[] end = "\r\n".getBytes();
+        last = new byte[fileContent.length + header.length() + end.length];
+        System.arraycopy(header.getBytes(), 0, last, 0, header.length());
+        System.arraycopy(fileContent, 0, last, header.length(), fileContent.length);
+        System.arraycopy(end, 0, last, fileContent.length + header.length(), end.length);
+    	
+        try {
+            DataOutputStream os = new DataOutputStream(client.getOutputStream());
+            os.write(last);
+            os.flush();
+            try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+            os.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //closes the connection
+        closeConn();
     }
     
     /**
@@ -489,6 +523,31 @@ public class HTTPThread extends Thread {
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
     	return header;
+    }
+    
+    private char[] runScript(String[] commands) {
+    	/*
+    	 * The next try catch statement surrounds the running of a script
+    	 * will take in the arguments given, run the specified file with those arguments, and return the result.
+    	 */
+    	char[] output = new char[10000];
+    	try {
+			Runtime rt = Runtime.getRuntime();
+			Process proc = rt.exec(commands);
+			
+			//Reader for standard input from the process
+			BufferedReader stdInput = new BufferedReader(new 
+			     InputStreamReader(proc.getInputStream()));
+			
+			stdInput.read(output);
+			
+			//close the buffered reader
+			stdInput.close();
+    	} catch (IOException ioe){
+    		ioe.printStackTrace();
+    	}
+    	
+    	return output;
     }
     
     /**
