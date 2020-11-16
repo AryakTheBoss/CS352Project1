@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="" />
+    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,24 +22,11 @@
   <component name="ProjectId" id="1hnLV5Q0aOjuTVZossdwK17K20j" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -44,5 +40,40 @@
       <updated>1600641929506</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
+    <option name="LAST_COMMIT_MESSAGE" value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="215" y="107" width="1071" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605509279697">
+      <screen x="0" y="25" width="1440" height="809" />
+    </state>
+    <state x="215" y="107" width="1071" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.809@0.25.1440.809" timestamp="1605509279697" />
+    <state x="195" y="86" width="1071" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.813@0.25.1440.813" timestamp="1605508433589" />
+    <state x="468" y="243" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1605509278485">
+      <screen x="0" y="25" width="1440" height="809" />
+    </state>
+    <state x="468" y="243" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1440.809@0.25.1440.809" timestamp="1605509278485" />
+    <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1605500585752">
+      <screen x="0" y="25" width="1440" height="809" />
+    </state>
+    <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.809@0.25.1440.809" timestamp="1605500585752" />
+    <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605500369807">
+      <screen x="0" y="25" width="1440" height="809" />
+    </state>
+    <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
   </component>
 </project>

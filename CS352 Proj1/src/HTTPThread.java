@@ -33,7 +33,8 @@ public class HTTPThread extends Thread {
         
         String request = "";//holds the initial request line
         String temp; //used for reading in additional lines
-        String restOfRequest; //holds any lines after the initial request line
+        //String restOfRequest; //holds any lines after the initial request line
+        ArrayList<String> restOfRequest = new ArrayList<String>();
         DataOutputStream outToClient = null; //file stream to send data to the client
         
         //gets a file stream that will send data to the client
@@ -54,13 +55,16 @@ public class HTTPThread extends Thread {
         	//checks if the client times out
         	try {
 	        	request = inFromServer.readLine(); //initial line
-	        	temp = inFromServer.readLine(); //line after
-	        	restOfRequest = ""; //will store everything after the initial line
+	        	//temp = inFromServer.readLine(); //line after
+
+                while ((temp = inFromServer.readLine()) != null) {
+                    restOfRequest.add(temp);
+                }//will store everything after the initial line
 	        	
 	        	//START OF READ IN AREA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	        	if(!temp.isEmpty()) {
+	        	/*if(!temp.isEmpty()) {
 	        		restOfRequest = temp;
-	        	}
+	        	}*/
 	        	
 	        	//This while loop is supposed to read in the rest of the headers into a string!!! Might be broken tho.
 	        	/*
@@ -183,7 +187,7 @@ public class HTTPThread extends Thread {
         if(initialLine[0].equals("GET")) {
         	get(initialLine);
         } else if(initialLine[0].equals("POST")) {
-        	post(initialLine);
+        	post(initialLine, restOfRequest);
         } else if(initialLine[0].equals("HEAD")) {
         	head(initialLine);
         } else if(initialLine[0].equals("DELETE")) {
@@ -375,8 +379,15 @@ public class HTTPThread extends Thread {
      * Will implement the POST method of HTTP protocol
      * @param initialLine
      */
-    public void post(String[] initialLine) {
-        
+    public void post(String[] initialLine, ArrayList<String> restOfRequest) {
+        int x = request.size();
+        String parameters = request.get(x-1);
+        String [] encodedParameters = parameters.split("&");
+        String firstParam = encodedParameters[0].replaceFirst("!", "");
+        String secondParam = encodedParameters[1].replaceAll("!", "");
+
+        String decoded = firstParam + "&" + secondParam;
+
     	String header = createHeader(initialLine);
     	
     	//create and initialize the commands String array
