@@ -6,9 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CS352Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CS352Project1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/HTTPThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/HTTPThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/PartialHTTP1Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/PartialHTTP1Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/RejectedExecutionHandlerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/RejectedExecutionHandlerImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +20,14 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1hnLV5Q0aOjuTVZossdwK17K20j" />
   <component name="ProjectViewState">
@@ -27,7 +37,24 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF" />
+      <recent name="$PROJECT_DIR$/CS352 Proj1/src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <module name="CS352Project1" />
+      <option name="VM_PARAMETERS" value="$USER_HOME$/Downloads/javafx-sdk-15/lib" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -39,6 +66,14 @@
       <option name="presentableId" value="Default" />
       <updated>1600641929506</updated>
     </task>
+    <task id="LOCAL-00001" summary="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access">
+      <created>1605510331286</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605510331286</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -58,22 +93,49 @@
     <option name="LAST_COMMIT_MESSAGE" value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="215" y="107" width="1071" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605509279697">
-      <screen x="0" y="25" width="1440" height="809" />
+    <state x="215" y="59" width="1071" height="781" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605654626995">
+      <screen x="0" y="25" width="1440" height="815" />
     </state>
     <state x="215" y="107" width="1071" height="727" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.809@0.25.1440.809" timestamp="1605509279697" />
     <state x="195" y="86" width="1071" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.813@0.25.1440.813" timestamp="1605508433589" />
-    <state x="468" y="243" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1605509278485">
-      <screen x="0" y="25" width="1440" height="809" />
+    <state x="215" y="59" width="1071" height="781" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.815@0.25.1440.815" timestamp="1605654626995" />
+    <state x="468" y="245" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1605654655258">
+      <screen x="0" y="25" width="1440" height="815" />
     </state>
     <state x="468" y="243" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1440.809@0.25.1440.809" timestamp="1605509278485" />
+    <state x="468" y="245" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1440.815@0.25.1440.815" timestamp="1605654655258" />
+    <state width="1239" height="205" key="GridCell.Tab.0.bottom" timestamp="1605654524880">
+      <screen x="0" y="25" width="1440" height="815" />
+    </state>
+    <state width="1239" height="205" key="GridCell.Tab.0.bottom/0.25.1440.815@0.25.1440.815" timestamp="1605654524880" />
+    <state width="1239" height="205" key="GridCell.Tab.0.center" timestamp="1605654524878">
+      <screen x="0" y="25" width="1440" height="815" />
+    </state>
+    <state width="1239" height="205" key="GridCell.Tab.0.center/0.25.1440.815@0.25.1440.815" timestamp="1605654524878" />
+    <state width="1239" height="205" key="GridCell.Tab.0.left" timestamp="1605654524878">
+      <screen x="0" y="25" width="1440" height="815" />
+    </state>
+    <state width="1239" height="205" key="GridCell.Tab.0.left/0.25.1440.815@0.25.1440.815" timestamp="1605654524878" />
+    <state width="1239" height="205" key="GridCell.Tab.0.right" timestamp="1605654524879">
+      <screen x="0" y="25" width="1440" height="815" />
+    </state>
+    <state width="1239" height="205" key="GridCell.Tab.0.right/0.25.1440.815@0.25.1440.815" timestamp="1605654524879" />
+    <state x="239" y="63" key="SettingsEditor" timestamp="1605655356028">
+      <screen x="0" y="25" width="1440" height="817" />
+    </state>
+    <state x="239" y="63" key="SettingsEditor/0.25.1440.817@0.25.1440.817" timestamp="1605655356028" />
+    <state x="330" y="164" key="Vcs.Push.Dialog.v2" timestamp="1605510338582">
+      <screen x="0" y="25" width="1440" height="809" />
+    </state>
+    <state x="330" y="164" key="Vcs.Push.Dialog.v2/0.25.1440.809@0.25.1440.809" timestamp="1605510338582" />
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1605500585752">
       <screen x="0" y="25" width="1440" height="809" />
     </state>
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.809@0.25.1440.809" timestamp="1605500585752" />
-    <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605500369807">
-      <screen x="0" y="25" width="1440" height="809" />
+    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605654522196">
+      <screen x="0" y="25" width="1440" height="815" />
     </state>
     <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
+    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605654522196" />
   </component>
 </project>

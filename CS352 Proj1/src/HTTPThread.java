@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.text.ParseException;
 import java.util.TimeZone;
 import java.net.SocketTimeoutException;
+import java.util.Map;
 
 public class HTTPThread extends Thread {
 
@@ -33,8 +34,7 @@ public class HTTPThread extends Thread {
         
         String request = "";//holds the initial request line
         String temp; //used for reading in additional lines
-        //String restOfRequest; //holds any lines after the initial request line
-        ArrayList<String> restOfRequest = new ArrayList<String>();
+        String restOfRequest = ""; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
         //gets a file stream that will send data to the client
@@ -58,7 +58,7 @@ public class HTTPThread extends Thread {
 	        	//temp = inFromServer.readLine(); //line after
 
                 while ((temp = inFromServer.readLine()) != null) {
-                    restOfRequest.add(temp);
+                    restOfRequest = temp + restOfRequest;
                 }//will store everything after the initial line
 	        	
 	        	//START OF READ IN AREA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -259,7 +259,7 @@ public class HTTPThread extends Thread {
     
     /**
      * Will check if the file has been modified ever since the specified date
-     * @param ifModified the string that holds the date.
+     * @param headers the string that holds the headers of the request, file is the file the request comes from
      * @return	boolean	if the file wasn't modified ever since the if-modified-since header date, returns true, false otherwise
      */
     public boolean checkDate(String headers, File file) {
@@ -374,19 +374,76 @@ public class HTTPThread extends Thread {
         //closes the connection
         closeConn();
     }
+
+    public boolean numCheck(String num){
+        boolean isNumber = true;
+        try {
+            int x = Integer.parseInt(num);
+        } catch (NumberFormatException e) {
+            isNumber = false;
+        }
+        return isNumber;
+    }
     
     /**
      * Will implement the POST method of HTTP protocol
      * @param initialLine
      */
-    public void post(String[] initialLine, ArrayList<String> restOfRequest) {
-        int x = request.size();
-        String parameters = request.get(x-1);
-        String [] encodedParameters = parameters.split("&");
-        String firstParam = encodedParameters[0].replaceFirst("!", "");
-        String secondParam = encodedParameters[1].replaceAll("!", "");
+    public void post(String[] initialLine, String restOfRequest) {
+        String [] headers = restOfRequest.split("|\n");
+        Map<String,String> env = System.getenv();
+        env.put("SCRIPT_NAME", initialLine[1]);
 
-        String decoded = firstParam + "&" + secondParam;
+        DataOutputStream outToClient = null;
+        try {
+            outToClient = new DataOutputStream(client.getOutputStream());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        boolean type = false;
+        boolean length = false;
+
+        for(int i  = 0; i < headers.length; i++){
+            String [] temp = headers[i].split(" ");
+            if(temp[0].equalsIgnoreCase("From:")){
+                env.put("HTTP_FROM", temp[1]);
+            }
+            else if(temp[0].equalsIgnoreCase("User-Agent:")){
+                env.put("HTTP_USER_AGENT", temp[1]);
+            }
+            else if(temp[0].equalsIgnoreCase("Content-Type:")){
+                type = true;
+            }
+            else if(temp[0].equalsIgnoreCase("Content-Length:")){
+                length = true;
+                if(!numCheck(temp[1])){
+                    sendError("411 Length Required", outToClient);
+                }
+                env.put("CONTENT_LENGTH", temp[1]);
+            }
+        }
+        if(!type){
+            sendError("500 Internal Service Error", outToClient);
+        }
+        else if(!length){
+            sendError("411 Length Required", outToClient);
+        }
+
+        int x = headers.length;
+        String parameters = headers[x-1];
+        int count = 0;
+        for(int j = 0; j < parameters.length(); j++){
+            if(count != 0 && parameters.charAt(j) == '!'){
+                parameters.replace(parameters.charAt(j), '\0');
+            }
+            if(parameters.charAt(j) == '!'){
+                count++;
+            }
+        }
+
+        String decoded = parameters;
 
     	String header = createHeader(initialLine);
     	
