@@ -571,6 +571,9 @@ public class HTTPThread extends Thread {
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
     	
+    	//error checking for printing payload
+    	System.err.println(header + output2);
+    	
     	byte[] last = null;
     	byte[] fileContent = output2.getBytes();
     	byte[] end = "\r\n".getBytes();
