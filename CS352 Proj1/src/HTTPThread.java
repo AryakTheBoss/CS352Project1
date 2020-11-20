@@ -59,7 +59,7 @@ public class HTTPThread extends Thread {
 	        	
 	        	
                 while ((temp = inFromServer.readLine()) != null) {
-                    restOfRequest = temp + restOfRequest;
+                    restOfRequest = temp + "\n" + restOfRequest;
                 }//will store everything after the initial line
                 
 	        
