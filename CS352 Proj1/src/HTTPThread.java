@@ -55,13 +55,13 @@ public class HTTPThread extends Thread {
         	//checks if the client times out
         	try {
 	        	request = inFromServer.readLine(); //initial line
-	        	restOfRequest = inFromServer.readLine(); //line after
+	        	//restOfRequest = inFromServer.readLine(); //line after
 	        	
-	        	/*
+	        	
                 while ((temp = inFromServer.readLine()) != null) {
-                    restOfRequest = temp + restOfRequest;
+                    restOfRequest = temp + "\n" + restOfRequest;
                 }//will store everything after the initial line
-                */
+                
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
@@ -306,49 +306,8 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-
-    	//Assumes legal request and that the file exists
-        Date d = new Date();
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
-        f = f.getAbsoluteFile();
-
-
-        String header = "HTTP/1.0 200 OK"; //the initial header line
-        String body = "";
-        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
-            contentType = "\r\nContent-Type: text/html";
-        }else if(initialLine[1].endsWith("txt")){
-            contentType = "\r\nContent-Type: text/plain";
-        }else if(initialLine[1].endsWith("gif")){
-            contentType= "\r\nContent-Type: image/gif";
-        }else if(initialLine[1].endsWith("png")){
-            contentType= "\r\nContent-Type: image/png";
-        }else if(initialLine[1].endsWith("jpg")){
-            contentType= "\r\nContent-Type: image/jpeg";
-        }else if(initialLine[1].endsWith("pdf")){
-            contentType= "\r\nContent-Type: application/pdf";
-        }else if(initialLine[1].endsWith("zip")){
-            contentType= "\r\nContent-Type: application/zip";
-        }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
-            contentType= "\r\nContent-Type: application/x-gzip";
-        }else{
-            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
-        }
-
-        contentEncoding="\r\nContent-Encoding: identity";
-        allow = "\r\nAllow: GET, POST, HEAD";
-
-        c.setTime(d);
-            contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-            lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
-         c.add(Calendar.YEAR, 1);
-         expires = "\r\nExpires: " + formatter.format(c.getTime());
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+    	
+        String header = createHeader(initialLine);
         
         byte[] last = null;
         byte[] fileContent = null;
@@ -357,7 +316,7 @@ public class HTTPThread extends Thread {
         
         //get the file contents
         try {
-        	//File f = new File(initialLine[1].substring(1));
+        	File f = new File(initialLine[1].substring(1));
 			FileInputStream fis = new FileInputStream(f);
 			
 			fileContent = new byte[(int)f.length()];
