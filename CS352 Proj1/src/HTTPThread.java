@@ -60,33 +60,6 @@ public class HTTPThread extends Thread {
                 while ((temp = inFromServer.readLine()) != null) {
                     restOfRequest = temp + restOfRequest;
                 }//will store everything after the initial line
-	        	
-	        	//START OF READ IN AREA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	        	/*if(!temp.isEmpty()) {
-	        		restOfRequest = temp;
-	        	}*/
-	        	
-	        	//This while loop is supposed to read in the rest of the headers into a string!!! Might be broken tho.
-	        	/*
-	        	boolean first = true;
-	        	//get the rest of the response
-	        	while(!(temp.isEmpty())) {
-	        		
-	        		//if there is a space or tab in the front, the line belongs to the previous header line
-	        		if(temp.charAt(0) == '\t' || temp.charAt(0) == ' ' || first) {
-	        			first = false;
-	        			restOfRequest = restOfRequest + temp;
-	        		
-	        		//else, the line contains a new header line, so make a new line
-	        		} else {
-	        			restOfRequest = restOfRequest + "\n" + temp;
-	        		}
-	        		
-	        		temp = inFromServer.readLine(); //line after
-	        	}
-	        	*/
-	        	
-	        	//END OF READ IN AREA
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
