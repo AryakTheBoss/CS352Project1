@@ -106,6 +106,17 @@ public class HTTPThread extends Thread {
         	return;
         }
         
+        //checking for not implemented
+        if(initialLine[0].equals("DELETE")) {
+        	delete(initialLine);
+        } else if(initialLine[0].equals("PUT")) {
+        	put(initialLine);
+        } else if(initialLine[0].equals("LINK")) {
+        	link(initialLine);
+        } else if(initialLine[0].equals("UNLINK")) {
+        	unlink(initialLine);
+        }
+        
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1].substring(1));
     	
@@ -167,14 +178,6 @@ public class HTTPThread extends Thread {
         	post(initialLine, restOfRequest);
         } else if(initialLine[0].equals("HEAD")) {
         	head(initialLine);
-        } else if(initialLine[0].equals("DELETE")) {
-        	delete(initialLine);
-        } else if(initialLine[0].equals("PUT")) {
-        	put(initialLine);
-        } else if(initialLine[0].equals("LINK")) {
-        	link(initialLine);
-        } else {
-        	unlink(initialLine);
         }
         
     }
