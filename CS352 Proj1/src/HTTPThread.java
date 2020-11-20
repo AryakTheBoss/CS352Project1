@@ -181,8 +181,6 @@ public class HTTPThread extends Thread {
     			outToClient.write(realMsg);
     		} catch (IOException e) {
     			e.printStackTrace();
-    		} catch (InterruptedException ie) {
-    			
     		}
         	return;
         }
