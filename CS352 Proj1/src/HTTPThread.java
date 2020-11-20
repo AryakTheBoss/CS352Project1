@@ -119,12 +119,16 @@ public class HTTPThread extends Thread {
         //checking for not implemented
         if(initialLine[0].equals("DELETE")) {
         	delete(initialLine);
+        	return;
         } else if(initialLine[0].equals("PUT")) {
         	put(initialLine);
+        	return;
         } else if(initialLine[0].equals("LINK")) {
         	link(initialLine);
+        	return;
         } else if(initialLine[0].equals("UNLINK")) {
         	unlink(initialLine);
+        	return;
         }
         
         //attempt to read the second argument as a file
@@ -615,13 +619,6 @@ public class HTTPThread extends Thread {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f= new File(initialLine[1].substring(1));;
-
-
-
-
-
-
-
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
