@@ -537,7 +537,12 @@ public class HTTPThread extends Thread {
             }
         }
         
-        String[] commands;
+        String[] commands = new String[1];
+        commands[0] = initialLine[1].substring(1);
+        
+        String [] parameters = param.split("&");
+        
+        /*
         if(and){
             String [] parameters = param.split("&");
             int parametersLength  = parameters.length+1;
@@ -552,15 +557,15 @@ public class HTTPThread extends Thread {
             commands[0] = initialLine[0];
             commands[1] = param;
         }
-
+		*/
+        
 
     	
     	
     	//create and initialize the commands String array
-    	//String[] commands = null;
     	
     	//run the commands and store the result
-    	char[] output = runScript(commands);
+    	char[] output = runScript(commands, parameters);
     	String output2 = new String(output).trim();
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
@@ -716,7 +721,7 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
-    private char[] runScript(String[] commands) {
+    private char[] runScript(String[] commands, String[] parameters) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
@@ -724,7 +729,7 @@ public class HTTPThread extends Thread {
     	char[] output = new char[10000];
     	try {
 			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commands);
+			Process proc = rt.exec(commands, parameters);
 			
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
