@@ -205,7 +205,9 @@ public class HTTPThread extends Thread {
     	
     	try {
 			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
-			client.close();
+			
+			//this was causing exceptions!
+			//client.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
