@@ -6,14 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access">
-      <change beforePath="$PROJECT_DIR$/.idea/CS352Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CS352Project1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/HTTPThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/HTTPThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/PartialHTTP1Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/PartialHTTP1Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/RejectedExecutionHandlerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/out/production/CS352 Proj1/META-INF/RejectedExecutionHandlerImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +31,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
@@ -45,7 +42,7 @@
       <recent name="$PROJECT_DIR$/CS352 Proj1/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.PartialHTTP1Server">
     <configuration name="Main" type="Application" factoryName="Application">
       <module name="CS352Project1" />
       <option name="VM_PARAMETERS" value="$USER_HOME$/Downloads/javafx-sdk-15/lib" />
@@ -53,8 +50,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PartialHTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PartialHTTP1Server" />
+      <module name="CS352Project1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PartialHTTP1Server" />
+      </list>
+    </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -81,18 +102,23 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
     <option name="LAST_COMMIT_MESSAGE" value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="690" y="257" key="#Project_Structure" timestamp="1605831800586">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="690" y="257" key="#Project_Structure/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831800586" />
     <state x="215" y="59" width="1071" height="781" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605654626995">
       <screen x="0" y="25" width="1440" height="815" />
     </state>
@@ -104,6 +130,14 @@
     </state>
     <state x="468" y="243" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1440.809@0.25.1440.809" timestamp="1605509278485" />
     <state x="468" y="245" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1440.815@0.25.1440.815" timestamp="1605654655258" />
+    <state x="946" y="487" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1605819084860">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="946" y="487" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605819084860" />
+    <state x="772" y="313" key="FileChooserDialogImpl" timestamp="1605831876062">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="772" y="313" key="FileChooserDialogImpl/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831876062" />
     <state width="1239" height="205" key="GridCell.Tab.0.bottom" timestamp="1605654524880">
       <screen x="0" y="25" width="1440" height="815" />
     </state>
@@ -120,9 +154,10 @@
       <screen x="0" y="25" width="1440" height="815" />
     </state>
     <state width="1239" height="205" key="GridCell.Tab.0.right/0.25.1440.815@0.25.1440.815" timestamp="1605654524879" />
-    <state x="239" y="63" key="SettingsEditor" timestamp="1605655356028">
-      <screen x="0" y="25" width="1440" height="817" />
+    <state x="364" y="56" key="SettingsEditor" timestamp="1605831881385">
+      <screen x="0" y="0" width="2194" height="1194" />
     </state>
+    <state x="364" y="56" key="SettingsEditor/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831881385" />
     <state x="239" y="63" key="SettingsEditor/0.25.1440.817@0.25.1440.817" timestamp="1605655356028" />
     <state x="330" y="164" key="Vcs.Push.Dialog.v2" timestamp="1605510338582">
       <screen x="0" y="25" width="1440" height="809" />
@@ -137,5 +172,13 @@
     </state>
     <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
     <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605654522196" />
+    <state x="811" y="390" key="git4idea.merge.GitPullDialog" timestamp="1605833705658">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="811" y="390" key="git4idea.merge.GitPullDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605833705658" />
+    <state x="524" y="219" key="new project wizard" timestamp="1605831975149">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="524" y="219" key="new project wizard/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831975149" />
   </component>
 </project>
