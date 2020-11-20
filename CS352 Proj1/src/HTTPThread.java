@@ -728,6 +728,7 @@ public class HTTPThread extends Thread {
     	 */
     	//char[] output = new char[10000];
     	String msg = "";
+    	commands[0] = "." + commands[0];
     	String cmd = commands[0];
     	try {
     		//making the command line
@@ -751,15 +752,21 @@ public class HTTPThread extends Thread {
     		}
     		*/
     		
+    		/*
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder();
     		//pb.command((List<String>)cmdline);
-    		pb.command("." + cmd);
+    		pb.command(cmd);
     		Map<String, String> env = pb.environment();
     		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
+    		*/
+    		
+    		Runtime rt = Runtime.getRuntime();
+    		Process proc = rt.exec(commands[0], makeEnvironment2(headers, initialLine[1]));
+    		
     		
     		System.err.println("Params passed: " + param);
     		
