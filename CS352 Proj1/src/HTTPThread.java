@@ -681,7 +681,7 @@ public class HTTPThread extends Thread {
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm") || isPost){
             contentType = "\r\nContent-Type: text/html";
         }else if(initialLine[1].endsWith("txt")){
             contentType = "\r\nContent-Type: text/plain";
