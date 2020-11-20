@@ -388,8 +388,10 @@ public class HTTPThread extends Thread {
         
         //look for blank line, and if the blank line has a line after it that is not blank, then that is the set of parameters
         boolean areParams = false;
+        int stop = -1;
         for(int i = 0; i < headers.length; i++) {
         	if(headers[i].equals("")) {
+        		stop = i;
         		if(i < headers.length - 1) {
         			//this means that there are parameters
         			areParams = true;
@@ -426,7 +428,7 @@ public class HTTPThread extends Thread {
         boolean type = false;
         boolean length = false;
 
-        for(int i  = 0; i < headers.length; i++){
+        for(int i  = 0; i < stop; i++){
             String [] temp = headers[i].split(":", 2);
             temp[1] = temp[1].substring(1); //skips the space
             if(temp[0].equalsIgnoreCase("From")){
