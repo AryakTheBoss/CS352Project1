@@ -412,23 +412,49 @@ public class HTTPThread extends Thread {
         }
 
         int x = headers.length;
-        String parameters = headers[x-1];
-        int count = 0;
-        for(int j = 0; j < parameters.length(); j++){
-            if(count != 0 && parameters.charAt(j) == '!'){
-                parameters.replace(parameters.charAt(j), '\0');
+        String param = headers[x-1];
+        char prev = '\0';
+        boolean and = false;
+        for(int i  = 0; i < x; i++){
+            if(param.charAt(i) == '&'){
+                and = true;
+                continue;
             }
-            if(parameters.charAt(j) == '!'){
-                count++;
+            if(param.charAt(i) == '!' && prev == '!'){
+                prev = '\0';
+                continue;
+            }
+            else if(param.charAt(i) != '!'){
+                prev = param.charAt(i);
+                continue;
+            }
+            else if(param.charAt(i) == '!'){
+                param.replace(param.valueOf(param.charAt(i)), "");
+                prev = '!';
             }
         }
 
-        String decoded = parameters;
+        String[] commands;
+        if(and){
+            String [] parameters = param.split("&");
+            int parametersLength  = parameters.length+1;
+            commands = new String[parametersLength];
+            commands[0] = initialLine[1];
+            for(int j = 1; j < parametersLength; j++){
+                commands[j] = parameters[j-1];
+            }
+        }
+        else{
+            commands = new String[2];
+            commands[0] = initialLine[0];
+            commands[1] = param;
+        }
+
 
     	String header = createHeader(initialLine);
     	
     	//create and initialize the commands String array
-    	String[] commands = null;
+    	//String[] commands = null;
     	
     	//run the commands and store the result
     	char[] output = runScript(commands);
