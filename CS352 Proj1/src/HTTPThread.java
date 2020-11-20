@@ -604,7 +604,7 @@ public class HTTPThread extends Thread {
     	//Creates the header for the file
     	String header = createHeader(initialLine,false,null);
     	
-        System.out.println(header + "--------------------------------------------------------------------------");
+        System.err.println(header + "--------------------------------------------------------------------------");
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
@@ -740,7 +740,8 @@ public class HTTPThread extends Thread {
     		}
     		
     		//make the process builder
-    		ProcessBuilder pb = new ProcessBuilder(cmdline);
+    		ProcessBuilder pb = new ProcessBuilder();
+    		pb.command(cmdline);
     		Map<String, String> env = pb.environment();
     		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
@@ -753,11 +754,11 @@ public class HTTPThread extends Thread {
 			
 			//Reader for standard error for the process
 			BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-			System.out.println("###############################################################");
+			System.err.println("###############################################################");
 			while(stdErr.ready()) {
-				System.out.println(stdErr.readLine());
+				System.err.println(stdErr.readLine());
 			}
-			System.out.println("##########################################################");
+			System.err.println("##########################################################");
 			
 			//Reader for standard input for the process
 			while(stdInput.ready()) {
