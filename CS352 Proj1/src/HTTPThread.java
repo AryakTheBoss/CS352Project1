@@ -755,7 +755,7 @@ public class HTTPThread extends Thread {
 			BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 			System.out.println("###############################################################");
 			while(stdErr.ready()) {
-				stdErr.readLine();
+				System.out.println(stdErr.readLine());
 			}
 			System.out.println("##########################################################");
 			
