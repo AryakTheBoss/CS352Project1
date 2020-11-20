@@ -382,6 +382,19 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void post(String[] initialLine, String restOfRequest) {
+        DataOutputStream outToClient = null;
+        try {
+            outToClient = new DataOutputStream(client.getOutputStream());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(!initialLine[1].endsWith("cgi")){
+            sendError("405 Method Not Allowed", outToClient);
+            return;
+        }
+
         String [] headers = restOfRequest.split("\n");
         
         //look for blank line, and if the blank line has a line after it that is not blank, then that is the set of parameters
@@ -415,14 +428,6 @@ public class HTTPThread extends Thread {
         
         //Map<String,String> env = System.getenv();
         //env.put("SCRIPT_NAME", initialLine[1]);
-
-        DataOutputStream outToClient = null;
-        try {
-            outToClient = new DataOutputStream(client.getOutputStream());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         boolean type = false;
         boolean length = false;
