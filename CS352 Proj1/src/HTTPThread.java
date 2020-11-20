@@ -73,8 +73,6 @@ public class HTTPThread extends Thread {
         		//if if-statement is not triggered, we assume that information was successfully extracted
         	}
         	
-        	inFromServer.close();
-        	
         } catch (IOException ioe) {
         	System.err.println("HTTP/1.0 500 Internal Server Error");
         	return;
