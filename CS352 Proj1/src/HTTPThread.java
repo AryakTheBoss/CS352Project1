@@ -177,7 +177,6 @@ public class HTTPThread extends Thread {
         	
         	try {
     			outToClient.write(realMsg);
-    			client.close();
     		} catch (IOException e) {
     			e.printStackTrace();
     		}
@@ -743,7 +742,7 @@ public class HTTPThread extends Thread {
      * @throws IOException
      */
     private static String readBytes(BufferedReader br) throws IOException {
-        ArrayList < Byte > byteList = new ArrayList < Byte > ();
+        //ArrayList < Byte > byteList = new ArrayList < Byte > ();
         String msg = "";
         /* Read byte from socket until we read everything in the buffer */
         int currentByteInt = -1;
