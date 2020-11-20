@@ -384,7 +384,7 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void post(String[] initialLine, String restOfRequest) {
-        String [] headers = restOfRequest.split("|\n");
+        String [] headers = restOfRequest.split("\n");
         
         //constants for the evars array
         final int SCRIPT_NAME = 0;
