@@ -396,6 +396,7 @@ public class HTTPThread extends Thread {
         			//this means that there are parameters
         			areParams = true;
         		}
+        		break;
         	}
         }
         
