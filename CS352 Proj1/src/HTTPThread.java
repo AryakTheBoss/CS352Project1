@@ -761,7 +761,7 @@ public class HTTPThread extends Thread {
 			
 			//Reader for standard input for the process
 			while(stdInput.ready()) {
-				msg = msg + stdInput.readLine();
+				msg = msg + stdInput.readLine() + "\n";
 			}
 			
 			//close the buffered readers
