@@ -38,14 +38,6 @@ public class HTTPThread extends Thread {
         String restOfRequest = ""; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
-        //gets a file stream that will send data to the client
-    	try {
-            outToClient = new DataOutputStream(client.getOutputStream());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
         //get the HTTP request
         //initial line is stored in request
         //additional lines are stored in restOfRequest
@@ -208,7 +200,7 @@ public class HTTPThread extends Thread {
 			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
 			
 			//this was causing exceptions!
-			//client.close();
+			closeConn();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
