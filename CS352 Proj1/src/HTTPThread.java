@@ -55,7 +55,7 @@ public class HTTPThread extends Thread {
         	//checks if the client times out
         	try {
 	        	request = inFromServer.readLine(); //initial line
-	        	//temp = inFromServer.readLine(); //line after
+	        	temp = inFromServer.readLine(); //line after
 	        	
 	        	/*
                 while ((temp = inFromServer.readLine()) != null) {
