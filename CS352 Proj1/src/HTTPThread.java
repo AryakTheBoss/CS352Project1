@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.TimeZone;
 import java.net.SocketTimeoutException;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class HTTPThread extends Thread {
 
@@ -33,7 +34,7 @@ public class HTTPThread extends Thread {
        // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
-        String temp; //used for reading in additional lines
+        String temp = null; //used for reading in additional lines
         String restOfRequest = ""; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
@@ -49,19 +50,21 @@ public class HTTPThread extends Thread {
         //initial line is stored in request
         //additional lines are stored in restOfRequest
         try {
-        	BufferedReader inFromServer = new BufferedReader(new
-        				InputStreamReader(client.getInputStream()));
+        	InputStream input = client.getInputStream();
+        	//BufferedReader inFromServer = new BufferedReader(new
+        				//InputStreamReader(client.getInputStream()));
         	
         	//checks if the client times out
         	try {
-	        	request = inFromServer.readLine(); //initial line
+	        	//request = inFromServer.readLine(); //initial line
 	        	//restOfRequest = inFromServer.readLine(); //line after
 	        	
-	        	
+	        	temp = readBytes(input);
+	        	/*
                 while ((temp = inFromServer.readLine()) != null) {
                     restOfRequest = temp + "\n" + restOfRequest;
                 }//will store everything after the initial line
-                
+                */
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
@@ -79,6 +82,11 @@ public class HTTPThread extends Thread {
         	System.err.println("HTTP/1.0 500 Internal Server Error");
         	return;
         }
+        
+        //Now that we have the full string, separate the initial line from the rest.
+        String[] splitRequest = temp.split("\n");
+        request = splitRequest[0];
+        restOfRequest = splitRequest[2];
         
         //gets a file stream that will send data to the client
     	try {
@@ -636,5 +644,26 @@ public class HTTPThread extends Thread {
     @Override
     public void interrupt() {
         super.interrupt(); //PLACEHOLDER
+    }
+    
+    private static String readBytes(InputStream inputStream) throws IOException {
+        ArrayList < Byte > byteList = new ArrayList < Byte > ();
+
+        /* Read byte from socket until we are at the last \n of \r\n\r\n */
+        int currentByteInt = -1;
+        while ((currentByteInt = inputStream.read()) != -1) {
+            byte currentByte = (byte) currentByteInt;
+            byteList.add(currentByte);
+        }
+        Byte[] bytes = (Byte[])byteList.toArray();
+        byte[] bytes2 = new byte[bytes.length];
+        
+        for(int i = 0; i < bytes.length; i++) {
+        	bytes2[i] = bytes[i];
+        }
+        
+        String msg = new String(bytes2);
+        
+        return msg;
     }
 }
