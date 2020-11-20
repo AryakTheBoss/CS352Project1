@@ -768,7 +768,8 @@ public class HTTPThread extends Thread {
     		Process proc = rt.exec(commands[0], makeEnvironment2(headers, initialLine[1]));
     		
     		
-    		System.err.println("Params passed: " + param);
+    		System.err.println("Params passed:" + param);
+    		System.err.println("");
     		
     		//pass in parameters through standardin
     		if(param != null) {
@@ -846,19 +847,19 @@ public class HTTPThread extends Thread {
     	
     	String ct = searchHeader(headers, "Content-Length");
     	if(ct != null) {
-    		envars.add("CONTENT_LENGTH" + ct);
+    		envars.add("CONTENT_LENGTH=" + ct);
     	}
     	
     	//HTTP_FROM (search for From)
     	String hf = searchHeader(headers, "From");
     	if(hf != null) {
-    		envars.add("HTTP_FROM" + hf);
+    		envars.add("HTTP_FROM=" + hf);
     	}
     	
     	//HTTP_USER_AGENT (search for User-Agent)
     	String hua = searchHeader(headers, "User-Agent");
     	if(hua != null) {
-    		envars.add("HTTP_USER_AGENT" + hua);
+    		envars.add("HTTP_USER_AGENT=" + hua);
     	}
     	
     	//SERVER_NAME localhost
