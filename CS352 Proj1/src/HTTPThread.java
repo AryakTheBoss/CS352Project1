@@ -443,6 +443,7 @@ public class HTTPThread extends Thread {
                 length = true;
                 if(!numCheck(temp[1])){
                     sendError("411 Length Required", outToClient);
+                    return;
                 }
                 //env.put("CONTENT_LENGTH", temp[1]);
                 evars[CONTENT_LENGTH] = temp[1];
@@ -450,9 +451,11 @@ public class HTTPThread extends Thread {
         }
         if(!type){
             sendError("500 Internal Server Error", outToClient);
+            return;
         }
         else if(!length){
             sendError("411 Length Required", outToClient);
+            return;
         }
         
         String param = null;
