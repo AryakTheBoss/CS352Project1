@@ -5,7 +5,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="">
+    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="decoding parameters and adding them to the commands array">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" afterDir="false" />
     </list>
@@ -64,19 +64,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -117,13 +105,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
@@ -188,12 +175,14 @@
       <screen x="0" y="25" width="1440" height="809" />
     </state>
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.809@0.25.1440.809" timestamp="1605500585752" />
-    <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605849835318">
-      <screen x="0" y="0" width="2194" height="1194" />
+    <state x="532" y="348" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605891941053">
+      <screen x="0" y="25" width="1440" height="817" />
     </state>
     <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605849835318" />
     <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
-    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605654522196" />
+    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605854123181" />
+    <state x="532" y="348" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.817@0.25.1440.817" timestamp="1605891941053" />
+    <state x="532" y="348" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.818@0.25.1440.818" timestamp="1605890949517" />
     <state x="811" y="390" key="git4idea.merge.GitPullDialog" timestamp="1605844195368">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
