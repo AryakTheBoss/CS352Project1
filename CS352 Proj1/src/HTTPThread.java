@@ -181,6 +181,8 @@ public class HTTPThread extends Thread {
     			outToClient.write(realMsg);
     		} catch (IOException e) {
     			e.printStackTrace();
+    		} catch (InterruptedException ie) {
+    			
     		}
         	return;
         }
@@ -723,13 +725,13 @@ public class HTTPThread extends Thread {
      * closes the socket connection, sends a server error if unsuccessful.
      */
     private void closeConn() {
-    	/*
+    	
     	try {
             client.close(); //close the socket
         } catch (IOException e) {
             System.err.println("HTTP/1.0 500 Internal Server Error");
         }
-        */
+        
     }
     
     @Override
