@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.text.ParseException;
 import java.util.TimeZone;
@@ -749,7 +750,7 @@ public class HTTPThread extends Thread {
     		
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder();
-    		pb.command(cmdline);
+    		pb.command((List<String>)cmdline);
     		Map<String, String> env = pb.environment();
     		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
