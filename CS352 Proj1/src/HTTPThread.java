@@ -191,6 +191,8 @@ public class HTTPThread extends Thread {
     		} catch (IOException e) {
     			e.printStackTrace();
     		}
+        	
+        	closeConn();
         	return;
         }
         
