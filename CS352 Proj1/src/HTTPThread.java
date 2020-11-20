@@ -307,7 +307,7 @@ public class HTTPThread extends Thread {
      */
     public void get(String[] initialLine) {
     	
-        String header = createHeader(initialLine);
+        String header = createHeader(initialLine,false,null);
         
         byte[] last = null;
         byte[] fileContent = null;
@@ -451,7 +451,7 @@ public class HTTPThread extends Thread {
         }
 
 
-    	String header = createHeader(initialLine);
+    	String header = createHeader(initialLine,true,env.get("CONTENT_LENGTH"));
     	
     	//create and initialize the commands String array
     	//String[] commands = null;
@@ -494,7 +494,7 @@ public class HTTPThread extends Thread {
     public void head(String[] initialLine) {
     	
     	//Creates the header for the file
-    	String header = createHeader(initialLine);
+    	String header = createHeader(initialLine,false,null);
     	
         System.out.println(header);
         
@@ -555,14 +555,21 @@ public class HTTPThread extends Thread {
      * @param initialLine first line of the HTTP request
      * @return header as a string (INCLUDING TWO CLRF's AT THE END!!!)
      */
-    private String createHeader(String[] initialLine) {
+    private String createHeader(String[] initialLine, boolean isPost, String nEWcontentLength) {
     	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
+        File f= new File(initialLine[1].substring(1));;
+
+
+
+
+
+
+
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
@@ -588,10 +595,17 @@ public class HTTPThread extends Thread {
 
         contentEncoding="\r\nContent-Encoding: identity";
         allow = "\r\nAllow: GET, POST, HEAD";
-    
+            /*
+            Change content length header (in the createHeader method) (requires you to change createHeader() method. (Aryak)
+             */
         c.setTime(d);
-        contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
+        if(!isPost) {
+            contentLength = "\r\nContent-Length: " + f.length(); //size of file in bytes
+
+        }else{
+            contentLength = "\r\nContent-Length: " +nEWcontentLength;
+        }
+        lastModified = "\r\nLast-Modified: " + formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";

@@ -102,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605833739604</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="xml files">
+      <created>1605843192961</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605843192961</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,10 +150,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="946" y="487" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605819084860" />
-    <state x="571" y="193" key="CommitChangelistDialog2" timestamp="1605833738659">
+    <state x="571" y="193" key="CommitChangelistDialog2" timestamp="1605843191762">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="571" y="193" key="CommitChangelistDialog2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605833738659" />
+    <state x="571" y="193" key="CommitChangelistDialog2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605843191762" />
     <state x="772" y="313" key="FileChooserDialogImpl" timestamp="1605831876062">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
@@ -172,25 +179,25 @@
     </state>
     <state x="364" y="56" key="SettingsEditor/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831881385" />
     <state x="239" y="63" key="SettingsEditor/0.25.1440.817@0.25.1440.817" timestamp="1605655356028" />
-    <state x="503" y="205" key="Vcs.Push.Dialog.v2" timestamp="1605833741972">
+    <state x="503" y="205" key="Vcs.Push.Dialog.v2" timestamp="1605843196119">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="503" y="205" key="Vcs.Push.Dialog.v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605833741972" />
+    <state x="503" y="205" key="Vcs.Push.Dialog.v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605843196119" />
     <state x="330" y="164" key="Vcs.Push.Dialog.v2/0.25.1440.809@0.25.1440.809" timestamp="1605510338582" />
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1605500585752">
       <screen x="0" y="25" width="1440" height="809" />
     </state>
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.809@0.25.1440.809" timestamp="1605500585752" />
-    <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605843166639">
+    <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605849835318">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605843166639" />
+    <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605849835318" />
     <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
     <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605654522196" />
-    <state x="811" y="390" key="git4idea.merge.GitPullDialog" timestamp="1605841662554">
+    <state x="811" y="390" key="git4idea.merge.GitPullDialog" timestamp="1605844195368">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="811" y="390" key="git4idea.merge.GitPullDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605841662554" />
+    <state x="811" y="390" key="git4idea.merge.GitPullDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605844195368" />
     <state x="524" y="219" key="new project wizard" timestamp="1605831975149">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
