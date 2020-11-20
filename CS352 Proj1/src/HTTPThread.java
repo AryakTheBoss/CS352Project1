@@ -199,7 +199,7 @@ public class HTTPThread extends Thread {
     	try {
 			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
 			
-			//this was causing exceptions!
+			//this is causing exceptions!
 			closeConn();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -527,7 +527,6 @@ public class HTTPThread extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-            os.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -697,7 +696,6 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
-            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
