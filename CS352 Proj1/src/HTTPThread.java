@@ -785,7 +785,10 @@ public class HTTPThread extends Thread {
     		
     		Runtime rt = Runtime.getRuntime();
     		String[] envVars = makeEnvironment2(headers, initialLine[1]);
-    		Process proc = rt.exec(commands[0], envVars);
+    		for(String s : envVars) {
+    			cmd = cmd + " " + s;
+    		}
+    		Process proc = rt.exec(cmd);
     		for(String s : envVars) {
     			System.err.println(s);
     		}
