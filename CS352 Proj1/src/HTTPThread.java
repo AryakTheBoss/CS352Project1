@@ -774,7 +774,7 @@ public class HTTPThread extends Thread {
     		//pass in parameters through standardin
     		if(param != null) {
 	            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
-	            os.writeChars(param);
+	            os.writeBytes(param);
 	            os.flush();
 	            os.close();
     		}
@@ -794,10 +794,10 @@ public class HTTPThread extends Thread {
 			
 			//Reader for standard input for the process
 			while(stdInput.ready()) {
-				msg = msg + stdInput.readLine() + "\n";
+				String output = stdInput.readLine();
+				msg = msg + output + "\n";
+				System.err.println(output);
 			}
-			
-			System.err.println("msg:" + msg);
 			
 			//close the buffered readers
 			stdInput.close();
