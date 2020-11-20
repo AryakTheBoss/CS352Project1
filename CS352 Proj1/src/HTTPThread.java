@@ -778,7 +778,7 @@ public class HTTPThread extends Thread {
     		
     		//pass in parameters through standardin
     		if(param != null) {
-	            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
+    			OutputStream os = proc.getOutputStream();
 	            os.write(param.getBytes());
 	            os.flush();
 	            os.close();
