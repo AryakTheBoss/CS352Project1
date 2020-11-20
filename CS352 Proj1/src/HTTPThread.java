@@ -768,6 +768,7 @@ public class HTTPThread extends Thread {
 	            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
 	            os.writeChars(param);
 	            os.flush();
+	            os.close();
     		}
     		
 			
