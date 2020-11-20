@@ -34,7 +34,7 @@ public class HTTPThread extends Thread {
        // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
-        String temp = null; //used for reading in additional lines
+        String temp = ""; //used for reading in additional lines
         String restOfRequest = ""; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
@@ -315,7 +315,7 @@ public class HTTPThread extends Thread {
      */
     public void get(String[] initialLine) {
     	
-        String header = createHeader(initialLine);
+        String header = createHeader(initialLine,false,null);
         
         byte[] last = null;
         byte[] fileContent = null;
@@ -420,23 +420,49 @@ public class HTTPThread extends Thread {
         }
 
         int x = headers.length;
-        String parameters = headers[x-1];
-        int count = 0;
-        for(int j = 0; j < parameters.length(); j++){
-            if(count != 0 && parameters.charAt(j) == '!'){
-                parameters.replace(parameters.charAt(j), '\0');
+        String param = headers[x-1];
+        char prev = '\0';
+        boolean and = false;
+        for(int i  = 0; i < x; i++){
+            if(param.charAt(i) == '&'){
+                and = true;
+                continue;
             }
-            if(parameters.charAt(j) == '!'){
-                count++;
+            if(param.charAt(i) == '!' && prev == '!'){
+                prev = '\0';
+                continue;
+            }
+            else if(param.charAt(i) != '!'){
+                prev = param.charAt(i);
+                continue;
+            }
+            else if(param.charAt(i) == '!'){
+                param.replace(param.valueOf(param.charAt(i)), "");
+                prev = '!';
             }
         }
 
-        String decoded = parameters;
+        String[] commands;
+        if(and){
+            String [] parameters = param.split("&");
+            int parametersLength  = parameters.length+1;
+            commands = new String[parametersLength];
+            commands[0] = initialLine[1];
+            for(int j = 1; j < parametersLength; j++){
+                commands[j] = parameters[j-1];
+            }
+        }
+        else{
+            commands = new String[2];
+            commands[0] = initialLine[0];
+            commands[1] = param;
+        }
 
-    	String header = createHeader(initialLine);
+
+    	String header = createHeader(initialLine,true,env.get("CONTENT_LENGTH"));
     	
     	//create and initialize the commands String array
-    	String[] commands = null;
+    	//String[] commands = null;
     	
     	//run the commands and store the result
     	char[] output = runScript(commands);
@@ -476,7 +502,7 @@ public class HTTPThread extends Thread {
     public void head(String[] initialLine) {
     	
     	//Creates the header for the file
-    	String header = createHeader(initialLine);
+    	String header = createHeader(initialLine,false,null);
     	
         System.out.println(header);
         
@@ -537,14 +563,21 @@ public class HTTPThread extends Thread {
      * @param initialLine first line of the HTTP request
      * @return header as a string (INCLUDING TWO CLRF's AT THE END!!!)
      */
-    private String createHeader(String[] initialLine) {
+    private String createHeader(String[] initialLine, boolean isPost, String nEWcontentLength) {
     	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f = new File(initialLine[1].substring(1));
+        File f= new File(initialLine[1].substring(1));;
+
+
+
+
+
+
+
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
@@ -570,10 +603,17 @@ public class HTTPThread extends Thread {
 
         contentEncoding="\r\nContent-Encoding: identity";
         allow = "\r\nAllow: GET, POST, HEAD";
-    
+            /*
+            Change content length header (in the createHeader method) (requires you to change createHeader() method. (Aryak)
+             */
         c.setTime(d);
-        contentLength = "\r\nContent-Length: "+f.length(); //size of file in bytes
-        lastModified = "\r\nLast-Modified: "+formatter.format(f.lastModified());
+        if(!isPost) {
+            contentLength = "\r\nContent-Length: " + f.length(); //size of file in bytes
+
+        }else{
+            contentLength = "\r\nContent-Length: " +nEWcontentLength;
+        }
+        lastModified = "\r\nLast-Modified: " + formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
@@ -593,6 +633,7 @@ public class HTTPThread extends Thread {
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
 			     InputStreamReader(proc.getInputStream()));
+
 			
 			stdInput.read(output);
 			
