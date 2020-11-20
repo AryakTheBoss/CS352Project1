@@ -272,12 +272,6 @@ public class HTTPThread extends Thread {
     	}
     	*/
     	
-    	//TESTING
-    	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
-    		System.err.println("No param: " + arr[0]);
-    		return true;
-    	}
-    	
     	//now arr[1] up to the next line contains the date. Throws away the other headers
     	arr = arr[1].split("\n", 2);
     	String date = arr[0];
