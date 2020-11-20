@@ -61,7 +61,8 @@ public class HTTPThread extends Thread {
 	        	//temp = readBytes(inFromServer);
 	        	
 	        	///*
-                while (inFromServer.ready() && (temp = inFromServer.readLine()) != null) {
+                while (inFromServer.ready()) {
+                	temp = inFromServer.readLine();
                     restOfRequest = restOfRequest + "\n" + temp;
                 }//will store everything after the initial line
                 //*/
