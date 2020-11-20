@@ -566,7 +566,7 @@ public class HTTPThread extends Thread {
     	//create and initialize the commands String array
     	
     	//run the commands and store the result
-    	String output2 = runScript(commands, parameters, headers);
+    	String output2 = runScript(commands, parameters, headers, initialLine);
     	//String output2 = new String(output);
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
@@ -720,7 +720,7 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
-    private String runScript(String[] commands, String[] parameters, ArrayList<String[]> headers) {
+    private String runScript(String[] commands, String[] parameters, ArrayList<String[]> headers, String[] initialLine) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
@@ -742,19 +742,9 @@ public class HTTPThread extends Thread {
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder(cmdline);
     		Map<String, String> env = pb.environment();
-    		for(String[] arr : headers) {
-    			if(!arr[0].equalsIgnoreCase("Param")) {
-    				env.put(arr[0], arr[1]);
-    			}
-    		}
+    		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
-			Runtime rt = Runtime.getRuntime();
-			if(parameters != null ) {
-				proc = rt.exec(commands, parameters);
-			} else {
-				proc = rt.exec(commands);
-			}
 			
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
@@ -781,6 +771,41 @@ public class HTTPThread extends Thread {
     	}
     	
     	return msg;
+    }
+    
+    /**
+     * Sets up the environment for the process
+     * @param headers
+     * @return
+     */
+    private void makeEnvironment(ArrayList<String[]> headers, Map<String, String> env, String scriptName) {
+    	//CONTENT_LENGTH (Search for Content-Length)
+    	String ct = searchHeader(headers, "Content-Length");
+    	if(ct != null) {
+    		env.put("CONTENT_LENGTH", ct);
+    	}
+    	
+    	//HTTP_FROM (search for From)
+    	String hf = searchHeader(headers, "From");
+    	if(hf != null) {
+    		env.put("HTTP_FROM", "");
+    	}
+    	
+    	//HTTP_USER_AGENT (search for User-Agent)
+    	String hua = searchHeader(headers, "User-Agent");
+    	if(hua != null) {
+    		env.put("HTTP_USER_AGENT", "");
+    	}
+    	
+    	//SERVER_NAME localhost
+    	env.put("SERVER_NAME", client.getPort() + "");
+    	//SERVER_PORT (get this from the socket?
+    	env.put("SERVER_PORT", client.getInetAddress().getHostAddress());
+    	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
+    	env.put("SCRIPT_NAME", scriptName);
+    	
+    	
+    	return;
     }
     
     /**
