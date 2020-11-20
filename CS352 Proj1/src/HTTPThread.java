@@ -386,6 +386,17 @@ public class HTTPThread extends Thread {
     public void post(String[] initialLine, String restOfRequest) {
         String [] headers = restOfRequest.split("\n");
         
+        //look for blank line, and if the blank line has a line after it that is not blank, then that is the set of parameters
+        boolean areParams = false;
+        for(int i = 0; i < headers.length; i++) {
+        	if(headers[i].equals("")) {
+        		if(i < headers.length - 1) {
+        			//this means that there are parameters
+        			areParams = true;
+        		}
+        	}
+        }
+        
         //constants for the evars array
         final int SCRIPT_NAME = 0;
         final int HTTP_FROM = 1;
@@ -444,28 +455,33 @@ public class HTTPThread extends Thread {
         else if(!length){
             sendError("411 Length Required", outToClient);
         }
-
-        int x = headers.length;
-        String param = headers[x-1];
-        char prev = '\0';
+        
+        String param = null;
         boolean and = false;
-        for(int i  = 0; i < x; i++){
-            if(param.charAt(i) == '&'){
-                and = true;
-                continue;
-            }
-            if(param.charAt(i) == '!' && prev == '!'){
-                prev = '\0';
-                continue;
-            }
-            else if(param.charAt(i) != '!'){
-                prev = param.charAt(i);
-                continue;
-            }
-            else if(param.charAt(i) == '!'){
-                param.replace(param.valueOf(param.charAt(i)), "");
-                prev = '!';
-            }
+        if(areParams) {
+	        int x = headers.length;
+	        param = headers[x-1];
+	        char prev = '\0';
+	        for(int i  = 0; i < x; i++){
+	            if(param.charAt(i) == '&'){
+	                and = true;
+	                continue;
+	            }
+	            if(param.charAt(i) == '!' && prev == '!'){
+	                prev = '\0';
+	                continue;
+	            }
+	            else if(param.charAt(i) != '!'){
+	                prev = param.charAt(i);
+	                continue;
+	            }
+	            else if(param.charAt(i) == '!'){
+	                param.replace(param.valueOf(param.charAt(i)), "");
+	                prev = '!';
+	            }
+	        }
+        } else {
+        	param = "";
         }
 
         String[] commands;
