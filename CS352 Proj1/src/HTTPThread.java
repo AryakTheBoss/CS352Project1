@@ -730,9 +730,7 @@ public class HTTPThread extends Thread {
     	try {
     		//making the command line
     		ArrayList<String> cmdline = new ArrayList<String>();
-    		for(String s : commands) {
-    			cmdline.add(s);
-    		}
+    		cmdline.add(commands[0]);
     		if(parameters != null) {
 	    		for(String s : parameters) {
 	    			cmdline.add(s);
