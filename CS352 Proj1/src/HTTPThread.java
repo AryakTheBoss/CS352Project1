@@ -84,9 +84,11 @@ public class HTTPThread extends Thread {
         //*/
         
         //TESTING
-        System.out.println("-------------------------------------------------------------------------");
-        System.out.println(request + "<-- initial line!");
-        System.out.println(restOfRequest);
+        System.err.println("-------------------------------------------------------------------------");
+        System.err.println(request + "<-- initial line!");
+        System.err.println(restOfRequest);
+        
+        ArrayList<String[]> headers = getHeaders(restOfRequest);
         
         //gets a file stream that will send data to the client
     	try {
@@ -156,7 +158,7 @@ public class HTTPThread extends Thread {
     	
         
         //checks if the file was modified or not
-        if(!checkDate(restOfRequest, file) && !isHead) {
+        if(!checkDate(headers, file) && !isHead) {
         	//Assumes legal request and that the file exists
             Calendar c = Calendar.getInstance();
             
@@ -257,11 +259,14 @@ public class HTTPThread extends Thread {
      * @param headers the string that holds the headers of the request, file is the file the request comes from
      * @return	boolean	if the file wasn't modified ever since the if-modified-since header date, returns true, false otherwise
      */
-    public boolean checkDate(String headers, File file) {
-    	if(1 == 1) {
+    public boolean checkDate(ArrayList<String[]> headers, File file) {
+    	
+    	String date = searchHeader(headers, "If-Modified-Since");
+    	if(date == null) {
     		return true;
     	}
     	
+    	/*
     	//separates the first header from the rest of the headers
     	String [] arr = headers.split(":", 2);
     	arr[1] = arr[1].substring(1);
@@ -277,6 +282,7 @@ public class HTTPThread extends Thread {
     		arr[1] = arr[1].substring(1);
     	}
     	
+    	
     	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
     		return true;
     	}
@@ -284,6 +290,7 @@ public class HTTPThread extends Thread {
     	//now arr[1] up to the next line contains the date. Throws away the other headers
     	arr = arr[1].split("\n", 2);
     	String date = arr[0];
+    	*/
     	
     	//interpret this date
     	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
