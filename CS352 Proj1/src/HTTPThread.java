@@ -509,7 +509,11 @@ public class HTTPThread extends Thread {
         	return;
     	}
         
-        String param = searchHeader(headers, "Param").trim();
+        String param = searchHeader(headers, "Param");
+        if(param != null) {
+        	param = param.trim();
+        }
+        
         boolean and = false;
         
         int y = param.length();
