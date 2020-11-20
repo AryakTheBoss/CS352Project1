@@ -260,15 +260,17 @@ public class HTTPThread extends Thread {
     	
     	//separates the first header from the rest of the headers
     	String [] arr = headers.split(":", 2);
+    	arr[1] = arr[1].substring(1);
     	
     	//while the header is not the correct header, go to the next line and repeat.
     	//if we reach the end, there is no ifmodified header.
     	while((arr[0].equalsIgnoreCase("If-Modified-Since")) && arr.length == 2) {
     		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
-    		if (arr.length == 1) { //if there is a header with no value, break
-    			break;
+    		if (arr.length == 1) { //if there is a header with no value, return since there are no more headers to read
+    			return true;
     		}
-    		arr = arr[1].split(" |\t", 2); //separates the first header from the rest of the headers
+    		arr = arr[1].split(":", 2); //separates the first header from the rest of the headers
+    		arr[1] = arr[1].substring(1);
     	}
     	
     	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
