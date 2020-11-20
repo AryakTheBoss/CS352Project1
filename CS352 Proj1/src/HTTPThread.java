@@ -306,7 +306,8 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-
+    	
+    	/*
     	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
@@ -349,6 +350,9 @@ public class HTTPThread extends Thread {
          c.add(Calendar.YEAR, 1);
          expires = "\r\nExpires: " + formatter.format(c.getTime());
         header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+        */
+        
+        String header = createHeader(initialLine);
         
         byte[] last = null;
         byte[] fileContent = null;
@@ -357,7 +361,7 @@ public class HTTPThread extends Thread {
         
         //get the file contents
         try {
-        	//File f = new File(initialLine[1].substring(1));
+        	File f = new File(initialLine[1].substring(1));
 			FileInputStream fis = new FileInputStream(f);
 			
 			fileContent = new byte[(int)f.length()];
