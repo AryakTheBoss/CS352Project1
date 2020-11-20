@@ -742,6 +742,7 @@ public class HTTPThread extends Thread {
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder(cmdline);
     		Map<String, String> env = pb.environment();
+    		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
