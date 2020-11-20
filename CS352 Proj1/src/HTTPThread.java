@@ -209,7 +209,7 @@ public class HTTPThread extends Thread {
         if(initialLine[0].equals("GET")) {
         	get(initialLine);
         } else if(initialLine[0].equals("POST")) {
-        	post(initialLine, restOfRequest);
+        	post(initialLine, headers);
         } else if(initialLine[0].equals("HEAD")) {
         	head(initialLine);
         }
@@ -407,7 +407,7 @@ public class HTTPThread extends Thread {
      * Will implement the POST method of HTTP protocol
      * @param initialLine
      */
-    public void post(String[] initialLine, String restOfRequest) {
+    public void post(String[] initialLine, ArrayList<String[]> headers) {
         DataOutputStream outToClient = null;
         try {
             outToClient = new DataOutputStream(client.getOutputStream());
@@ -421,16 +421,7 @@ public class HTTPThread extends Thread {
             return;
         }*/
         
-        //see if the file is forbidden THIS ONLY WORKS ON LINUX!!
-    	File file = new File(initialLine[1]);
-    	if(!(file.canExecute())) {
-    		sendError("403 Forbidden", outToClient);
-        	return;
-    	}
-    	
-
-        String [] headers = restOfRequest.split("\n");
-        
+        /*
         //look for blank line, and if the blank line has a line after it that is not blank, then that is the set of parameters
         boolean areParams = false;
         int stop = -1;
@@ -462,15 +453,23 @@ public class HTTPThread extends Thread {
         
         //Map<String,String> env = System.getenv();
         //env.put("SCRIPT_NAME", initialLine[1]);
-
+		*/
+        
         boolean type = false;
         boolean length = false;
-
+        
+        
+        if(searchHeader(headers, "Content-Length") != null) {
+        	length = true;
+        }
+        
+        if(searchHeader(headers, "Content-Type") != null) {
+        	type = true;
+        }
+        
+        /*
         for(int i  = 0; i < stop; i++){
-            String [] temp = headers[i].split(":", 2);
-            if(temp[1].length() != 1) {
-            	temp[1] = temp[1].substring(1); //skips the space
-            }
+            
             if(temp[0].equalsIgnoreCase("From")){
                 //env.put("HTTP_FROM", temp[1]);
             	evars[HTTP_FROM] = temp[1];
@@ -492,6 +491,8 @@ public class HTTPThread extends Thread {
                 evars[CONTENT_LENGTH] = temp[1];
             }
         }
+        */
+        
         if(!type){
             sendError("500 Internal Server Error", outToClient);
             return;
@@ -501,33 +502,35 @@ public class HTTPThread extends Thread {
             return;
         }
         
-        String param = null;
+        //see if the file is forbidden THIS ONLY WORKS ON LINUX!!
+    	File file = new File(initialLine[1]);
+    	if(!(file.canExecute())) {
+    		sendError("403 Forbidden", outToClient);
+        	return;
+    	}
+        
+        String param = searchHeader(headers, "Param").trim();
         boolean and = false;
-        if(areParams) {
-	        int x = headers.length;
-	        param = headers[x-1];
-	        int y = param.length();
-	        char prev = '\0';
-	        for(int i  = 0; i < y; i++){
-	            if(param.charAt(i) == '&'){
-	                and = true;
-	                continue;
-	            }
-	            if(param.charAt(i) == '!' && prev == '!'){
-	                prev = '\0';
-	                continue;
-	            }
-	            else if(param.charAt(i) != '!'){
-	                prev = param.charAt(i);
-	                continue;
-	            }
-	            else if(param.charAt(i) == '!'){
-	                param.replace(param.valueOf(param.charAt(i)), "");
-	                prev = '!';
-	            }
-	        }
-        } else {
-        	param = "";
+        
+        int y = param.length();
+        char prev = '\0';
+        for(int i  = 0; i < y; i++){
+            if(param.charAt(i) == '&'){
+                and = true;
+                continue;
+            }
+            if(param.charAt(i) == '!' && prev == '!'){
+                prev = '\0';
+                continue;
+            }
+            else if(param.charAt(i) != '!'){
+                prev = param.charAt(i);
+                continue;
+            }
+            else if(param.charAt(i) == '!'){
+                param.replace(param.valueOf(param.charAt(i)), "");
+                prev = '!';
+            }
         }
 
         String[] commands;
@@ -547,14 +550,16 @@ public class HTTPThread extends Thread {
         }
 
 
-    	String header = createHeader(initialLine,true,evars[CONTENT_LENGTH]);
+    	
     	
     	//create and initialize the commands String array
     	//String[] commands = null;
     	
     	//run the commands and store the result
     	char[] output = runScript(commands);
-    	String output2 = new String(output);
+    	String output2 = new String(output).trim();
+    	
+    	String header = createHeader(initialLine,true,output2.length() + "");
     	
     	byte[] last = null;
     	byte[] fileContent = output2.getBytes();
