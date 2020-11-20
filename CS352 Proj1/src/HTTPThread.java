@@ -512,6 +512,7 @@ public class HTTPThread extends Thread {
         String param = searchHeader(headers, "Param");
         
         boolean and = false;
+        String [] parameters = null;
         if(param != null) {
         	param = param.trim();
         	
@@ -535,12 +536,12 @@ public class HTTPThread extends Thread {
                     prev = '!';
                 }
             }
+            
+            parameters = param.split("&");
         }
         
         String[] commands = new String[1];
         commands[0] = initialLine[1].substring(1);
-        
-        String [] parameters = param.split("&");
         
         /*
         if(and){
@@ -728,8 +729,13 @@ public class HTTPThread extends Thread {
     	 */
     	char[] output = new char[10000];
     	try {
+    		Process proc = null;
 			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commands, parameters);
+			if(parameters != null ) {
+				proc = rt.exec(commands, parameters);
+			} else {
+				proc = rt.exec(commands);
+			}
 			
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
