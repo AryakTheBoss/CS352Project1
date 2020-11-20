@@ -732,8 +732,10 @@ public class HTTPThread extends Thread {
     		for(String s : commands) {
     			cmdline.add(s);
     		}
-    		for(String s : parameters) {
-    			cmdline.add(s);
+    		if(parameters != null) {
+	    		for(String s : parameters) {
+	    			cmdline.add(s);
+	    		}
     		}
     		
     		//make the process builder
@@ -756,7 +758,14 @@ public class HTTPThread extends Thread {
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
 			     InputStreamReader(proc.getInputStream()));
-
+			
+			//Reader for standard error for the process
+			BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+			System.out.println("###############################################################");
+			while(stdErr.ready()) {
+				stdErr.readLine();
+			}
+			System.out.println("##########################################################");
 			
 			stdInput.read(output);
 			
