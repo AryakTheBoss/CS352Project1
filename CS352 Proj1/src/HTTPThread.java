@@ -1,7 +1,6 @@
 
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -120,12 +119,16 @@ public class HTTPThread extends Thread {
         //checking for not implemented
         if(initialLine[0].equals("DELETE")) {
         	delete(initialLine);
+        	return;
         } else if(initialLine[0].equals("PUT")) {
         	put(initialLine);
+        	return;
         } else if(initialLine[0].equals("LINK")) {
         	link(initialLine);
+        	return;
         } else if(initialLine[0].equals("UNLINK")) {
         	unlink(initialLine);
+        	return;
         }
         
         //attempt to read the second argument as a file
@@ -200,7 +203,7 @@ public class HTTPThread extends Thread {
     	try {
 			outToClient.writeBytes("HTTP/1.0 " + msg + "\r\n");
 			
-			//this was causing exceptions!
+			//this is causing exceptions!
 			closeConn();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -373,44 +376,7 @@ public class HTTPThread extends Thread {
         }
         return isNumber;
     }
-
-    /*public ArrayList<String[]> parseHeaders(String restOfRequest){
-        String [] headers = restOfRequest.split("\n");
-        ArrayList<String[]> lines = new ArrayList<String[]>();
-        boolean type = false;
-        boolean length = false;
-
-        DataOutputStream outToClient = null;
-        try {
-            outToClient = new DataOutputStream(client.getOutputStream());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for(int i  = 0; i < headers.length; i++){
-            if(headers[i].isBlank())
-            String [] temp = headers[i].split(":", 2);
-            temp[1] = temp[1].substring(1); //skips the space
-            if(temp[0].equalsIgnoreCase("From")){
-               lines.add(new String[]{"From", temp[1]});
-            }
-            else if(temp[0].equalsIgnoreCase("User-Agent")){
-                lines.add(new String[]{"User-Agent", temp[1]});
-            }
-            else if(temp[0].equalsIgnoreCase("Content-Type")){
-                type = true;
-            }
-            else if(temp[0].equalsIgnoreCase("Content-Length")){
-                length = true;
-                if(!numCheck(temp[1])){
-                    sendError("411 Length Required", outToClient);
-                }
-                lines.add(new String[]{"Content-Length", temp[1]});
-            }
-        }
-        return lines;
-    }*/
+    
     /**
      * Will implement the POST method of HTTP protocol
      * @param initialLine
@@ -481,6 +447,7 @@ public class HTTPThread extends Thread {
                 length = true;
                 if(!numCheck(temp[1])){
                     sendError("411 Length Required", outToClient);
+                    return;
                 }
                 //env.put("CONTENT_LENGTH", temp[1]);
                 evars[CONTENT_LENGTH] = temp[1];
@@ -567,7 +534,6 @@ public class HTTPThread extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-            os.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -646,14 +612,6 @@ public class HTTPThread extends Thread {
      * @return header as a string (INCLUDING TWO CLRF's AT THE END!!!)
      */
     private String createHeader(String[] initialLine, boolean isPost, String nEWcontentLength) {
-        DataOutputStream outToClient = null;
-        try {
-            outToClient = new DataOutputStream(client.getOutputStream());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
@@ -661,8 +619,7 @@ public class HTTPThread extends Thread {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f= new File(initialLine[1].substring(1));;
-
-
+        
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm")){
@@ -681,12 +638,10 @@ public class HTTPThread extends Thread {
             contentType= "\r\nContent-Type: application/zip";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
             contentType= "\r\nContent-Type: application/x-gzip";
-        }else if(initialLine[1].endsWith("cgi")){
-            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
         }else{
-            sendError("405 Method Not Allowed", outToClient);
-            return "";
+            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
         }
+
         contentEncoding="\r\nContent-Encoding: identity";
         allow = "\r\nAllow: GET, POST, HEAD";
             /*
@@ -741,7 +696,6 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.writeBytes("HTTP/1.0 501 Not Implemented\r\n");
             os.flush();
-            os.close();
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
