@@ -460,8 +460,9 @@ public class HTTPThread extends Thread {
         if(areParams) {
 	        int x = headers.length;
 	        param = headers[x-1];
+	        int y = param.length();
 	        char prev = '\0';
-	        for(int i  = 0; i < x; i++){
+	        for(int i  = 0; i < y; i++){
 	            if(param.charAt(i) == '&'){
 	                and = true;
 	                continue;
