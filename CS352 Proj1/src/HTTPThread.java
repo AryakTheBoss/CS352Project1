@@ -512,6 +512,26 @@ public class HTTPThread extends Thread {
         
         String param = searchHeader(headers, "Params");
         
+        //Deconding params
+        int y = param.length();
+        String tempParam = param;
+        param = "";
+        
+        //for loop for decoding params
+        for(int i = 0; i < y; i++) {
+        	if(tempParam.charAt(i) == '!') {
+        		i++;
+        		param = param + tempParam.charAt(i);
+        	} else {
+        		param = param + tempParam.charAt(i);
+        	}
+        }
+        
+        if(param.isEmpty()) {
+        	param = null;
+        }
+        
+        /*
         boolean and = false;
         String [] parameters = null;
         if(param != null) {
@@ -540,6 +560,7 @@ public class HTTPThread extends Thread {
             
             parameters = param.split("&");
         }
+        */
         
         String[] commands = new String[1];
         commands[0] = initialLine[1];
