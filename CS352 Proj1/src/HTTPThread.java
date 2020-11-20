@@ -736,24 +736,30 @@ public class HTTPThread extends Thread {
         super.interrupt(); //PLACEHOLDER
     }
     
+    /**
+     * Reads bytes from the given buffer
+     * @param br buffered reader
+     * @return the msg in the buffer
+     * @throws IOException
+     */
     private static String readBytes(BufferedReader br) throws IOException {
         ArrayList < Byte > byteList = new ArrayList < Byte > ();
-
+        String msg = "";
         /* Read byte from socket until we read everything in the buffer */
         int currentByteInt = -1;
         while (br.ready()) {
         	currentByteInt = br.read();
-            byte currentByte = (byte) currentByteInt;
-            byteList.add(currentByte);
+            char currentByte = (char) currentByteInt;
+            msg = currentByte + msg;
         }
+        /*
         Byte[] bytes = (Byte[])byteList.toArray();
         byte[] bytes2 = new byte[bytes.length];
         
         for(int i = 0; i < bytes.length; i++) {
         	bytes2[i] = (byte)bytes[i];
         }
-        
-        String msg = new String(bytes2);
+        */
         
         return msg;
     }
