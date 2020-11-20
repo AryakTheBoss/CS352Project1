@@ -57,6 +57,9 @@ public class HTTPThread extends Thread {
 	        	//for the first header
 	        	if(inFromServer.ready()) {
 	        		restOfRequest = inFromServer.readLine();
+	        		if(restOfRequest.isEmpty()) {
+	        			restOfRequest = inFromServer.readLine();
+	        		}
 	        	}
 	        	
 	        	//all other headers
@@ -788,6 +791,7 @@ public class HTTPThread extends Thread {
      */
     private ArrayList<String[]> getHeaders(String headers) {
     	ArrayList<String[]> h = new ArrayList<String[]>();
+    	boolean canHaveParams = false;
     	
     	//gets the first header (if any)
     	String[] nextHeader = headers.split("\n", 2);
