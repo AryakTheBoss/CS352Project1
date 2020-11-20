@@ -765,7 +765,11 @@ public class HTTPThread extends Thread {
     		*/
     		
     		Runtime rt = Runtime.getRuntime();
-    		Process proc = rt.exec(commands[0], makeEnvironment2(headers, initialLine[1]));
+    		String[] envVars = makeEnvironment2(headers, initialLine[1]);
+    		Process proc = rt.exec(commands[0], envVars);
+    		for(String s : envVars) {
+    			System.err.println(s);
+    		}
     		
     		
     		System.err.println("Params passed:" + param);
