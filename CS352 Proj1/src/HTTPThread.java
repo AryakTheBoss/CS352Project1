@@ -57,13 +57,14 @@ public class HTTPThread extends Thread {
 	        	//for the first header
 	        	if(inFromServer.ready()) {
 	        		restOfRequest = inFromServer.readLine();
-	        		if(restOfRequest.isEmpty()) {
-	        			restOfRequest = inFromServer.readLine();
-	        		}
+
 	        	}
 	        	
 	        	//all other headers
                 while (inFromServer.ready()) {
+	        		if(restOfRequest.isEmpty()) {
+	        			break;
+	        		}
                 	temp = inFromServer.readLine();
                     restOfRequest = restOfRequest + "\n" + temp;
                 }
