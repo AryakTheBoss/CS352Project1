@@ -731,6 +731,8 @@ public class HTTPThread extends Thread {
     	String cmd = commands[0];
     	try {
     		//making the command line
+    		
+    		/*
     		ArrayList<String> cmdline = new ArrayList<String>();
     		cmdline.add("echo");
     		if(param != null) {
@@ -738,6 +740,7 @@ public class HTTPThread extends Thread {
     		}
     		cmdline.add("|");
     		cmdline.add("." + cmd);
+    		*/
     		
     		/*
     		cmdline.add(commands[0]);
@@ -750,12 +753,19 @@ public class HTTPThread extends Thread {
     		
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder();
-    		pb.command((List<String>)cmdline);
+    		//pb.command((List<String>)cmdline);
+    		pb.command("." + cmd);
     		Map<String, String> env = pb.environment();
     		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
+    		
+    		//pass in parameters through standardin
+            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
+            os.writeChars(param);
+            os.flush();
+
     		
 			
 			//Reader for standard input from the process
