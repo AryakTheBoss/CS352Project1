@@ -566,7 +566,7 @@ public class HTTPThread extends Thread {
     	//create and initialize the commands String array
     	
     	//run the commands and store the result
-    	String output2 = runScript(commands, parameters, headers, initialLine);
+    	String output2 = runScript(commands, param, headers, initialLine);
     	//String output2 = new String(output);
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
@@ -720,22 +720,32 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
-    private String runScript(String[] commands, String[] parameters, ArrayList<String[]> headers, String[] initialLine) {
+    private String runScript(String[] commands, String param, ArrayList<String[]> headers, String[] initialLine) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
     	 */
     	//char[] output = new char[10000];
     	String msg = "";
+    	String cmd = commands[0];
     	try {
     		//making the command line
     		ArrayList<String> cmdline = new ArrayList<String>();
+    		cmdline.add("echo");
+    		if(param != null) {
+	    		cmdline.add("\"" + param + "\"");
+    		}
+    		cmdline.add("|");
+    		cmdline.add(cmd);
+    		
+    		/*
     		cmdline.add(commands[0]);
     		if(parameters != null) {
 	    		for(String s : parameters) {
 	    			cmdline.add(s);
 	    		}
     		}
+    		*/
     		
     		//make the process builder
     		ProcessBuilder pb = new ProcessBuilder();
@@ -745,6 +755,7 @@ public class HTTPThread extends Thread {
     		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
+    		
 			
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
@@ -806,6 +817,37 @@ public class HTTPThread extends Thread {
     	
     	
     	return;
+    }
+    
+    private String[] makeEnvironment2(ArrayList<String[]> headers, String scriptName) {
+    	ArrayList<String> envars = new ArrayList<String>();
+    	
+    	String ct = searchHeader(headers, "Content-Length");
+    	if(ct != null) {
+    		envars.add("CONTENT_LENGTH" + ct);
+    	}
+    	
+    	//HTTP_FROM (search for From)
+    	String hf = searchHeader(headers, "From");
+    	if(hf != null) {
+    		envars.add("HTTP_FROM" + hf);
+    	}
+    	
+    	//HTTP_USER_AGENT (search for User-Agent)
+    	String hua = searchHeader(headers, "User-Agent");
+    	if(hua != null) {
+    		envars.add("HTTP_USER_AGENT" + hua);
+    	}
+    	
+    	//SERVER_NAME localhost
+    	envars.add("SERVER_NAME=" + client.getPort() + "");
+    	//SERVER_PORT (get this from the socket?
+    	envars.add("SERVER_PORT=" + client.getInetAddress().getHostAddress());
+    	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
+    	envars.add("SCRIPT_NAME=" + scriptName);
+    	
+    	String[] ret = (String[])envars.toArray();
+    	return ret;
     }
     
     /**
