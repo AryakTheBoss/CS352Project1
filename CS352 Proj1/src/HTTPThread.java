@@ -85,9 +85,9 @@ public class HTTPThread extends Thread {
         
         ///*
         //Now that we have the full string, separate the initial line from the rest.
-        String[] splitRequest = temp.split("\n");
+        String[] splitRequest = temp.split("\n", 2);
         request = splitRequest[0];
-        restOfRequest = splitRequest[2];
+        restOfRequest = splitRequest[1];
         
         System.out.println("-------------------------------------------------------------------------");
         System.out.println(request + "<-- initial line!");
