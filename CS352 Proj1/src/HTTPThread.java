@@ -430,7 +430,9 @@ public class HTTPThread extends Thread {
 
         for(int i  = 0; i < stop; i++){
             String [] temp = headers[i].split(":", 2);
-            temp[1] = temp[1].substring(1); //skips the space
+            if(temp[1].length() != 1) {
+            	temp[1] = temp[1].substring(1); //skips the space
+            }
             if(temp[0].equalsIgnoreCase("From")){
                 //env.put("HTTP_FROM", temp[1]);
             	evars[HTTP_FROM] = temp[1];
