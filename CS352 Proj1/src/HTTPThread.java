@@ -750,7 +750,7 @@ public class HTTPThread extends Thread {
         while (br.ready()) {
         	currentByteInt = br.read();
             char currentByte = (char) currentByteInt;
-            msg = currentByte + msg;
+            msg = msg + currentByte;
         }
         /*
         Byte[] bytes = (Byte[])byteList.toArray();
