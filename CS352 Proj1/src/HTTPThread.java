@@ -566,8 +566,8 @@ public class HTTPThread extends Thread {
     	//create and initialize the commands String array
     	
     	//run the commands and store the result
-    	char[] output = runScript(commands, parameters, headers);
-    	String output2 = new String(output);
+    	String output2 = runScript(commands, parameters, headers);
+    	//String output2 = new String(output);
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
     	
@@ -720,12 +720,13 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
-    private char[] runScript(String[] commands, String[] parameters, ArrayList<String[]> headers) {
+    private String runScript(String[] commands, String[] parameters, ArrayList<String[]> headers) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
     	 */
-    	char[] output = new char[10000];
+    	//char[] output = new char[10000];
+    	String msg = "";
     	try {
     		//making the command line
     		ArrayList<String> cmdline = new ArrayList<String>();
@@ -767,15 +768,19 @@ public class HTTPThread extends Thread {
 			}
 			System.out.println("##########################################################");
 			
-			stdInput.read(output);
+			//Reader for standard input for the process
+			while(stdInput.ready()) {
+				msg = msg + stdInput.readLine();
+			}
 			
-			//close the buffered reader
+			//close the buffered readers
 			stdInput.close();
+			stdErr.close();
     	} catch (IOException ioe){
     		ioe.printStackTrace();
     	}
     	
-    	return output;
+    	return msg;
     }
     
     /**
