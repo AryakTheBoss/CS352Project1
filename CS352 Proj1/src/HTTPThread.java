@@ -772,7 +772,7 @@ public class HTTPThread extends Thread {
      * @param headers
      * @return
      */
-    private ArrayList<String[]> headers(String headers) {
+    private ArrayList<String[]> getHeaders(String headers) {
     	ArrayList<String[]> h = new ArrayList<String[]>();
     	
     	//gets the first header (if any)
