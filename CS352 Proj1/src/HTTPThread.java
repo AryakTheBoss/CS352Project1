@@ -33,7 +33,7 @@ public class HTTPThread extends Thread {
        // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
-        String temp; //used for reading in additional lines
+        String temp = ""; //used for reading in additional lines
         String restOfRequest = ""; //holds any lines after the initial request line
         DataOutputStream outToClient = null; //file stream to send data to the client
         
