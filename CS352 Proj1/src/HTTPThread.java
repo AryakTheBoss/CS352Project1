@@ -121,7 +121,7 @@ public class HTTPThread extends Thread {
     	File file = new File(initialLine[1].substring(1));
     	
     	//check if the file exists
-    	if(!(file.getAbsoluteFile().exists())) {
+    	if(!(file.exists())) {
     		
     		sendError("404 Not Found", outToClient);
         	return;
@@ -316,7 +316,6 @@ public class HTTPThread extends Thread {
         //get the file contents
         try {
         	File f = new File(initialLine[1].substring(1));
-            f = f.getAbsoluteFile();
 			FileInputStream fis = new FileInputStream(f);
 			
 			fileContent = new byte[(int)f.length()];
@@ -537,7 +536,6 @@ public class HTTPThread extends Thread {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         File f = new File(initialLine[1].substring(1));
-        f = f.getAbsoluteFile();
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
