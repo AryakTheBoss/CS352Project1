@@ -769,6 +769,7 @@ public class HTTPThread extends Thread {
     		
     		
     		System.err.println("Params passed:" + param);
+    		System.err.println("Trying to run:" + commands[0]);
     		
     		
     		//pass in parameters through standardin
@@ -779,7 +780,6 @@ public class HTTPThread extends Thread {
 	            os.close();
     		}
     		
-			
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
 			     InputStreamReader(proc.getInputStream()));
@@ -796,7 +796,6 @@ public class HTTPThread extends Thread {
 			while(stdInput.ready()) {
 				String output = stdInput.readLine();
 				msg = msg + output + "\n";
-				System.err.println(output);
 			}
 			
 			//close the buffered readers
