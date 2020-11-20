@@ -612,6 +612,13 @@ public class HTTPThread extends Thread {
      * @return header as a string (INCLUDING TWO CLRF's AT THE END!!!)
      */
     private String createHeader(String[] initialLine, boolean isPost, String nEWcontentLength) {
+        DataOutputStream outToClient = null;
+        try {
+            outToClient = new DataOutputStream(client.getOutputStream());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     	//Assumes legal request and that the file exists
         Date d = new Date();
         Calendar c = Calendar.getInstance();
@@ -638,8 +645,11 @@ public class HTTPThread extends Thread {
             contentType= "\r\nContent-Type: application/zip";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
             contentType= "\r\nContent-Type: application/x-gzip";
-        }else{
+        }else if(initialLine[1].endsWith("cgi")){
             contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
+        }else{
+            sendError("405 Method Not Allowed", outToClient);
+            return "";
         }
 
         contentEncoding="\r\nContent-Encoding: identity";
