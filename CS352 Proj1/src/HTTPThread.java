@@ -812,6 +812,13 @@ public class HTTPThread extends Thread {
     		nextHeader = nextHeader[1].split("\n", 2);
     	}
     	
+    	//TESTING
+    	System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    	for(String[] header : h) {
+    		System.err.println(header[0] + ":" + header[1]);
+    	}
+    	System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    	
     	//we reached the end (presumably the blank line)
     	return h;
     }
@@ -828,7 +835,7 @@ public class HTTPThread extends Thread {
     	//search for the header
     	for(int i = 0; i < headers.size(); i++) {
     		String[] line = headers.get(i);
-    		if(line[0].equalsIgnoreCase(headerName)) {
+    		if(line[0].equalsIgnoreCase(headerName.trim())) {
     			ret = line[1];
     			break;
     		}
