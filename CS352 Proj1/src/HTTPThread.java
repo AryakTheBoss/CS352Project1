@@ -254,23 +254,26 @@ public class HTTPThread extends Thread {
      * @return	boolean	if the file wasn't modified ever since the if-modified-since header date, returns true, false otherwise
      */
     public boolean checkDate(String headers, File file) {
+    	if(1 == 1) {
+    		return true;
+    	}
+    	
     	//separates the first header from the rest of the headers
-    	String [] arr = headers.split(" |\t", 2);
+    	String [] arr = headers.split(":", 2);
     	
-    	
-    	/*
     	//while the header is not the correct header, go to the next line and repeat.
     	//if we reach the end, there is no ifmodified header.
-    	while(!(arr[0].matches("(.*)If-Modified-Since:(.*)")) && arr.length == 2) {
+    	while((arr[0].equalsIgnoreCase("If-Modified-Since")) && arr.length == 2) {
     		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
     		if (arr.length == 1) { //if there is a header with no value, break
     			break;
     		}
     		arr = arr[1].split(" |\t", 2); //separates the first header from the rest of the headers
-    		
-    		
     	}
-    	*/
+    	
+    	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
+    		return true;
+    	}
     	
     	//now arr[1] up to the next line contains the date. Throws away the other headers
     	arr = arr[1].split("\n", 2);
@@ -384,6 +387,7 @@ public class HTTPThread extends Thread {
         		if(i < headers.length - 1) {
         			//this means that there are parameters
         			areParams = true;
+        			break;
         		}
         	}
         }
