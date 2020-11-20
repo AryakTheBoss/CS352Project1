@@ -769,7 +769,7 @@ public class HTTPThread extends Thread {
     		
     		
     		System.err.println("Params passed:" + param);
-    		System.err.println("");
+    		
     		
     		//pass in parameters through standardin
     		if(param != null) {
@@ -796,6 +796,8 @@ public class HTTPThread extends Thread {
 			while(stdInput.ready()) {
 				msg = msg + stdInput.readLine() + "\n";
 			}
+			
+			System.err.println("msg:" + msg);
 			
 			//close the buffered readers
 			stdInput.close();
