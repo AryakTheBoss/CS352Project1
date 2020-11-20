@@ -56,10 +56,12 @@ public class HTTPThread extends Thread {
         	try {
 	        	request = inFromServer.readLine(); //initial line
 	        	//temp = inFromServer.readLine(); //line after
-
+	        	
+	        	/*
                 while ((temp = inFromServer.readLine()) != null) {
                     restOfRequest = temp + restOfRequest;
                 }//will store everything after the initial line
+                */
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
