@@ -83,16 +83,16 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        /*
+        ///*
         //Now that we have the full string, separate the initial line from the rest.
         String[] splitRequest = temp.split("\n");
         request = splitRequest[0];
         restOfRequest = splitRequest[2];
         
-        System.out.println("---------");
+        System.out.println("-------------------------------------------------------------------------");
         System.out.println(request + "<-- initial line!");
         System.out.println(restOfRequest);
-        */
+        //*/
         
         //gets a file stream that will send data to the client
     	try {
@@ -552,7 +552,7 @@ public class HTTPThread extends Thread {
     	//Creates the header for the file
     	String header = createHeader(initialLine,false,null);
     	
-        System.out.println(header);
+        System.out.println(header + "--------------------------------------------------------------------------");
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
