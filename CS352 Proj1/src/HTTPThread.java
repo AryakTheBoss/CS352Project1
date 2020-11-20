@@ -567,7 +567,7 @@ public class HTTPThread extends Thread {
     	
     	//run the commands and store the result
     	char[] output = runScript(commands, parameters);
-    	String output2 = new String(output).trim();
+    	String output2 = new String(output);
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
     	
@@ -586,11 +586,6 @@ public class HTTPThread extends Thread {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
             os.write(last);
             os.flush();
-            try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 
         } catch (IOException e) {
             e.printStackTrace();
