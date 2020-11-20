@@ -53,10 +53,17 @@ public class HTTPThread extends Thread {
 	        	//temp = readBytes(inFromServer);
 	        	
 	        	///*
+	        	
+	        	//for the first header
+	        	if(inFromServer.ready()) {
+	        		restOfRequest = inFromServer.readLine();
+	        	}
+	        	
+	        	//all other headers
                 while (inFromServer.ready()) {
                 	temp = inFromServer.readLine();
                     restOfRequest = restOfRequest + "\n" + temp;
-                }//will store everything after the initial line
+                }
                 //*/
 	        
         	//tells client that they timed out
