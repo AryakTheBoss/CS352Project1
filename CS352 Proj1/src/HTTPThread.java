@@ -761,6 +761,8 @@ public class HTTPThread extends Thread {
     		
     		Process proc = pb.start();
     		
+    		System.err.println("Params passed: " + param);
+    		
     		//pass in parameters through standardin
             DataOutputStream os = new DataOutputStream(proc.getOutputStream());
             os.writeChars(param);
