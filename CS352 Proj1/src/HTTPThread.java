@@ -50,7 +50,6 @@ public class HTTPThread extends Thread {
         //initial line is stored in request
         //additional lines are stored in restOfRequest
         try {
-        	//InputStream input = client.getInputStream();
         	BufferedReader inFromServer = new BufferedReader(new
         				InputStreamReader(client.getInputStream()));
         	
@@ -59,12 +58,13 @@ public class HTTPThread extends Thread {
 	        	request = inFromServer.readLine(); //initial line
 	        	//restOfRequest = inFromServer.readLine(); //line after
 	        	
-	        	//temp = readBytes(input);
+	        	temp = readBytes(inFromServer);
 	        	
+	        	/*
                 while ((temp = inFromServer.readLine()) != null && inFromServer.ready()) {
                     restOfRequest = temp + "\n" + restOfRequest;
                 }//will store everything after the initial line
-                
+                //*/
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
@@ -734,12 +734,13 @@ public class HTTPThread extends Thread {
         super.interrupt(); //PLACEHOLDER
     }
     
-    private static String readBytes(InputStream inputStream) throws IOException {
+    private static String readBytes(BufferedReader br) throws IOException {
         ArrayList < Byte > byteList = new ArrayList < Byte > ();
 
-        /* Read byte from socket until we are at the last \n of \r\n\r\n */
+        /* Read byte from socket until we read everything in the buffer */
         int currentByteInt = -1;
-        while ((currentByteInt = inputStream.read()) != -1) {
+        while (br.ready()) {
+        	currentByteInt = br.read();
             byte currentByte = (byte) currentByteInt;
             byteList.add(currentByte);
         }
