@@ -837,9 +837,9 @@ public class HTTPThread extends Thread {
     	}
     	
     	//SERVER_NAME localhost
-    	env.put("SERVER_NAME", client.getPort() + "");
+    	env.put("SERVER_NAME", client.getInetAddress().getHostAddress());
     	//SERVER_PORT (get this from the socket?
-    	env.put("SERVER_PORT", client.getInetAddress().getHostAddress());
+    	env.put("SERVER_PORT", client.getPort() + "");
     	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
     	env.put("SCRIPT_NAME", scriptName);
     	
@@ -868,9 +868,9 @@ public class HTTPThread extends Thread {
     	}
     	
     	//SERVER_NAME localhost
-    	envars.add("SERVER_NAME=" + client.getPort() + "");
+    	envars.add("SERVER_NAME=" + client.getInetAddress().getHostAddress());
     	//SERVER_PORT (get this from the socket?
-    	envars.add("SERVER_PORT=" + client.getInetAddress().getHostAddress());
+    	envars.add("SERVER_PORT=" + client.getPort() + "");
     	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
     	envars.add("SCRIPT_NAME=" + scriptName);
     	
