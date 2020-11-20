@@ -503,7 +503,7 @@ public class HTTPThread extends Thread {
         }
         
         //see if the file is forbidden THIS ONLY WORKS ON LINUX!!
-    	File file = new File(initialLine[1]);
+    	File file = new File(initialLine[1].substring(0, initialLine[1].length() - 1));
     	if(!(file.canExecute())) {
     		sendError("403 Forbidden", outToClient);
         	return;
