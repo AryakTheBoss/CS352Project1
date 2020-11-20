@@ -795,7 +795,7 @@ public class HTTPThread extends Thread {
     		
     		
     		System.err.println("Params passed:" + param);
-    		System.err.println("Trying to run:" + commands[0]);
+    		System.err.println("Trying to run:" + cmd);
     		
     		
     		//pass in parameters through standardin
