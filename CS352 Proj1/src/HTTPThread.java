@@ -88,6 +88,10 @@ public class HTTPThread extends Thread {
         request = splitRequest[0];
         restOfRequest = splitRequest[2];
         
+        System.out.println("---------");
+        System.out.println(request + "<-- initial line!");
+        System.out.println(restOfRequest);
+        
         //gets a file stream that will send data to the client
     	try {
             outToClient = new DataOutputStream(client.getOutputStream());
