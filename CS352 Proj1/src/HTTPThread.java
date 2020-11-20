@@ -73,8 +73,6 @@ public class HTTPThread extends Thread {
         		//if if-statement is not triggered, we assume that information was successfully extracted
         	}
         	
-        	inFromServer.close();
-        	
         } catch (IOException ioe) {
         	System.err.println("HTTP/1.0 500 Internal Server Error");
         	return;
@@ -106,6 +104,17 @@ public class HTTPThread extends Thread {
         if(version > 1.0) {
         	sendError("505 HTTP Version Not Supported", outToClient);
         	return;
+        }
+        
+        //checking for not implemented
+        if(initialLine[0].equals("DELETE")) {
+        	delete(initialLine);
+        } else if(initialLine[0].equals("PUT")) {
+        	put(initialLine);
+        } else if(initialLine[0].equals("LINK")) {
+        	link(initialLine);
+        } else if(initialLine[0].equals("UNLINK")) {
+        	unlink(initialLine);
         }
         
         //attempt to read the second argument as a file
@@ -169,14 +178,6 @@ public class HTTPThread extends Thread {
         	post(initialLine, restOfRequest);
         } else if(initialLine[0].equals("HEAD")) {
         	head(initialLine);
-        } else if(initialLine[0].equals("DELETE")) {
-        	delete(initialLine);
-        } else if(initialLine[0].equals("PUT")) {
-        	put(initialLine);
-        } else if(initialLine[0].equals("LINK")) {
-        	link(initialLine);
-        } else {
-        	unlink(initialLine);
         }
         
     }
