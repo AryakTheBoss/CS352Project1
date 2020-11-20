@@ -390,7 +390,7 @@ public class HTTPThread extends Thread {
         boolean areParams = false;
         int stop = -1;
         for(int i = 0; i < headers.length; i++) {
-        	if(headers[i].equals("")) {
+        	if(headers[i].split(":", 2).length == 1) {
         		stop = i;
         		if(i < headers.length - 1) {
         			//this means that there are parameters
