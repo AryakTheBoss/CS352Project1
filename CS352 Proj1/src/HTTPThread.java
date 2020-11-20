@@ -510,33 +510,33 @@ public class HTTPThread extends Thread {
     	}
         
         String param = searchHeader(headers, "Param");
-        if(param != null) {
-        	param = param.trim();
-        }
         
         boolean and = false;
-        
-        int y = param.length();
-        char prev = '\0';
-        for(int i  = 0; i < y; i++){
-            if(param.charAt(i) == '&'){
-                and = true;
-                continue;
-            }
-            if(param.charAt(i) == '!' && prev == '!'){
-                prev = '\0';
-                continue;
-            }
-            else if(param.charAt(i) != '!'){
-                prev = param.charAt(i);
-                continue;
-            }
-            else if(param.charAt(i) == '!'){
-                param.replace(param.valueOf(param.charAt(i)), "");
-                prev = '!';
+        if(param != null) {
+        	param = param.trim();
+        	
+            int y = param.length();
+            char prev = '\0';
+            for(int i  = 0; i < y; i++){
+                if(param.charAt(i) == '&'){
+                    and = true;
+                    continue;
+                }
+                if(param.charAt(i) == '!' && prev == '!'){
+                    prev = '\0';
+                    continue;
+                }
+                else if(param.charAt(i) != '!'){
+                    prev = param.charAt(i);
+                    continue;
+                }
+                else if(param.charAt(i) == '!'){
+                    param.replace(String.valueOf(param.charAt(i)), "");
+                    prev = '!';
+                }
             }
         }
-
+        
         String[] commands;
         if(and){
             String [] parameters = param.split("&");
