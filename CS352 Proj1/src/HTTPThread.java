@@ -807,4 +807,24 @@ public class HTTPThread extends Thread {
     	return h;
     }
     
+    /**
+     * Seach method to get the header you want
+     * @param headers list of all headers and their values
+     * @param headerName header we are looking for 
+     * @return value of that header
+     */
+    private String searchHeader(ArrayList<String[]> headers, String headerName) {
+    	String ret = null;
+    	
+    	//search for the header
+    	for(int i = 0; i < headers.size(); i++) {
+    		String[] line = headers.get(i);
+    		if(line[0].equalsIgnoreCase(headerName)) {
+    			ret = line[1];
+    			break;
+    		}
+    	}
+    	return ret;
+    }
+    
 }
