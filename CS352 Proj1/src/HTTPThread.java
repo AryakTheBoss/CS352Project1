@@ -416,20 +416,20 @@ public class HTTPThread extends Thread {
         boolean length = false;
 
         for(int i  = 0; i < headers.length; i++){
-            String [] temp = headers[i].split(":");
+            String [] temp = headers[i].split(":", 2);
             temp[1] = temp[1].substring(1); //skips the space
-            if(temp[0].equalsIgnoreCase("From:")){
+            if(temp[0].equalsIgnoreCase("From")){
                 //env.put("HTTP_FROM", temp[1]);
             	evars[HTTP_FROM] = temp[1];
             }
-            else if(temp[0].equalsIgnoreCase("User-Agent:")){
+            else if(temp[0].equalsIgnoreCase("User-Agent")){
                 //env.put("HTTP_USER_AGENT", temp[1]);
                 evars[HTTP_USER_AGENT] = temp[1];
             }
-            else if(temp[0].equalsIgnoreCase("Content-Type:")){
+            else if(temp[0].equalsIgnoreCase("Content-Type")){
                 type = true;
             }
-            else if(temp[0].equalsIgnoreCase("Content-Length:")){
+            else if(temp[0].equalsIgnoreCase("Content-Length")){
                 length = true;
                 if(!numCheck(temp[1])){
                     sendError("411 Length Required", outToClient);
