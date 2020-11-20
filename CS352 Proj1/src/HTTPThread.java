@@ -457,7 +457,7 @@ public class HTTPThread extends Thread {
             }
         }
         if(!type){
-            sendError("500 Internal Service Error", outToClient);
+            sendError("500 Internal Server Error", outToClient);
         }
         else if(!length){
             sendError("411 Length Required", outToClient);
