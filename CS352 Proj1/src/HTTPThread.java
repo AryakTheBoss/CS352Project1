@@ -420,6 +420,14 @@ public class HTTPThread extends Thread {
             sendError("405 Method Not Allowed", outToClient);
             return;
         }*/
+        
+        //see if the file is forbidden THIS ONLY WORKS ON LINUX!!
+    	File file = new File(initialLine[1]);
+    	if(!(file.canExecute())) {
+    		sendError("403 Forbidden", outToClient);
+        	return;
+    	}
+    	
 
         String [] headers = restOfRequest.split("\n");
         
