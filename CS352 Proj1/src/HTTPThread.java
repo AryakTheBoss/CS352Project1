@@ -750,7 +750,7 @@ public class HTTPThread extends Thread {
         byte[] bytes2 = new byte[bytes.length];
         
         for(int i = 0; i < bytes.length; i++) {
-        	bytes2[i] = bytes[i];
+        	bytes2[i] = (byte)bytes[i];
         }
         
         String msg = new String(bytes2);
