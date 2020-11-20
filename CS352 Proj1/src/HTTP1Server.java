@@ -20,7 +20,7 @@ import java.net.ServerSocket;
  * @author Jake, Pankaj, Aryak
  * https://www.journaldev.com/1069/threadpoolexecutor-java-thread-pool-example-executorservice
  */
-public class PartialHTTP1Server {
+public class HTTP1Server {
 	
 	/**
 	 * Threadpool that will store threads, and control minimum and maximum size.
