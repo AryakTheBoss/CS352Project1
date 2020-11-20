@@ -58,9 +58,9 @@ public class HTTPThread extends Thread {
 	        	request = inFromServer.readLine(); //initial line
 	        	//restOfRequest = inFromServer.readLine(); //line after
 	        	
-	        	temp = readBytes(inFromServer);
+	        	//temp = readBytes(inFromServer);
 	        	
-	        	/*
+	        	///*
                 while ((temp = inFromServer.readLine()) != null && inFromServer.ready()) {
                     restOfRequest = temp + "\n" + restOfRequest;
                 }//will store everything after the initial line
@@ -83,16 +83,17 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        ///*
+        /*
         //Now that we have the full string, separate the initial line from the rest.
         String[] splitRequest = temp.split("\n", 2);
         request = splitRequest[0];
         restOfRequest = splitRequest[1];
+        //*/
         
+        //TESTING
         System.out.println("-------------------------------------------------------------------------");
         System.out.println(request + "<-- initial line!");
         System.out.println(restOfRequest);
-        //*/
         
         //gets a file stream that will send data to the client
     	try {
