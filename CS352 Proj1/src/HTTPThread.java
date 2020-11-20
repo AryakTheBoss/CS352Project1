@@ -385,8 +385,24 @@ public class HTTPThread extends Thread {
      */
     public void post(String[] initialLine, String restOfRequest) {
         String [] headers = restOfRequest.split("|\n");
-        Map<String,String> env = System.getenv();
-        env.put("SCRIPT_NAME", initialLine[1]);
+        
+        //constants for the evars array
+        final int SCRIPT_NAME = 0;
+        final int HTTP_FROM = 1;
+        final int HTTP_USER_AGENT = 2;
+        final int CONTENT_LENGTH = 3;
+        
+        //initialize evars array
+        String[] evars = new String[4];
+        for(int i = 0; i < 4; i++) {
+        	evars[i] = null;
+        }
+        
+        //Gets the script name
+        evars[SCRIPT_NAME] = initialLine[1];
+        
+        //Map<String,String> env = System.getenv();
+        //env.put("SCRIPT_NAME", initialLine[1]);
 
         DataOutputStream outToClient = null;
         try {
@@ -400,12 +416,15 @@ public class HTTPThread extends Thread {
         boolean length = false;
 
         for(int i  = 0; i < headers.length; i++){
-            String [] temp = headers[i].split(" ");
+            String [] temp = headers[i].split(":");
+            temp[1] = temp[1].substring(1); //skips the space
             if(temp[0].equalsIgnoreCase("From:")){
-                env.put("HTTP_FROM", temp[1]);
+                //env.put("HTTP_FROM", temp[1]);
+            	evars[HTTP_FROM] = temp[1];
             }
             else if(temp[0].equalsIgnoreCase("User-Agent:")){
-                env.put("HTTP_USER_AGENT", temp[1]);
+                //env.put("HTTP_USER_AGENT", temp[1]);
+                evars[HTTP_USER_AGENT] = temp[1];
             }
             else if(temp[0].equalsIgnoreCase("Content-Type:")){
                 type = true;
@@ -415,7 +434,8 @@ public class HTTPThread extends Thread {
                 if(!numCheck(temp[1])){
                     sendError("411 Length Required", outToClient);
                 }
-                env.put("CONTENT_LENGTH", temp[1]);
+                //env.put("CONTENT_LENGTH", temp[1]);
+                evars[CONTENT_LENGTH] = temp[1];
             }
         }
         if(!type){
@@ -465,7 +485,7 @@ public class HTTPThread extends Thread {
         }
 
 
-    	String header = createHeader(initialLine,true,env.get("CONTENT_LENGTH"));
+    	String header = createHeader(initialLine,true,evars[CONTENT_LENGTH]);
     	
     	//create and initialize the commands String array
     	//String[] commands = null;
