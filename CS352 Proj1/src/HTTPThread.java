@@ -585,6 +585,7 @@ public class HTTPThread extends Thread {
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
 			     InputStreamReader(proc.getInputStream()));
+
 			
 			stdInput.read(output);
 			
