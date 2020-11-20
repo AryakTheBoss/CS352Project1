@@ -645,11 +645,8 @@ public class HTTPThread extends Thread {
             contentType= "\r\nContent-Type: application/zip";
         }else if(initialLine[1].endsWith("gz")){ //idk if that the extension that denotes x-gzip
             contentType= "\r\nContent-Type: application/x-gzip";
-        }else if(initialLine[1].endsWith("cgi")){
-            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
         }else{
-            sendError("405 Method Not Allowed", outToClient);
-            return "";
+            contentType = "\r\nContent-Type: application/octet-stream"; //unknown file type
         }
 
         contentEncoding="\r\nContent-Encoding: identity";
