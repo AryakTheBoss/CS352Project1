@@ -754,4 +754,47 @@ public class HTTPThread extends Thread {
         
         return msg;
     }
+    
+    /**
+     * gets the headers and returns them as an arraylist
+     * @param headers
+     * @return
+     */
+    private ArrayList<String[]> headers(String headers) {
+    	ArrayList<String[]> h = new ArrayList<String[]>();
+    	
+    	//gets the first header (if any)
+    	String[] nextHeader = headers.split("\n", 2);
+    	
+    	//while loop goes through all headers and tries to split the header from the value
+    	while(nextHeader.length != 1) {
+    		String[] splitHeader = nextHeader[0].split(":", 2);
+    		
+    		//we are looking for the blank line! Then we can check if the next line has params. otherwise, we dont care
+    		if(splitHeader[0].isEmpty()) {
+    			
+    			//read the next line and store it as params
+				String[] header = new String[2];
+				
+				//stores the parameters
+				header[0] = "Params";
+				header[1] = nextHeader[1].trim();
+				h.add(header);
+				
+    			break;
+    		}
+    		
+    		//we assume that this line is a parameter, remove spaces around it.
+    		splitHeader[1] = splitHeader[1].trim();
+    		
+    		//add this to the list
+    		h.add(splitHeader);
+    		
+    		nextHeader = nextHeader[1].split("\n", 2);
+    	}
+    	
+    	//we reached the end (presumably the blank line)
+    	return h;
+    }
+    
 }
