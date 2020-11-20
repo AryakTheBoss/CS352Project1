@@ -541,7 +541,7 @@ public class HTTPThread extends Thread {
         }
         
         String[] commands = new String[1];
-        commands[0] = initialLine[1].substring(1);
+        commands[0] = initialLine[1];
         
         /*
         if(and){
@@ -736,7 +736,7 @@ public class HTTPThread extends Thread {
 	    		cmdline.add("\"" + param + "\"");
     		}
     		cmdline.add("|");
-    		cmdline.add(cmd);
+    		cmdline.add("." + cmd);
     		
     		/*
     		cmdline.add(commands[0]);
