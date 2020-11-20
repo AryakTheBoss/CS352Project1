@@ -566,7 +566,7 @@ public class HTTPThread extends Thread {
     	//create and initialize the commands String array
     	
     	//run the commands and store the result
-    	char[] output = runScript(commands, parameters);
+    	char[] output = runScript(commands, parameters, headers);
     	String output2 = new String(output);
     	
     	String header = createHeader(initialLine,true,output2.length() + "");
@@ -720,14 +720,32 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
-    private char[] runScript(String[] commands, String[] parameters) {
+    private char[] runScript(String[] commands, String[] parameters, ArrayList<String[]> headers) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
     	 */
     	char[] output = new char[10000];
     	try {
-    		Process proc = null;
+    		//making the command line
+    		ArrayList<String> cmdline = new ArrayList<String>();
+    		for(String s : commands) {
+    			cmdline.add(s);
+    		}
+    		for(String s : parameters) {
+    			cmdline.add(s);
+    		}
+    		
+    		//make the process builder
+    		ProcessBuilder pb = new ProcessBuilder(cmdline);
+    		Map<String, String> env = pb.environment();
+    		for(String[] arr : headers) {
+    			if(!arr[0].equalsIgnoreCase("Param")) {
+    				env.put(arr[0], arr[1]);
+    			}
+    		}
+    		
+    		Process proc = pb.start();
 			Runtime rt = Runtime.getRuntime();
 			if(parameters != null ) {
 				proc = rt.exec(commands, parameters);
