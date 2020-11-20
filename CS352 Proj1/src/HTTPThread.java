@@ -868,7 +868,11 @@ public class HTTPThread extends Thread {
     	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
     	envars.add("SCRIPT_NAME=" + scriptName);
     	
-    	String[] ret = (String[])envars.toArray();
+    	
+    	String[] ret = new String[envars.size()];
+    	for(int i = 0; i < envars.size(); i++) {
+    		ret[i] = envars.get(i);
+    	}
     	return ret;
     }
     
