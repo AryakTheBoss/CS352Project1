@@ -764,10 +764,11 @@ public class HTTPThread extends Thread {
     		System.err.println("Params passed: " + param);
     		
     		//pass in parameters through standardin
-            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
-            os.writeChars(param);
-            os.flush();
-
+    		if(param != null) {
+	            DataOutputStream os = new DataOutputStream(proc.getOutputStream());
+	            os.writeChars(param);
+	            os.flush();
+    		}
     		
 			
 			//Reader for standard input from the process
