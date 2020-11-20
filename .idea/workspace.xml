@@ -5,7 +5,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="added 405 method not allowed">
+    <list default="true" id="7bc18f25-504c-4ec3-8680-6bc5535179b2" name="Default Changelist" comment="added 405 to before 404">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS352 Proj1/src/HTTPThread.java" afterDir="false" />
     </list>
@@ -111,7 +111,21 @@
       <option name="project" value="LOCAL" />
       <updated>1605893121727</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="took out 405 in createHeaders">
+      <created>1605895016954</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1605895016954</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added 405 to post method">
+      <created>1605895180333</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1605895180333</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,7 +144,10 @@
     <MESSAGE value="beginning of post for parameters was added also made restofrequest and arraylist to make it easier to access" />
     <MESSAGE value="xml files" />
     <MESSAGE value="added 405 method not allowed" />
-    <option name="LAST_COMMIT_MESSAGE" value="added 405 method not allowed" />
+    <MESSAGE value="took out 405 in createHeaders" />
+    <MESSAGE value="added 405 to post method" />
+    <MESSAGE value="added 405 to before 404" />
+    <option name="LAST_COMMIT_MESSAGE" value="added 405 to before 404" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="257" key="#Project_Structure" timestamp="1605831800586">
@@ -185,21 +202,24 @@
     </state>
     <state x="364" y="56" key="SettingsEditor/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831881385" />
     <state x="239" y="63" key="SettingsEditor/0.25.1440.817@0.25.1440.817" timestamp="1605655356028" />
-    <state x="330" y="165" key="Vcs.Push.Dialog.v2" timestamp="1605893123887">
-      <screen x="0" y="25" width="1440" height="817" />
+    <state x="330" y="165" key="Vcs.Push.Dialog.v2" timestamp="1605895181937">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state x="503" y="205" key="Vcs.Push.Dialog.v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605843196119" />
     <state x="330" y="164" key="Vcs.Push.Dialog.v2/0.25.1440.809@0.25.1440.809" timestamp="1605510338582" />
+    <state x="330" y="165" key="Vcs.Push.Dialog.v2/0.25.1440.814@0.25.1440.814" timestamp="1605895181937" />
+    <state x="330" y="165" key="Vcs.Push.Dialog.v2/0.25.1440.815@0.25.1440.815" timestamp="1605895018594" />
     <state x="330" y="165" key="Vcs.Push.Dialog.v2/0.25.1440.817@0.25.1440.817" timestamp="1605893123887" />
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1605500585752">
       <screen x="0" y="25" width="1440" height="809" />
     </state>
     <state x="190" y="125" width="1081" height="605" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.809@0.25.1440.809" timestamp="1605500585752" />
-    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605894855456">
-      <screen x="0" y="25" width="1440" height="815" />
+    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605899104570">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state x="811" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605849835318" />
     <state x="532" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.809@0.25.1440.809" timestamp="1605500369807" />
+    <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.814@0.25.1440.814" timestamp="1605899104570" />
     <state x="532" y="347" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.815@0.25.1440.815" timestamp="1605894855456" />
     <state x="532" y="348" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.817@0.25.1440.817" timestamp="1605894276884" />
     <state x="532" y="348" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1440.818@0.25.1440.818" timestamp="1605890949517" />
@@ -211,5 +231,9 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="524" y="219" key="new project wizard/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1605831975149" />
+    <state x="408" y="343" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1605899100610">
+      <screen x="0" y="25" width="1440" height="814" />
+    </state>
+    <state x="408" y="343" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.25.1440.814@0.25.1440.814" timestamp="1605899100610" />
   </component>
 </project>

@@ -146,7 +146,13 @@ public class HTTPThread extends Thread {
         
         //attempt to read the second argument as a file
     	File file = new File(initialLine[1].substring(1));
-    	
+
+        if(initialLine[0].equals("POST")){
+            if(!initialLine[1].endsWith("cgi")){
+                sendError("405 Method Not Allowed", outToClient);
+                return;
+            }
+        }
     	//check if the file exists
     	if(!(file.exists())) {
     		
@@ -410,10 +416,10 @@ public class HTTPThread extends Thread {
             e.printStackTrace();
         }
 
-        if(!initialLine[1].endsWith("cgi")){
+        /*if(!initialLine[1].endsWith("cgi")){
             sendError("405 Method Not Allowed", outToClient);
             return;
-        }
+        }*/
 
         String [] headers = restOfRequest.split("\n");
         
