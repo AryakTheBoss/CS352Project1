@@ -63,16 +63,20 @@ public class HTTPThread extends Thread {
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
-        		sendError("408 Request Timeout", outToClient);
-            	return;
+        		
+        		//check if request timed out
+        		if(request == null || request == "") {
+        			sendError("408 Request Timeout", outToClient);
+        			return;
+        		}
+            	
+        		//if if-statement is not triggered, we assume that information was successfully extracted
         	}
         	
-        	//hopefully returning from a thread is allowed
         } catch (IOException ioe) {
         	System.err.println("HTTP/1.0 404 Not Found");
         	return;
         }
-        
         
         //gets a file stream that will send data to the client
     	try {
