@@ -589,6 +589,12 @@ public class HTTPThread extends Thread {
     	String output2 = runScript(commands, param, headers, initialLine);
     	//String output2 = new String(output);
     	
+    	//check for 204
+    	if((output2 == null) || output2.isEmpty()) {
+    		sendError("204 No Content", outToClient);
+    	}
+    	
+    	
     	String header = createHeader(initialLine,true,output2.length() + "");
     	
     	//error checking for printing payload
@@ -849,8 +855,9 @@ public class HTTPThread extends Thread {
 			//Reader for standard error for the process
 			BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 			System.err.println("###############################################################");
-			while(stdErr.ready()) {
-				System.err.println(stdErr.readLine());
+			String error = null;
+			while((error = stdErr.readLine()) != null) {
+				System.err.println();
 			}
 			System.err.println("##########################################################");
 			
