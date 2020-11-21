@@ -779,6 +779,8 @@ public class HTTPThread extends Thread {
     		Map<String, String> env = pb.environment();
     		makeEnvironment(headers, env, initialLine[1]);
     		
+    		
+    		
     		Process proc = pb.start();
     		
     		
@@ -859,13 +861,13 @@ public class HTTPThread extends Thread {
     	//HTTP_FROM (search for From)
     	String hf = searchHeader(headers, "From");
     	if(hf != null) {
-    		env.put("HTTP_FROM", "");
+    		env.put("HTTP_FROM", hf);
     	}
     	
     	//HTTP_USER_AGENT (search for User-Agent)
     	String hua = searchHeader(headers, "User-Agent");
     	if(hua != null) {
-    		env.put("HTTP_USER_AGENT", "");
+    		env.put("HTTP_USER_AGENT", hua);
     	}
     	
     	//SERVER_NAME localhost
