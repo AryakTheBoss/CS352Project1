@@ -614,34 +614,6 @@ public class HTTPThread extends Thread {
     		//pb.command(cmd);
     		Map<String, String> env = pb.environment();
     		makeEnvironment(headers, env, initialLine[1]);
-    		
-    		/*
-    		//CONTENT_LENGTH (Search for Content-Length)
-        	String ct = searchHeader(headers, "Content-Length");
-        	if(ct != null) {
-        		env.put("CONTENT_LENGTH", ct);
-        	}
-        	
-        	//HTTP_FROM (search for From)
-        	String hf = searchHeader(headers, "From");
-        	if(hf != null) {
-        		env.put("HTTP_FROM", hf);
-        	}
-        	
-        	//HTTP_USER_AGENT (search for User-Agent)
-        	String hua = searchHeader(headers, "User-Agent");
-        	if(hua != null) {
-        		env.put("HTTP_USER_AGENT", hua);
-        	}
-        	
-        	//SERVER_NAME localhost
-        	env.put("SERVER_NAME", client.getInetAddress().getHostAddress());
-        	//SERVER_PORT (get this from the socket?
-        	env.put("SERVER_PORT", client.getLocalPort() + "");
-        	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
-        	env.put("SCRIPT_NAME", initialLine[1]);
-    		*/
-        	
     		Process proc = pb.start();
     		
     		//pass in parameters through standardin
