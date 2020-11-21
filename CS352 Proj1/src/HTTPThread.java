@@ -771,49 +771,50 @@ public class HTTPThread extends Thread {
     		}
     		*/
     		
-    		/*
+    		
     		//make the process builder
-    		ProcessBuilder pb = new ProcessBuilder();
     		//pb.command((List<String>)cmdline);
+    		ProcessBuilder pb = new ProcessBuilder();
     		pb.command(cmd);
     		Map<String, String> env = pb.environment();
-    		env.clear();
     		makeEnvironment(headers, env, initialLine[1]);
     		
     		Process proc = pb.start();
-    		*/
     		
+    		
+    		/*
     		//attempt to use echo.
     		if(param != null) {
     			cmd = "echo \"" + param + "\" | " + cmd;
+    			
     		}
+    		
     		
     		Runtime rt = Runtime.getRuntime();
     		String[] envVars = makeEnvironment2(headers, initialLine[1]);
-    		/*
+    		
     		for(String s : envVars) {
     			cmd = cmd + " " + s;
     		}
-    		*/
+    		
+    		
     		Process proc = rt.exec(cmd);
     		for(String s : envVars) {
     			System.err.println(s);
     		}
-    		
+    		*/
     		
     		
     		System.err.println("Trying to run:" + cmd);
     		
-    		/*
     		//pass in parameters through standardin
     		if(param != null) {
     			System.err.println("Params passed:" + param);
-    			OutputStream os = proc.getOutputStream();
-	            os.write(param.getBytes());
-	            os.flush();
-	            os.close();
+    			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream()));
+	            bw.write(msg);
+	            bw.flush();
+	            bw.close();
     		}
-    		*/
     		
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
