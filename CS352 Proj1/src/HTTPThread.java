@@ -644,11 +644,8 @@ public class HTTPThread extends Thread {
         	
     		Process proc = pb.start();
     		
-    		System.err.println("Trying to run:" + cmd);
-    		
     		//pass in parameters through standardin
     		if(param != null) {
-    			System.err.println("Params passed:" + param);
     			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream()));
 	            bw.write(param);
 	            bw.flush();
@@ -661,7 +658,7 @@ public class HTTPThread extends Thread {
 			
 			//Reader for standard error for the process
 			BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-			System.err.println("###############################################################");
+			System.err.println("##########################################################");
 			String error = null;
 			while((error = stdErr.readLine()) != null) {
 				System.err.println(error);
