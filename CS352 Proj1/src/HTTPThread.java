@@ -32,7 +32,6 @@ public class HTTPThread extends Thread {
 
     @Override
     public void run(){
-       // super.run(); //PLACEHOLDER
         
         String request = "";//holds the initial request line
         String temp = ""; //used for reading in additional lines
@@ -49,13 +48,7 @@ public class HTTPThread extends Thread {
         	//checks if the client times out
         	try {
 	        	request = inFromServer.readLine(); //initial line
-	        	//restOfRequest = inFromServer.readLine(); //line after
-	        	
-	        	//temp = readBytes(inFromServer);
-	        	
-	        	///*
-	        	
-	        	//for the first header
+
 	        	if(inFromServer.ready()) {
 	        		restOfRequest = inFromServer.readLine();
 
@@ -69,7 +62,7 @@ public class HTTPThread extends Thread {
                 	temp = inFromServer.readLine();
                     restOfRequest = restOfRequest + "\n" + temp;
                 }
-                //*/
+
 	        
         	//tells client that they timed out
         	} catch (SocketTimeoutException ste) {
@@ -88,7 +81,7 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        //TESTING
+        //Input from the Client
         System.err.println("-------------------------------------------------------------------------");
         System.err.println(request + "<-- initial line!");
         System.err.println(restOfRequest);
@@ -206,6 +199,7 @@ public class HTTPThread extends Thread {
     
     /**
      * Gives error msg to client and print out the error
+     * @param msg is the type of error, outToClient is the DataOutputStream so the client can see the error
      */
     private void sendError(String msg, DataOutputStream outToClient) {
     	System.err.println("HTTP/1.0 " + msg + "\r\n");
@@ -307,7 +301,8 @@ public class HTTPThread extends Thread {
      * @param initialLine
      */
     public void get(String[] initialLine) {
-    	
+
+        //generates the appropriate headers
         String header = createHeader(initialLine,false,null);
         
         byte[] last = null;
@@ -356,16 +351,7 @@ public class HTTPThread extends Thread {
         closeConn();
     }
 
-    public boolean numCheck(String num){
-        boolean isNumber = true;
-        try {
-            int x = Integer.parseInt(num);
-        } catch (NumberFormatException e) {
-            isNumber = false;
-        }
-        return isNumber;
-    }
-    
+
     /**
      * Will implement the POST method of HTTP protocol
      * @param initialLine
@@ -725,7 +711,7 @@ public class HTTPThread extends Thread {
     
     @Override
     public void interrupt() {
-        super.interrupt(); //PLACEHOLDER
+        super.interrupt();
     }
     
     /**
@@ -771,7 +757,7 @@ public class HTTPThread extends Thread {
     }
     
     /**
-     * Seach method to get the header you want
+     * Search method to get the header you want
      * @param headers list of all headers and their values
      * @param headerName header we are looking for 
      * @return value of that header
