@@ -774,8 +774,8 @@ public class HTTPThread extends Thread {
     		
     		//make the process builder
     		//pb.command((List<String>)cmdline);
-    		ProcessBuilder pb = new ProcessBuilder();
-    		pb.command(cmd);
+    		ProcessBuilder pb = new ProcessBuilder(cmd);
+    		//pb.command(cmd);
     		Map<String, String> env = pb.environment();
     		
     		//CONTENT_LENGTH (Search for Content-Length)
@@ -803,7 +803,7 @@ public class HTTPThread extends Thread {
         	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
         	env.put("SCRIPT_NAME", initialLine[1]);
     		
-        	System.err.println(env);
+        	//System.err.println(env);
         	
     		Process proc = pb.start();
     		
@@ -837,7 +837,7 @@ public class HTTPThread extends Thread {
     		if(param != null) {
     			System.err.println("Params passed:" + param);
     			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream()));
-	            bw.write(msg);
+	            bw.write(param);
 	            bw.flush();
 	            bw.close();
     		}
