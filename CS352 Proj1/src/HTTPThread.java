@@ -592,6 +592,7 @@ public class HTTPThread extends Thread {
     	//check for 204
     	if((output2 == null) || output2.isEmpty()) {
     		sendError("204 No Content", outToClient);
+    		return;
     	}
     	
     	
