@@ -799,7 +799,7 @@ public class HTTPThread extends Thread {
         	//SERVER_NAME localhost
         	env.put("SERVER_NAME", client.getInetAddress().getHostAddress());
         	//SERVER_PORT (get this from the socket?
-        	env.put("SERVER_PORT", client.getPort() + "");
+        	env.put("SERVER_PORT", client.getLocalPort() + "");
         	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
         	env.put("SCRIPT_NAME", initialLine[1]);
     		
