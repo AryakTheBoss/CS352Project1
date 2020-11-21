@@ -803,6 +803,8 @@ public class HTTPThread extends Thread {
         	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
         	env.put("SCRIPT_NAME", initialLine[1]);
     		
+        	System.err.println(env);
+        	
     		Process proc = pb.start();
     		
     		
