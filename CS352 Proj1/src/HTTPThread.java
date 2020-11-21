@@ -88,13 +88,6 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        /*
-        //Now that we have the full string, separate the initial line from the rest.
-        String[] splitRequest = temp.split("\n", 2);
-        request = splitRequest[0];
-        restOfRequest = splitRequest[1];
-        //*/
-        
         //TESTING
         System.err.println("-------------------------------------------------------------------------");
         System.err.println(request + "<-- initial line!");
@@ -173,8 +166,6 @@ public class HTTPThread extends Thread {
     		isHead = true;
     	}
     	
-    	
-        
         //checks if the file was modified or not
         if(!checkDate(headers, file) && !isHead) {
         	//Assumes legal request and that the file exists
@@ -184,7 +175,6 @@ public class HTTPThread extends Thread {
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
             c.add(Calendar.YEAR, 1);
-            
             
             //message
         	String msg = "HTTP/1.0 304 Not Modified\r\n"
@@ -203,9 +193,6 @@ public class HTTPThread extends Thread {
         	return;
         }
         
-        //
-        
-        
         //Calls the particular command specified by the first token
         if(initialLine[0].equals("GET")) {
         	get(initialLine);
@@ -216,6 +203,7 @@ public class HTTPThread extends Thread {
         }
         
     }
+    
     /**
      * Gives error msg to client and print out the error
      */
@@ -285,32 +273,6 @@ public class HTTPThread extends Thread {
     	if(date == null) {
     		return true;
     	}
-    	
-    	/*
-    	//separates the first header from the rest of the headers
-    	String [] arr = headers.split(":", 2);
-    	arr[1] = arr[1].substring(1);
-    	
-    	//while the header is not the correct header, go to the next line and repeat.
-    	//if we reach the end, there is no ifmodified header.
-    	while((arr[0].equalsIgnoreCase("If-Modified-Since")) && arr.length == 2) {
-    		arr = arr[1].split("\n", 2); //removes that line, and goes to the next line, and splits that
-    		if (arr.length == 1) { //if there is a header with no value, return since there are no more headers to read
-    			return true;
-    		}
-    		arr = arr[1].split(":", 2); //separates the first header from the rest of the headers
-    		arr[1] = arr[1].substring(1);
-    	}
-    	
-    	
-    	if(!(arr[0].equalsIgnoreCase("If-Modified-Since:"))) {
-    		return true;
-    	}
-    	
-    	//now arr[1] up to the next line contains the date. Throws away the other headers
-    	arr = arr[1].split("\n", 2);
-    	String date = arr[0];
-    	*/
     	
     	//interpret this date
     	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
@@ -416,45 +378,6 @@ public class HTTPThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*if(!initialLine[1].endsWith("cgi")){
-            sendError("405 Method Not Allowed", outToClient);
-            return;
-        }*/
-        
-        /*
-        //look for blank line, and if the blank line has a line after it that is not blank, then that is the set of parameters
-        boolean areParams = false;
-        int stop = -1;
-        for(int i = 0; i < headers.length; i++) {
-        	if(headers[i].split(":", 2).length == 1) {
-        		stop = i;
-        		if(i < headers.length - 1) {
-        			//this means that there are parameters
-        			areParams = true;
-        			break;
-        		}
-        	}
-        }
-        
-        //constants for the evars array
-        final int SCRIPT_NAME = 0;
-        final int HTTP_FROM = 1;
-        final int HTTP_USER_AGENT = 2;
-        final int CONTENT_LENGTH = 3;
-        
-        //initialize evars array
-        String[] evars = new String[4];
-        for(int i = 0; i < 4; i++) {
-        	evars[i] = null;
-        }
-        
-        //Gets the script name
-        evars[SCRIPT_NAME] = initialLine[1];
-        
-        //Map<String,String> env = System.getenv();
-        //env.put("SCRIPT_NAME", initialLine[1]);
-		*/
         
         boolean type = false;
         boolean length = false;
@@ -467,32 +390,6 @@ public class HTTPThread extends Thread {
         if(searchHeader(headers, "Content-Type") != null) {
         	type = true;
         }
-        
-        /*
-        for(int i  = 0; i < stop; i++){
-            
-            if(temp[0].equalsIgnoreCase("From")){
-                //env.put("HTTP_FROM", temp[1]);
-            	evars[HTTP_FROM] = temp[1];
-            }
-            else if(temp[0].equalsIgnoreCase("User-Agent")){
-                //env.put("HTTP_USER_AGENT", temp[1]);
-                evars[HTTP_USER_AGENT] = temp[1];
-            }
-            else if(temp[0].equalsIgnoreCase("Content-Type")){
-                type = true;
-            }
-            else if(temp[0].equalsIgnoreCase("Content-Length")){
-                length = true;
-                if(!numCheck(temp[1])){
-                    sendError("411 Length Required", outToClient);
-                    return;
-                }
-                //env.put("CONTENT_LENGTH", temp[1]);
-                evars[CONTENT_LENGTH] = temp[1];
-            }
-        }
-        */
         
         if(!type){
             sendError("500 Internal Server Error", outToClient);
@@ -529,62 +426,10 @@ public class HTTPThread extends Thread {
 	        }
         }
         
-        /*
-        boolean and = false;
-        String [] parameters = null;
-        if(param != null) {
-        	param = param.trim();
-        	
-            int y = param.length();
-            char prev = '\0';
-            for(int i  = 0; i < y; i++){
-                if(param.charAt(i) == '&'){
-                    and = true;
-                    continue;
-                }
-                if(param.charAt(i) == '!' && prev == '!'){
-                    prev = '\0';
-                    continue;
-                }
-                else if(param.charAt(i) != '!'){
-                    prev = param.charAt(i);
-                    continue;
-                }
-                else if(param.charAt(i) == '!'){
-                    param.replace(String.valueOf(param.charAt(i)), "");
-                    prev = '!';
-                }
-            }
-            
-            parameters = param.split("&");
-        }
-        */
-        
+        //make and initialize the commands array
         String[] commands = new String[1];
         commands[0] = initialLine[1];
         
-        /*
-        if(and){
-            String [] parameters = param.split("&");
-            int parametersLength  = parameters.length+1;
-            commands = new String[parametersLength];
-            commands[0] = initialLine[1];
-            for(int j = 1; j < parametersLength; j++){
-                commands[j] = parameters[j-1];
-            }
-        }
-        else{
-            commands = new String[2];
-            commands[0] = initialLine[0];
-            commands[1] = param;
-        }
-		*/
-        
-
-    	
-    	
-    	//create and initialize the commands String array
-    	
     	//run the commands and store the result
     	String output2 = runScript(commands, param, headers, initialLine);
     	//String output2 = new String(output);
@@ -747,44 +592,30 @@ public class HTTPThread extends Thread {
     	return header;
     }
     
+    /**
+     * Runs the script given the parameters, environment, and command
+     * @param commands command
+     * @param param parameters
+     * @param headers holds the environment
+     * @param initialLine hold the request
+     * @return string result.
+     */
     private String runScript(String[] commands, String param, ArrayList<String[]> headers, String[] initialLine) {
     	/*
     	 * The next try catch statement surrounds the running of a script
     	 * will take in the arguments given, run the specified file with those arguments, and return the result.
     	 */
-    	//char[] output = new char[10000];
     	String msg = "";
-    	commands[0] = "." + commands[0];
-    	String cmd = commands[0];
+    	String cmd = "." + commands[0];
     	try {
-    		//making the command line
-    		
-    		/*
-    		ArrayList<String> cmdline = new ArrayList<String>();
-    		cmdline.add("echo");
-    		if(param != null) {
-	    		cmdline.add("\"" + param + "\"");
-    		}
-    		cmdline.add("|");
-    		cmdline.add("." + cmd);
-    		*/
-    		
-    		/*
-    		cmdline.add(commands[0]);
-    		if(parameters != null) {
-	    		for(String s : parameters) {
-	    			cmdline.add(s);
-	    		}
-    		}
-    		*/
-    		
-    		
     		//make the process builder
     		//pb.command((List<String>)cmdline);
     		ProcessBuilder pb = new ProcessBuilder(cmd);
     		//pb.command(cmd);
     		Map<String, String> env = pb.environment();
+    		makeEnvironment(headers, env, initialLine[1]);
     		
+    		/*
     		//CONTENT_LENGTH (Search for Content-Length)
         	String ct = searchHeader(headers, "Content-Length");
         	if(ct != null) {
@@ -809,34 +640,9 @@ public class HTTPThread extends Thread {
         	env.put("SERVER_PORT", client.getLocalPort() + "");
         	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
         	env.put("SCRIPT_NAME", initialLine[1]);
-    		
-        	//System.err.println(env);
+    		*/
         	
     		Process proc = pb.start();
-    		
-    		
-    		/*
-    		//attempt to use echo.
-    		if(param != null) {
-    			cmd = "echo \"" + param + "\" | " + cmd;
-    			
-    		}
-    		
-    		
-    		Runtime rt = Runtime.getRuntime();
-    		String[] envVars = makeEnvironment2(headers, initialLine[1]);
-    		
-    		for(String s : envVars) {
-    			cmd = cmd + " " + s;
-    		}
-    		
-    		
-    		Process proc = rt.exec(cmd);
-    		for(String s : envVars) {
-    			System.err.println(s);
-    		}
-    		*/
-    		
     		
     		System.err.println("Trying to run:" + cmd);
     		
@@ -858,7 +664,7 @@ public class HTTPThread extends Thread {
 			System.err.println("###############################################################");
 			String error = null;
 			while((error = stdErr.readLine()) != null) {
-				System.err.println();
+				System.err.println(error);
 			}
 			System.err.println("##########################################################");
 			
@@ -913,41 +719,6 @@ public class HTTPThread extends Thread {
     	return;
     }
     
-    private String[] makeEnvironment2(ArrayList<String[]> headers, String scriptName) {
-    	ArrayList<String> envars = new ArrayList<String>();
-    	
-    	String ct = searchHeader(headers, "Content-Length");
-    	if(ct != null) {
-    		envars.add("CONTENT_LENGTH=" + ct);
-    	}
-    	
-    	//HTTP_FROM (search for From)
-    	String hf = searchHeader(headers, "From");
-    	if(hf != null) {
-    		envars.add("HTTP_FROM=" + hf);
-    	}
-    	
-    	//HTTP_USER_AGENT (search for User-Agent)
-    	String hua = searchHeader(headers, "User-Agent");
-    	if(hua != null) {
-    		envars.add("HTTP_USER_AGENT=" + hua);
-    	}
-    	
-    	//SERVER_NAME localhost
-    	envars.add("SERVER_NAME=" + client.getInetAddress().getHostAddress());
-    	//SERVER_PORT (get this from the socket?
-    	envars.add("SERVER_PORT=" + client.getPort() + "");
-    	//SCRIPT_NAME (pass in script name) //NEEDS THE FIRST BACKSLASH
-    	envars.add("SCRIPT_NAME=" + scriptName);
-    	
-    	
-    	String[] ret = new String[envars.size()];
-    	for(int i = 0; i < envars.size(); i++) {
-    		ret[i] = envars.get(i);
-    	}
-    	return ret;
-    }
-    
     /**
      * For all unimplemented HTTP functions
      * returns the error code 501
@@ -989,41 +760,12 @@ public class HTTPThread extends Thread {
     }
     
     /**
-     * Reads bytes from the given buffer
-     * @param br buffered reader
-     * @return the msg in the buffer
-     * @throws IOException
-     */
-    private static String readBytes(BufferedReader br) throws IOException {
-        //ArrayList < Byte > byteList = new ArrayList < Byte > ();
-        String msg = "";
-        /* Read byte from socket until we read everything in the buffer */
-        int currentByteInt = -1;
-        while (br.ready()) {
-        	currentByteInt = br.read();
-            char currentByte = (char) currentByteInt;
-            msg = msg + currentByte;
-        }
-        /*
-        Byte[] bytes = (Byte[])byteList.toArray();
-        byte[] bytes2 = new byte[bytes.length];
-        
-        for(int i = 0; i < bytes.length; i++) {
-        	bytes2[i] = (byte)bytes[i];
-        }
-        */
-        
-        return msg;
-    }
-    
-    /**
      * gets the headers and returns them as an arraylist
      * @param headers
      * @return
      */
     private ArrayList<String[]> getHeaders(String headers) {
     	ArrayList<String[]> h = new ArrayList<String[]>();
-    	boolean canHaveParams = false;
     	
     	//gets the first header (if any)
     	String[] nextHeader = headers.split("\n", 2);
@@ -1054,13 +796,6 @@ public class HTTPThread extends Thread {
     		
     		nextHeader = nextHeader[1].split("\n", 2);
     	}
-    	
-    	//TESTING
-    	System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    	for(String[] header : h) {
-    		System.err.println(header[0] + ":" + header[1]);
-    	}
-    	System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     	
     	//we reached the end (presumably the blank line)
     	return h;
