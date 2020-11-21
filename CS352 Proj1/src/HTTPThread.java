@@ -784,13 +784,17 @@ public class HTTPThread extends Thread {
     		*/
     		
     		//attempt to use echo.
-    		cmd = "echo \"" + param + "\" | " + cmd;
+    		if(param != null) {
+    			cmd = "echo \"" + param + "\" | " + cmd;
+    		}
     		
     		Runtime rt = Runtime.getRuntime();
     		String[] envVars = makeEnvironment2(headers, initialLine[1]);
+    		/*
     		for(String s : envVars) {
     			cmd = cmd + " " + s;
     		}
+    		*/
     		Process proc = rt.exec(cmd);
     		for(String s : envVars) {
     			System.err.println(s);
