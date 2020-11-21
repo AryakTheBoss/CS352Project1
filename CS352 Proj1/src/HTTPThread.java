@@ -783,6 +783,9 @@ public class HTTPThread extends Thread {
     		Process proc = pb.start();
     		*/
     		
+    		//attempt to use echo.
+    		cmd = "echo \"" + param + "\" | " + cmd;
+    		
     		Runtime rt = Runtime.getRuntime();
     		String[] envVars = makeEnvironment2(headers, initialLine[1]);
     		for(String s : envVars) {
@@ -794,17 +797,19 @@ public class HTTPThread extends Thread {
     		}
     		
     		
-    		System.err.println("Params passed:" + param);
+    		
     		System.err.println("Trying to run:" + cmd);
     		
-    		
+    		/*
     		//pass in parameters through standardin
     		if(param != null) {
+    			System.err.println("Params passed:" + param);
     			OutputStream os = proc.getOutputStream();
 	            os.write(param.getBytes());
 	            os.flush();
 	            os.close();
     		}
+    		*/
     		
 			//Reader for standard input from the process
 			BufferedReader stdInput = new BufferedReader(new 
