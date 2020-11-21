@@ -854,9 +854,9 @@ public class HTTPThread extends Thread {
 			}
 			System.err.println("##########################################################");
 			
+			String output = null;
 			//Reader for standard input for the process
-			while(stdInput.ready()) {
-				String output = stdInput.readLine();
+			while((output = stdInput.readLine()) != null) {
 				msg = msg + output + "\n";
 			}
 			
