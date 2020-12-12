@@ -2,7 +2,11 @@
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -188,7 +192,7 @@ public class HTTPThread extends Thread {
         
         //Calls the particular command specified by the first token
         if(initialLine[0].equals("GET")) {
-        	get(initialLine);
+        	get(initialLine,headers);
         } else if(initialLine[0].equals("POST")) {
         	post(initialLine, headers);
         } else if(initialLine[0].equals("HEAD")) {
@@ -300,19 +304,45 @@ public class HTTPThread extends Thread {
      * Will implement the GET method of HTTP protocol
      * @param initialLine
      */
-    public void get(String[] initialLine) {
+    public void get(String[] initialLine, ArrayList<String[]> headers) {
 
         //generates the appropriate headers
         String header = createHeader(initialLine,false,null);
         
         byte[] last = null;
         byte[] fileContent = null;
-
+		boolean cookieValid = false;
         System.err.println(header);
-        
+        String cookieHeader = searchHeader(headers,"Cookie");
+        String varName = "";
+        String encodedDate ="";
+		String decodedDateTime="";
+        if(cookieHeader != null){
+        	varName = cookieHeader.substring(0,cookieHeader.indexOf("="));
+			encodedDate = cookieHeader.substring(cookieHeader.indexOf("=")+1);
+			if(varName.equals("lasttime")){
+				try {
+					decodedDateTime = URLDecoder.decode(encodedDate, "UTF-8");
+					cookieValid = true;
+				} catch (UnsupportedEncodingException e) {
+					//Cookie is invalid
+					cookieValid = false;
+				}
+			}else{
+				//also invalid
+				cookieValid = false;
+			}
+			System.err.println(varName+" "+encodedDate);
+		}
         //get the file contents
         try {
-        	File f = new File(initialLine[1].substring(1));
+			File f = null;
+        	if(cookieValid){
+        		f = new File("index_seen.html");
+			}else{
+				f = new File(initialLine[1].substring(1));
+			}
+
 			FileInputStream fis = new FileInputStream(f);
 			
 			fileContent = new byte[(int)f.length()];
@@ -331,7 +361,7 @@ public class HTTPThread extends Thread {
         System.arraycopy(fileContent, 0, last, header.length(), fileContent.length);
         System.arraycopy(end, 0, last, fileContent.length + header.length(), end.length);
         
-        
+
         
         try {
             DataOutputStream os = new DataOutputStream(client.getOutputStream());
@@ -538,7 +568,7 @@ public class HTTPThread extends Thread {
         File f= new File(initialLine[1].substring(1));;
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
-        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified=""; //head components
+        String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified="",setCookie=""; //head components
         if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm") || isPost){
             contentType = "\r\nContent-Type: text/html";
         }else if(initialLine[1].endsWith("txt")){
@@ -574,7 +604,23 @@ public class HTTPThread extends Thread {
         lastModified = "\r\nLast-Modified: " + formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
-        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + "\r\n\r\n";
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		System.out.printf("Formatted date+time %s \n",formattedDate);
+
+		String encodedDateTime = null;
+		try {
+			encodedDateTime = URLEncoder.encode(formattedDate, "UTF-8");
+			System.out.printf("URL encoded date-time %s \n",encodedDateTime);
+
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		setCookie = "\r\nSet-Cookie: lasttime="+encodedDateTime;
+        header += contentType + contentLength + lastModified + contentEncoding + allow + expires + setCookie + "\r\n\r\n";
     	return header;
     }
     
