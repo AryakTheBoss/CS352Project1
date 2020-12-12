@@ -575,7 +575,7 @@ public class HTTPThread extends Thread {
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified="",setCookie=""; //head components
-        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm") || isPost){
+        if(initialLine[1].endsWith("html")||initialLine[1].endsWith("htm") || isPost || initialLine[1].equals("/")){
             contentType = "\r\nContent-Type: text/html";
         }else if(initialLine[1].endsWith("txt")){
             contentType = "\r\nContent-Type: text/plain";
@@ -611,7 +611,7 @@ public class HTTPThread extends Thread {
         c.add(Calendar.YEAR, 1);
         expires = "\r\nExpires: " + formatter.format(c.getTime());
 		LocalDateTime myDateObj = LocalDateTime.now();
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String formattedDate = myDateObj.format(myFormatObj);
 		System.out.printf("Formatted date+time %s \n",formattedDate);
 
