@@ -340,7 +340,7 @@ public class HTTPThread extends Thread {
         	if(cookieValid){
         		f = new File("index_seen.html");
 			}else{
-				f = new File(initialLine[1].substring(1));
+				f = new File("index.html");
 			}
 
 			FileInputStream fis = new FileInputStream(f);

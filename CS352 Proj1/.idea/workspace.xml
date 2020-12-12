@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22d78fe-5d91-47e3-8708-4368d2815640" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HTTPThread.java" afterDir="false" />
     </list>
@@ -40,19 +39,30 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="cs352_proj1" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="H:/docs/doc_root.tar-1-1/doc_root/doc_root" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1\src" />
       <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.HTTP1Server">
+    <configuration name="HTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HTTP1Server" />
+      <module name="CS352 Proj1" />
+      <option name="PROGRAM_PARAMETERS" value="111" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PartialHTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="proj.PartialHTTP1Server" />
       <module name="CS352 Proj1" />
@@ -75,8 +85,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.HTTP1Server" />
+      <item itemvalue="Application.PartialHTTP1Server" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HTTP1Server" />
         <item itemvalue="Application.PartialHTTP1Server" />
         <item itemvalue="Application.PartialHTTP1Server" />
       </list>
@@ -108,10 +123,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601669271264">
+    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607804382839">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601669271264" />
+    <state x="552" y="253" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607804382839" />
     <state x="846" y="435" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1601664574032">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
@@ -124,22 +139,22 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="878" y="340" key="FileChooserDialogImpl/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670207689" />
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1601696302708">
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1607804540191">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601696302708" />
-    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1601696302707">
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607804540191" />
+    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1607804540191">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601696302707" />
-    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1601696302707">
+    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607804540191" />
+    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1607804540190">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601696302707" />
-    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1601696302708">
+    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607804540190" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1607804540191">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601696302708" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607804540191" />
     <state x="578" y="173" key="SettingsEditor" timestamp="1601670334776">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
