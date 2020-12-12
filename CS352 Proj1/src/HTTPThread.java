@@ -603,9 +603,10 @@ public class HTTPThread extends Thread {
         c.setTime(d);
         if(!isPost) {
             contentLength = "\r\nContent-Length: " + f.length(); //size of file in bytes
-
+			System.err.println("used f.length() in createHeader().");
         }else{
             contentLength = "\r\nContent-Length: " +nEWcontentLength;
+			System.err.println("used newContentLength in createHeader().");
         }
         lastModified = "\r\nLast-Modified: " + formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
