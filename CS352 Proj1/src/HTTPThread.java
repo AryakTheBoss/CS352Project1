@@ -136,7 +136,7 @@ public class HTTPThread extends Thread {
         }
         
         //attempt to read the second argument as a file
-    	File file = new File(initialLine[1].substring(1));
+    	File file = new File(initialLine[1]);
 
         if(initialLine[0].equals("POST")){
             if(!initialLine[1].endsWith("cgi")){
@@ -145,7 +145,7 @@ public class HTTPThread extends Thread {
             }
         }
     	//check if the file exists
-    	if(!(file.exists())) {
+    	if(!(file.exists()) && !file.getPath().equals("/")) {
     		
     		sendError("404 Not Found", outToClient);
         	return;
@@ -342,6 +342,7 @@ public class HTTPThread extends Thread {
 			}else{
 				f = new File("index.html");
 			}
+        	System.err.println(f.getPath()+" "+f.exists());
 
 			FileInputStream fis = new FileInputStream(f);
 			
@@ -565,7 +566,12 @@ public class HTTPThread extends Thread {
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-        File f= new File(initialLine[1].substring(1));;
+		File f = null;
+        if(initialLine[1].equals("/")){
+        	f=new File("index.html");
+		}else{
+			f= new File(initialLine[1]);
+		}
         
         String header = "HTTP/1.0 200 OK"; //the initial header line
         String allow="",contentEncoding="",contentLength="",contentType="",expires="",lastModified="",setCookie=""; //head components
