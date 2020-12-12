@@ -8,6 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f22d78fe-5d91-47e3-8708-4368d2815640" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index_seen.html" beforeDir="false" afterPath="$PROJECT_DIR$/index_seen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS352 Proj1/HTTPThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS352 Proj1/HTTPThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HTTPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HTTPThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,9 +56,9 @@
       <recent name="C:\Users\Makarand\Documents\GitHub\CS352Project1\CS352 Proj1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HTTP1Server">
-    <configuration name="HTTP1Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HTTP1Server" />
+  <component name="RunManager" selected="Application.HTTP3Server">
+    <configuration name="HTTP3Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HTTP3Server" />
       <module name="CS352 Proj1" />
       <option name="PROGRAM_PARAMETERS" value="111" />
       <method v="2">
@@ -86,12 +88,12 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.HTTP1Server" />
       <item itemvalue="Application.PartialHTTP1Server" />
+      <item itemvalue="Application.HTTP3Server" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HTTP1Server" />
+        <item itemvalue="Application.HTTP3Server" />
         <item itemvalue="Application.PartialHTTP1Server" />
         <item itemvalue="Application.PartialHTTP1Server" />
       </list>
@@ -139,22 +141,22 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="878" y="340" key="FileChooserDialogImpl/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1601670207689" />
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1607807398420">
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom" timestamp="1607811108786">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607807398420" />
-    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1607807398420">
+    <state width="2151" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607811108786" />
+    <state width="2151" height="333" key="GridCell.Tab.0.center" timestamp="1607811108786">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607807398420" />
-    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1607807398419">
+    <state width="2151" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607811108786" />
+    <state width="2151" height="333" key="GridCell.Tab.0.left" timestamp="1607811108786">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607807398419" />
-    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1607807398420">
+    <state width="2151" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607811108786" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right" timestamp="1607811108786">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607807398420" />
+    <state width="2151" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.152.1920.1040@0.0.2194.1194" timestamp="1607811108786" />
     <state x="578" y="173" key="SettingsEditor" timestamp="1601670334776">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>

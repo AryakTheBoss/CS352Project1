@@ -7,15 +7,9 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.text.ParseException;
-import java.util.TimeZone;
 import java.net.SocketTimeoutException;
-import java.util.Map;
-import java.util.ArrayList;
 
 public class HTTPThread extends Thread {
 
@@ -313,11 +307,11 @@ public class HTTPThread extends Thread {
         byte[] fileContent = null;
 		boolean cookieValid = false;
         System.err.println(header);
-        String cookieHeader = searchHeader(headers,"Cookie");
+        String cookieHeader = searchHeader(headers,"Cookie"); //search for cookie header
         String varName = "";
         String encodedDate ="";
 		String decodedDateTime="";
-        if(cookieHeader != null){
+        if(cookieHeader != null){ //if there is a cookie header
         	varName = cookieHeader.substring(0,cookieHeader.indexOf("="));
 			encodedDate = cookieHeader.substring(cookieHeader.indexOf("=")+1);
 			if(varName.equals("lasttime")){
@@ -332,17 +326,42 @@ public class HTTPThread extends Thread {
 				//also invalid
 				cookieValid = false;
 			}
-			System.err.println(varName+" "+encodedDate);
+
 		}
         //get the file contents
         try {
 			File f = null;
-        	if(cookieValid){
+        	if(cookieValid){ //check if cookie is valid
         		f = new File("index_seen.html");
+        		//need to edit html file with date
+				boolean ok = false;
+				if(!f.exists()) {
+				ok =f.createNewFile();
+				}else{
+					f.delete();
+					ok =f.createNewFile();
+				}
+				FileOutputStream outputStream = new FileOutputStream(f);
+				String out = "<html>\n" +
+						"<body>\n" +
+						"<h1>CS 352 Welcome Page </h1>\n" +
+						"<p>\n" +
+						"  Welcome back! Your last visit was at: "+decodedDateTime+"\n" +
+						"<p>\n" +
+						"</body>\n" +
+						"</html>";
+
+				byte[] bytes = out.getBytes();
+				outputStream.write(bytes);
+				outputStream.close();
+				Scanner s = new Scanner(f);
+				while(s.hasNextLine()){
+					System.err.println(s.nextLine());
+				}
 			}else{
 				f = new File("index.html");
 			}
-        	System.err.println(f.getPath()+" "+f.exists());
+
 
 			FileInputStream fis = new FileInputStream(f);
 			
@@ -603,10 +622,10 @@ public class HTTPThread extends Thread {
         c.setTime(d);
         if(!isPost) {
             contentLength = "\r\nContent-Length: " + f.length(); //size of file in bytes
-			System.err.println("used f.length() in createHeader()."+" For file: "+f.getPath()+" Length: "+f.length());
+
         }else{
             contentLength = "\r\nContent-Length: " +nEWcontentLength;
-			System.err.println("used newContentLength in createHeader().");
+
         }
         lastModified = "\r\nLast-Modified: " + formatter.format(f.lastModified());
         c.add(Calendar.YEAR, 1);
@@ -614,12 +633,11 @@ public class HTTPThread extends Thread {
 		LocalDateTime myDateObj = LocalDateTime.now();
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String formattedDate = myDateObj.format(myFormatObj);
-		System.out.printf("Formatted date+time %s \n",formattedDate);
 
 		String encodedDateTime = null;
 		try {
 			encodedDateTime = URLEncoder.encode(formattedDate, "UTF-8");
-			System.out.printf("URL encoded date-time %s \n",encodedDateTime);
+
 
 
 		} catch (UnsupportedEncodingException e) {
